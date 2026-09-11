@@ -310,7 +310,6 @@ const countdown=document.getElementById("countdown"),gameOver=document.getElemen
 const garageCoinsText=document.getElementById("garageCoins"),missionCoinsText=document.getElementById("missionCoins"),shieldStatus=document.getElementById("shieldStatus"),turboStatus=document.getElementById("turboStatus"),magnetStatus=document.getElementById("magnetStatus"),streakNumber=document.getElementById("streakNumber"),rewardList=document.getElementById("rewardList"),leaderList=document.getElementById("leaderList"),speedFX=document.getElementById("speedFX");
 const comboBadge=document.getElementById("comboBadge"),nitroFill=document.getElementById("nitroFill"),nitroPercent=document.getElementById("nitroPercent"),nitroButton=document.getElementById("nitroButton");
 const soundButton=document.getElementById("soundButton");
-soundEnabled=localStorage.getItem("turboRushSound")!=="0";
 
 function updateHome(){
  document.getElementById("homeCoins").textContent=saved.coins;
@@ -325,7 +324,8 @@ function vibrate(ms=20){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(e){
 function beep(freq=440,dur=.05){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
 
 /* TURBO RUSH AUDIO — generated locally, no external audio files */
-let audioCtx=null,masterGain=null,engineOsc=null,engineGain=null,engineFilter=null,musicTimer=null,musicStep=0,soundEnabled=true;
+let audioCtx=null,masterGain=null,engineOsc=null,engineGain=null,engineFilter=null,musicTimer=null,musicStep=0;
+let soundEnabled=localStorage.getItem("turboRushSound")!=="0";
 const musicNotes=[220,247,277,330,294,247,196,247,220,277,330,370,330,277,247,196];
 function ensureAudio(){
  try{
@@ -403,7 +403,8 @@ function updateGarage(){
  document.querySelectorAll(".car").forEach(card=>{const index=Number(card.dataset.car),button=card.querySelector(".carAction"),unlocked=saved.unlocked.includes(index);card.classList.remove("selected","locked");button.disabled=false;if(saved.car===index){card.classList.add("selected");button.textContent="✓ SELECTED";button.className="carAction selectedBtn";button.disabled=true}else if(unlocked){button.textContent="SELECT";button.className="carAction selectBtn"}else{card.classList.add("locked");button.textContent="BUY "+cars[index].price;button.className="carAction buyBtn"}})
 }
 document.querySelectorAll(".carAction").forEach(button=>button.addEventListener("click",event=>{event.stopPropagation();const index=Number(button.closest(".car").dataset.car),car=cars[index];if(!saved.unlocked.includes(index)){if(saved.coins<car.price){alert("You need "+car.price+" coins to unlock this car.");return}saved.coins-=car.price;saved.unlocked.push(index);saved.car=index;saveGame();updateHome();updateGarage();beep(660,.1);return}saved.car=index;saveGame();updateHome();updateGarage()}));
-startButton.addEventListener("click",startRace);garageStart.addEventListener("click",startRace);garageButton.addEventListener("click",()=>{updateGarage();showScreen(garage)});backHome.addEventListener("click",()=>{updateHome();showScreen(home)});
+startButton.addEventListener("click",()=>{ensureAudio();startRace()});
+garageStart.addEventListener("click",()=>{ensureAudio();startRace()});garageButton.addEventListener("click",()=>{updateGarage();showScreen(garage)});backHome.addEventListener("click",()=>{updateHome();showScreen(home)});
 
 function todayString(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function yesterdayString(){const d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -418,6 +419,7 @@ leaderboardButton.addEventListener("click",()=>{updateLeaderboard();showScreen(l
 function clearRaceObjects(){document.querySelectorAll(".traffic,.coin,.powerup,.pickupFX,.spark").forEach(x=>x.remove());traffic=[];coins=[];powerups=[]}
 function currentChallenge(){return challenges[saved.challengeIndex]}
 function startRace(){
+ ensureAudio();
  showScreen(race);running=false;cancelAnimationFrame(animationFrame);score=0;distance=0;raceCoins=0;lives=3;difficulty=1;hitCooldown=0;shieldActive=false;turboTime=0;magnetTime=0;playerLane=1;spawnTimer=0;coinTimer=0;powerupTimer=0;nitro=0;combo=0;nearMisses=0;runChallengeDone=false;runStartScore=0;clearRaceObjects();player.textContent=cars[saved.car].emoji;player.className="carPlayer";road.classList.remove("theme-night","theme-neon","theme-sunset","crashShake","crashFlash");speedFX.classList.remove("active","fast");gameOver.classList.add("hidden");bestBadge.classList.add("hidden");comboBadge.classList.remove("show");updatePowerStatus();updateHUD();placePlayer();countdown.classList.remove("hidden");let count=3;countdown.textContent=count;const timer=setInterval(()=>{count--;if(count>0){countdown.textContent=count;beep(360,.06)}else if(count===0){countdown.textContent="GO!";beep(720,.1);vibrate(30)}else{clearInterval(timer);countdown.classList.add("hidden");running=true;lastTime=performance.now();startEngine();startMusic();animationFrame=requestAnimationFrame(gameLoop)}},650)}
 function placePlayer(direction=0){const width=road.clientWidth,laneWidth=width/3;player.style.left=laneWidth*playerLane+laneWidth/2+"px";if(direction){player.classList.remove("turnLeft","turnRight");void player.offsetWidth;player.classList.add(direction<0?"turnLeft":"turnRight");clearTimeout(laneChangeTimer);laneChangeTimer=setTimeout(()=>player.classList.remove("turnLeft","turnRight"),220)}}
 function moveLeft(){if(!running)return;if(playerLane>0){playerLane--;placePlayer(-1);vibrate(10)}}function moveRight(){if(!running)return;if(playerLane<2){playerLane++;placePlayer(1);vibrate(10)}}

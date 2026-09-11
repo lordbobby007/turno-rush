@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,30 +12,33 @@
 
 <title>Turbo Rush</title>
 
+<!-- ADSGRAM -->
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+
 <style>
 
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
-  overflow: hidden;
-  touch-action: manipulation;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:#fff;
+  overflow:hidden;
+  touch-action:manipulation;
 }
 
-.screen {
-  width: 100vw;
-  height: 100vh;
-  display: none;
+.screen{
+  width:100vw;
+  height:100vh;
+  display:none;
 }
 
-.screen.active {
-  display: flex;
+.screen.active{
+  display:flex;
 }
 
 
@@ -42,71 +46,78 @@ body {
    HOME
 ========================= */
 
-#home {
-  background: linear-gradient(160deg,#10182f,#28134a);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+#home,
+#garage,
+#missions,
+#daily,
+#leaderboard{
+  background:linear-gradient(160deg,#10182f,#28134a);
+  flex-direction:column;
+  align-items:center;
 }
 
-.logo {
-  font-size: 48px;
-  margin-bottom: 5px;
+#home{
+  justify-content:center;
+  padding:20px;
 }
 
-h1 {
-  font-size: 42px;
-  margin: 0;
+.logo{
+  font-size:48px;
+  margin-bottom:5px;
 }
 
-.subtitle {
-  color: #aaa;
-  margin-bottom: 22px;
+h1{
+  font-size:42px;
+  margin:0;
 }
 
-.stats {
-  display: flex;
-  gap: 7px;
-  margin-bottom: 18px;
+.subtitle{
+  color:#aaa;
+  margin-bottom:22px;
 }
 
-.stat {
-  background: rgba(255,255,255,.1);
-  padding: 9px 12px;
-  border-radius: 15px;
-  text-align: center;
+.stats{
+  display:flex;
+  gap:7px;
+  margin-bottom:18px;
 }
 
-.stat b {
-  display: block;
-  font-size: 20px;
+.stat{
+  background:rgba(255,255,255,.1);
+  padding:9px 12px;
+  border-radius:15px;
+  text-align:center;
 }
 
-button {
-  border: 0;
-  border-radius: 15px;
-  padding: 14px 20px;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
+.stat b{
+  display:block;
+  font-size:20px;
 }
 
-.startBtn {
-  width: 240px;
-  background: #ffcc00;
-  color: #111;
-  margin-bottom: 10px;
+button{
+  border:0;
+  border-radius:15px;
+  padding:14px 20px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.startBtn{
+  width:240px;
+  background:#ffcc00;
+  color:#111;
+  margin-bottom:10px;
 }
 
 .garageBtn,
 .missionBtn,
 .dailyBtn,
-.leaderboardBtn {
-  width: 240px;
-  background: rgba(255,255,255,.12);
-  color: white;
-  margin-bottom: 10px;
+.leaderboardBtn{
+  width:240px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  margin-bottom:10px;
 }
 
 
@@ -114,88 +125,91 @@ button {
    GARAGE
 ========================= */
 
-#garage {
-  background: linear-gradient(160deg,#10182f,#28134a);
-  flex-direction: column;
-  align-items: center;
-  padding: 25px 15px;
-  overflow-y: auto;
+#garage,
+#missions,
+#daily,
+#leaderboard{
+  padding:25px 15px;
+  overflow-y:auto;
 }
 
-#garage h2 {
-  margin: 5px 0;
+#garage h2{
+  margin:5px 0;
 }
 
-.garageCoins {
-  background: rgba(255,255,255,.1);
-  padding: 10px 18px;
-  border-radius: 14px;
-  margin: 10px 0 15px;
-  font-weight: bold;
+.garageCoins{
+  background:rgba(255,255,255,.1);
+  padding:10px 18px;
+  border-radius:14px;
+  margin:10px 0 15px;
+  font-weight:bold;
 }
 
-.cars {
-  width: 100%;
-  max-width: 460px;
+.cars,
+.missionList,
+.rewardList,
+.leaderList{
+  width:100%;
+  max-width:460px;
 }
 
-.car {
-  background: rgba(255,255,255,.1);
-  border: 2px solid transparent;
-  padding: 14px;
-  border-radius: 18px;
-  margin: 9px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.car{
+  background:rgba(255,255,255,.1);
+  border:2px solid transparent;
+  padding:14px;
+  border-radius:18px;
+  margin:9px 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.car.selected {
-  border-color: #ffcc00;
+.car.selected{
+  border-color:#ffcc00;
 }
 
-.carEmoji {
-  font-size: 42px;
-  width: 55px;
-  text-align: center;
+.carEmoji{
+  font-size:42px;
+  width:55px;
+  text-align:center;
 }
 
-.carInfo {
-  flex: 1;
+.carInfo{
+  flex:1;
 }
 
-.carInfo b {
-  font-size: 18px;
+.carInfo b{
+  font-size:18px;
 }
 
-.carInfo small {
-  color: #aaa;
-  line-height: 1.6;
+.carInfo small{
+  color:#aaa;
+  line-height:1.6;
 }
 
-.carAction {
-  min-width: 90px;
-  padding: 10px 8px;
-  font-size: 13px;
+.carAction{
+  min-width:90px;
+  padding:10px 8px;
+  font-size:13px;
 }
 
-.buyBtn {
-  background: #ffcc00;
-  color: #111;
+.buyBtn{
+  background:#ffcc00;
+  color:#111;
 }
 
-.selectBtn {
-  background: #fff;
-  color: #111;
+.selectBtn{
+  background:#fff;
+  color:#111;
 }
 
-.selectedBtn {
-  background: #444;
-  color: #aaa;
+.selectedBtn{
+  background:#444;
+  color:#aaa;
 }
 
-.locked {
-  opacity: .85;
+.locked{
+  opacity:.85;
 }
 
 
@@ -203,205 +217,179 @@ button {
    MISSIONS
 ========================= */
 
-#missions {
-  background: linear-gradient(160deg,#10182f,#28134a);
-  flex-direction: column;
-  align-items: center;
-  padding: 25px 15px;
-  overflow-y: auto;
+.missionHeader{
+  width:100%;
+  max-width:460px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.missionHeader {
-  width: 100%;
-  max-width: 460px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.missionHeader h2{
+  margin:5px 0;
 }
 
-.missionHeader h2 {
-  margin: 5px 0;
+.missionCoins{
+  background:rgba(255,255,255,.1);
+  padding:9px 13px;
+  border-radius:12px;
+  font-weight:bold;
 }
 
-.missionCoins {
-  background: rgba(255,255,255,.1);
-  padding: 9px 13px;
-  border-radius: 12px;
-  font-weight: bold;
+.missionList{
+  margin-top:15px;
 }
 
-.missionList {
-  width: 100%;
-  max-width: 460px;
-  margin-top: 15px;
+.mission{
+  background:rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
 }
 
-.mission {
-  background: rgba(255,255,255,.1);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 12px;
+.missionTitle{
+  font-size:18px;
+  font-weight:bold;
 }
 
-.missionTitle {
-  font-size: 18px;
-  font-weight: bold;
+.missionDescription{
+  color:#aaa;
+  margin-top:5px;
+  font-size:14px;
 }
 
-.missionDescription {
-  color: #aaa;
-  margin-top: 5px;
-  font-size: 14px;
+.progressBar{
+  height:9px;
+  background:rgba(255,255,255,.15);
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:12px;
 }
 
-.progressBar {
-  height: 9px;
-  background: rgba(255,255,255,.15);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 12px;
+.progressFill{
+  height:100%;
+  width:0%;
+  background:#ffcc00;
+  border-radius:10px;
+  transition:width .35s ease;
 }
 
-.progressFill {
-  height: 100%;
-  width: 0%;
-  background: #ffcc00;
-  border-radius: 10px;
-  transition: width .35s ease;
+.missionBottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:10px;
 }
 
-.missionBottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
+.missionProgress{
+  color:#ccc;
+  font-size:13px;
 }
 
-.missionProgress {
-  color: #ccc;
-  font-size: 13px;
+.missionReward{
+  font-weight:bold;
+  color:#ffcc00;
 }
 
-.missionReward {
-  font-weight: bold;
-  color: #ffcc00;
+.completed{
+  border:2px solid #35d07f;
 }
 
-.completed {
-  border: 2px solid #35d07f;
+.completed .progressFill{
+  width:100%!important;
+  background:#35d07f;
 }
 
-.completed .progressFill {
-  width: 100% !important;
-  background: #35d07f;
-}
-
-.completedText {
-  color: #35d07f;
-  font-weight: bold;
+.completedText{
+  color:#35d07f;
+  font-weight:bold;
 }
 
 
 /* =========================
-   DAILY REWARDS
+   DAILY
 ========================= */
 
-#daily {
-  background: linear-gradient(160deg,#10182f,#28134a);
-  flex-direction: column;
-  align-items: center;
-  padding: 25px 15px;
-  overflow-y: auto;
+.dailyHeader{
+  width:100%;
+  max-width:460px;
+  text-align:center;
 }
 
-.dailyHeader {
-  width: 100%;
-  max-width: 460px;
-  text-align: center;
+.dailyHeader h2{
+  margin:5px 0;
+  font-size:28px;
 }
 
-.dailyHeader h2 {
-  margin: 5px 0;
-  font-size: 28px;
+.streak{
+  display:inline-block;
+  background:rgba(255,255,255,.1);
+  padding:9px 16px;
+  border-radius:14px;
+  margin:8px 0 15px;
+  font-weight:bold;
 }
 
-.streak {
-  display: inline-block;
-  background: rgba(255,255,255,.1);
-  padding: 9px 16px;
-  border-radius: 14px;
-  margin: 8px 0 15px;
-  font-weight: bold;
+.rewardDay{
+  background:rgba(255,255,255,.1);
+  border:2px solid transparent;
+  border-radius:16px;
+  padding:13px;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.rewardList {
-  width: 100%;
-  max-width: 460px;
+.rewardDay.claimed{
+  border-color:#35d07f;
+  opacity:.75;
 }
 
-.rewardDay {
-  background: rgba(255,255,255,.1);
-  border: 2px solid transparent;
-  border-radius: 16px;
-  padding: 13px;
-  margin-bottom: 8px;
-
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.rewardDay.current{
+  border-color:#ffcc00;
 }
 
-.rewardDay.claimed {
-  border-color: #35d07f;
-  opacity: .75;
+.rewardNumber{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
 }
 
-.rewardDay.current {
-  border-color: #ffcc00;
+.rewardInfo{
+  flex:1;
 }
 
-.rewardNumber {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.12);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: bold;
+.rewardInfo b{
+  font-size:16px;
 }
 
-.rewardInfo {
-  flex: 1;
+.rewardInfo small{
+  color:#aaa;
 }
 
-.rewardInfo b {
-  font-size: 16px;
+.rewardAmount{
+  color:#ffcc00;
+  font-weight:bold;
 }
 
-.rewardInfo small {
-  color: #aaa;
+.claimBtn{
+  background:#ffcc00;
+  color:#111;
+  padding:10px 13px;
+  font-size:13px;
 }
 
-.rewardAmount {
-  color: #ffcc00;
-  font-weight: bold;
-}
-
-.claimBtn {
-  background: #ffcc00;
-  color: #111;
-  padding: 10px 13px;
-  font-size: 13px;
-}
-
-.claimedBtn {
-  background: #35d07f;
-  color: white;
-  padding: 10px 13px;
-  font-size: 13px;
+.claimedBtn{
+  background:#35d07f;
+  color:#fff;
+  padding:10px 13px;
+  font-size:13px;
 }
 
 
@@ -409,78 +397,64 @@ button {
    LEADERBOARD
 ========================= */
 
-#leaderboard {
-  background: linear-gradient(160deg,#10182f,#28134a);
-  flex-direction: column;
-  align-items: center;
-  padding: 25px 15px;
-  overflow-y: auto;
+.leaderHeader{
+  width:100%;
+  max-width:460px;
+  text-align:center;
 }
 
-.leaderHeader {
-  width: 100%;
-  max-width: 460px;
-  text-align: center;
+.leaderHeader h2{
+  margin:5px 0;
+  font-size:28px;
 }
 
-.leaderHeader h2 {
-  margin: 5px 0;
-  font-size: 28px;
+.leaderSub{
+  color:#aaa;
+  margin:5px 0 18px;
+  font-size:13px;
 }
 
-.leaderSub {
-  color: #aaa;
-  margin: 5px 0 18px;
-  font-size: 13px;
+.leaderRow{
+  background:rgba(255,255,255,.1);
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.leaderList {
-  width: 100%;
-  max-width: 460px;
+.leaderRow.me{
+  border:2px solid #ffcc00;
 }
 
-.leaderRow {
-  background: rgba(255,255,255,.1);
-  border-radius: 15px;
-  padding: 13px;
-  margin-bottom: 8px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.rank{
+  width:38px;
+  font-size:20px;
+  text-align:center;
 }
 
-.leaderRow.me {
-  border: 2px solid #ffcc00;
+.playerName{
+  flex:1;
+  font-weight:bold;
 }
 
-.rank {
-  width: 38px;
-  font-size: 20px;
-  text-align: center;
+.playerScore{
+  text-align:right;
 }
 
-.playerName {
-  flex: 1;
-  font-weight: bold;
+.playerScore b{
+  display:block;
 }
 
-.playerScore {
-  text-align: right;
+.playerScore small{
+  color:#aaa;
 }
 
-.playerScore b {
-  display: block;
-}
-
-.playerScore small {
-  color: #aaa;
-}
-
-.emptyLeaderboard {
-  text-align: center;
-  color: #aaa;
-  padding: 30px;
+.emptyLeaderboard{
+  text-align:center;
+  color:#aaa;
+  padding:30px;
 }
 
 
@@ -488,65 +462,64 @@ button {
    RACE
 ========================= */
 
-#race {
-  position: relative;
-  background: #222;
-  flex-direction: column;
+#race{
+  position:relative;
+  background:#222;
+  flex-direction:column;
 }
 
-.hud {
-  position: absolute;
-  top: 10px;
-  left: 8px;
-  right: 8px;
-  z-index: 20;
-
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
+.hud{
+  position:absolute;
+  top:10px;
+  left:8px;
+  right:8px;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  gap:4px;
 }
 
-.hud span {
-  background: rgba(0,0,0,.65);
-  padding: 7px;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 13px;
-  white-space: nowrap;
+.hud span{
+  background:rgba(0,0,0,.65);
+  padding:7px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:13px;
+  white-space:nowrap;
 }
 
-.road {
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 0;
-  bottom: 0;
+.road{
+  position:absolute;
+  left:12%;
+  right:12%;
+  top:0;
+  bottom:0;
 
   background:
     repeating-linear-gradient(
       to bottom,
-      #444 0px,
+      #444 0,
       #444 45px,
       #555 45px,
       #555 90px
     );
 
-  border-left: 7px solid #ddd;
-  border-right: 7px solid #ddd;
+  border-left:7px solid #ddd;
+  border-right:7px solid #ddd;
 
-  overflow: hidden;
+  overflow:hidden;
 
   transition:
     background .8s ease,
     border-color .8s ease;
 }
 
-.road:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .18;
+.road:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
 
   background:
     linear-gradient(
@@ -558,101 +531,103 @@ button {
     );
 }
 
-.road.theme-night {
+.road.theme-night{
   background:
     repeating-linear-gradient(
       to bottom,
-      #20263b 0px,
+      #20263b 0,
       #20263b 45px,
       #29304a 45px,
       #29304a 90px
     );
 
-  border-color: #8b94b8;
+  border-color:#8b94b8;
 }
 
-.road.theme-neon {
+.road.theme-neon{
   background:
     repeating-linear-gradient(
       to bottom,
-      #25204a 0px,
+      #25204a 0,
       #25204a 45px,
       #34275b 45px,
       #34275b 90px
     );
 
-  border-color: #b7a5ff;
+  border-color:#b7a5ff;
 }
 
-.road.theme-sunset {
+.road.theme-sunset{
   background:
     repeating-linear-gradient(
       to bottom,
-      #513d39 0px,
+      #513d39 0,
       #513d39 45px,
       #63483e 45px,
       #63483e 90px
     );
 
-  border-color: #ffd0a3;
+  border-color:#ffd0a3;
 }
 
-.laneLine {
-  position: absolute;
-  top: -100px;
-  bottom: -100px;
-  width: 5px;
+.laneLine{
+  position:absolute;
+  top:-100px;
+  bottom:-100px;
+  width:5px;
 
   background:
     repeating-linear-gradient(
       to bottom,
-      white 0px,
-      white 60px,
+      #fff 0,
+      #fff 60px,
       transparent 60px,
       transparent 120px
     );
 
-  opacity: .7;
+  opacity:.7;
 
   animation:
     roadLines .55s linear infinite;
 }
 
-@keyframes roadLines {
-  from {
-    transform: translateY(-120px);
+@keyframes roadLines{
+
+  from{
+    transform:translateY(-120px);
   }
 
-  to {
-    transform: translateY(0);
+  to{
+    transform:translateY(0);
   }
+
 }
 
-.lane1 {
-  left: 33.33%;
+.lane1{
+  left:33.33%;
 }
 
-.lane2 {
-  left: 66.66%;
+.lane2{
+  left:66.66%;
 }
 
 
 /* =========================
-   VEHICLES
+   CARS
 ========================= */
 
 .carPlayer,
 .traffic,
 .coin,
-.powerup {
-  position: absolute;
-  z-index: 5;
-  user-select: none;
+.powerup{
+  position:absolute;
+  z-index:5;
+  user-select:none;
 }
 
-.carPlayer {
-  font-size: 48px;
-  bottom: 80px;
+.carPlayer{
+  font-size:48px;
+  bottom:80px;
 
   transform:
     translateX(-50%)
@@ -663,9 +638,7 @@ button {
     left .20s cubic-bezier(.22,.75,.3,1),
     transform .20s cubic-bezier(.22,.75,.3,1);
 
-  will-change:
-    left,
-    transform;
+  will-change:left,transform;
 
   filter:
     drop-shadow(
@@ -673,29 +646,29 @@ button {
     );
 }
 
-.carPlayer.turnLeft {
+.carPlayer.turnLeft{
   transform:
     translateX(-50%)
     rotate(-8deg)
     scale(1.04);
 }
 
-.carPlayer.turnRight {
+.carPlayer.turnRight{
   transform:
     translateX(-50%)
     rotate(8deg)
     scale(1.04);
 }
 
-.carPlayer.shielded {
+.carPlayer.shielded{
   filter:
     drop-shadow(
       0 0 10px #58a6ff
     );
 }
 
-.traffic {
-  font-size: 45px;
+.traffic{
+  font-size:45px;
 
   transform:
     translateX(-50%);
@@ -706,8 +679,8 @@ button {
     );
 }
 
-.coin {
-  font-size: 28px;
+.coin{
+  font-size:28px;
 
   transform:
     translateX(-50%);
@@ -721,9 +694,9 @@ button {
     coinSpin .55s linear infinite;
 }
 
-@keyframes coinSpin {
+@keyframes coinSpin{
 
-  50% {
+  50%{
     transform:
       translateX(-50%)
       scale(.75)
@@ -732,8 +705,8 @@ button {
 
 }
 
-.powerup {
-  font-size: 32px;
+.powerup{
+  font-size:32px;
 
   transform:
     translateX(-50%);
@@ -747,9 +720,9 @@ button {
     powerFloat .7s ease-in-out infinite alternate;
 }
 
-@keyframes powerFloat {
+@keyframes powerFloat{
 
-  to {
+  to{
     transform:
       translateX(-50%)
       translateY(-6px)
@@ -763,33 +736,33 @@ button {
    POWER STATUS
 ========================= */
 
-.powerStatus {
-  position: absolute;
-  top: 55px;
-  left: 0;
-  right: 0;
-  z-index: 25;
+.powerStatus{
+  position:absolute;
+  top:55px;
+  left:0;
+  right:0;
+  z-index:25;
 
-  display: flex;
-  justify-content: center;
-  gap: 7px;
+  display:flex;
+  justify-content:center;
+  gap:7px;
 
-  pointer-events: none;
+  pointer-events:none;
 }
 
-.statusItem {
-  background: rgba(0,0,0,.75);
-  border-radius: 12px;
-  padding: 6px 9px;
+.statusItem{
+  background:rgba(0,0,0,.75);
+  border-radius:12px;
+  padding:6px 9px;
 
-  font-size: 13px;
-  font-weight: bold;
+  font-size:13px;
+  font-weight:bold;
 
-  display: none;
+  display:none;
 }
 
-.statusItem.show {
-  display: block;
+.statusItem.show{
+  display:block;
 }
 
 
@@ -797,39 +770,39 @@ button {
    CONTROLS
 ========================= */
 
-.controls {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  z-index: 30;
+.controls{
+  position:absolute;
+  bottom:20px;
+  left:0;
+  right:0;
+  z-index:30;
 
-  display: flex;
-  justify-content: space-between;
+  display:flex;
+  justify-content:space-between;
 
-  padding: 0 25px;
+  padding:0 25px;
 }
 
-.controlBtn {
-  width: 90px;
-  height: 65px;
+.controlBtn{
+  width:90px;
+  height:65px;
 
-  padding: 0;
-  font-size: 30px;
+  padding:0;
+  font-size:30px;
 
-  background: rgba(255,255,255,.2);
-  color: white;
+  background:rgba(255,255,255,.2);
+  color:#fff;
 
-  border: 2px solid rgba(255,255,255,.3);
+  border:2px solid rgba(255,255,255,.3);
 
   transition:
     transform .1s,
     background .1s;
 }
 
-.controlBtn:active {
-  transform: scale(.92);
-  background: rgba(255,255,255,.32);
+.controlBtn:active{
+  transform:scale(.92);
+  background:rgba(255,255,255,.32);
 }
 
 
@@ -837,40 +810,40 @@ button {
    COUNTDOWN
 ========================= */
 
-.countdown {
-  position: absolute;
-  inset: 0;
-  z-index: 50;
+.countdown{
+  position:absolute;
+  inset:0;
+  z-index:50;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
-  font-size: 90px;
-  font-weight: bold;
+  font-size:90px;
+  font-weight:bold;
 
-  background: rgba(0,0,0,.45);
+  background:rgba(0,0,0,.45);
 
   animation:
     countPop .45s ease;
 }
 
-@keyframes countPop {
+@keyframes countPop{
 
-  from {
-    transform: scale(1.35);
-    opacity: 0;
+  from{
+    transform:scale(1.35);
+    opacity:0;
   }
 
-  to {
-    transform: scale(1);
-    opacity: 1;
+  to{
+    transform:scale(1);
+    opacity:1;
   }
 
 }
 
-.hidden {
-  display: none !important;
+.hidden{
+  display:none!important;
 }
 
 
@@ -878,42 +851,42 @@ button {
    SPEED EFFECT
 ========================= */
 
-.speedFX {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
+.speedFX{
+  position:absolute;
+  inset:0;
+  z-index:8;
 
-  pointer-events: none;
+  pointer-events:none;
 
-  opacity: 0;
+  opacity:0;
 
   transition:
     opacity .3s;
 }
 
-.speedFX.active {
-  opacity: 1;
+.speedFX.active{
+  opacity:1;
 }
 
-.speedFX span {
-  position: absolute;
+.speedFX span{
+  position:absolute;
 
-  width: 3px;
-  height: 42px;
+  width:3px;
+  height:42px;
 
-  background: rgba(255,255,255,.5);
+  background:rgba(255,255,255,.5);
 
-  border-radius: 4px;
+  border-radius:4px;
 
-  top: -60px;
+  top:-60px;
 
   animation:
     speedDrop .42s linear infinite;
 }
 
-@keyframes speedDrop {
+@keyframes speedDrop{
 
-  to {
+  to{
     transform:
       translateY(
         calc(100vh + 100px)
@@ -922,126 +895,126 @@ button {
 
 }
 
-.speedFX span:nth-child(1) {
-  left: 18%;
-  animation-delay: .05s;
+.speedFX span:nth-child(1){
+  left:18%;
+  animation-delay:.05s;
 }
 
-.speedFX span:nth-child(2) {
-  left: 28%;
-  animation-delay: .2s;
+.speedFX span:nth-child(2){
+  left:28%;
+  animation-delay:.2s;
 }
 
-.speedFX span:nth-child(3) {
-  left: 39%;
-  animation-delay: .1s;
+.speedFX span:nth-child(3){
+  left:39%;
+  animation-delay:.1s;
 }
 
-.speedFX span:nth-child(4) {
-  left: 51%;
-  animation-delay: .3s;
+.speedFX span:nth-child(4){
+  left:51%;
+  animation-delay:.3s;
 }
 
-.speedFX span:nth-child(5) {
-  left: 63%;
-  animation-delay: .15s;
+.speedFX span:nth-child(5){
+  left:63%;
+  animation-delay:.15s;
 }
 
-.speedFX span:nth-child(6) {
-  left: 74%;
-  animation-delay: .35s;
+.speedFX span:nth-child(6){
+  left:74%;
+  animation-delay:.35s;
 }
 
-.speedFX span:nth-child(7) {
-  left: 84%;
-  animation-delay: .08s;
+.speedFX span:nth-child(7){
+  left:84%;
+  animation-delay:.08s;
 }
 
-.speedFX span:nth-child(8) {
-  left: 91%;
-  animation-delay: .25s;
+.speedFX span:nth-child(8){
+  left:91%;
+  animation-delay:.25s;
 }
 
-.speedFX.fast span {
-  animation-duration: .25s;
-  height: 55px;
+.speedFX.fast span{
+  animation-duration:.25s;
+  height:55px;
 }
 
 
 /* =========================
-   CRASH EFFECT
+   CRASH
 ========================= */
 
-.crashShake {
+.crashShake{
   animation:
     crashShake .32s ease;
 }
 
-.crashFlash:after {
-  content: "";
+.crashFlash:after{
+  content:"";
 
-  position: absolute;
-  inset: 0;
+  position:absolute;
+  inset:0;
 
   background:
     rgba(255,60,30,.45);
 
-  z-index: 40;
+  z-index:40;
 
-  pointer-events: none;
+  pointer-events:none;
 
   animation:
     flash .32s ease;
 }
 
-@keyframes crashShake {
+@keyframes crashShake{
 
-  0%,100% {
-    transform: translateX(0);
+  0%,100%{
+    transform:translateX(0);
   }
 
-  20% {
-    transform: translateX(-9px);
+  20%{
+    transform:translateX(-9px);
   }
 
-  40% {
-    transform: translateX(9px);
+  40%{
+    transform:translateX(9px);
   }
 
-  60% {
-    transform: translateX(-7px);
+  60%{
+    transform:translateX(-7px);
   }
 
-  80% {
-    transform: translateX(7px);
+  80%{
+    transform:translateX(7px);
   }
 
 }
 
-@keyframes flash {
+@keyframes flash{
 
-  from {
-    opacity: 1;
+  from{
+    opacity:1;
   }
 
-  to {
-    opacity: 0;
+  to{
+    opacity:0;
   }
 
 }
 
 
 /* =========================
-   PICKUP EFFECTS
+   PICKUP FX
 ========================= */
 
-.pickupFX {
-  position: absolute;
-  z-index: 60;
+.pickupFX{
+  position:absolute;
+  z-index:60;
 
-  pointer-events: none;
+  pointer-events:none;
 
-  font-size: 28px;
+  font-size:28px;
 
   transform:
     translate(-50%,-50%);
@@ -1050,26 +1023,26 @@ button {
     pickup .55s ease-out forwards;
 }
 
-@keyframes pickup {
+@keyframes pickup{
 
-  0% {
-    opacity: 1;
+  0%{
+    opacity:1;
 
     transform:
       translate(-50%,-50%)
       scale(.5);
   }
 
-  60% {
-    opacity: 1;
+  60%{
+    opacity:1;
 
     transform:
       translate(-50%,-90px)
       scale(1.25);
   }
 
-  100% {
-    opacity: 0;
+  100%{
+    opacity:0;
 
     transform:
       translate(-50%,-125px)
@@ -1078,27 +1051,27 @@ button {
 
 }
 
-.spark {
-  position: absolute;
-  z-index: 59;
+.spark{
+  position:absolute;
+  z-index:59;
 
-  width: 6px;
-  height: 6px;
+  width:6px;
+  height:6px;
 
-  border-radius: 50%;
+  border-radius:50%;
 
-  background: #ffcc00;
+  background:#ffcc00;
 
-  pointer-events: none;
+  pointer-events:none;
 
   animation:
     spark .45s ease-out forwards;
 }
 
-@keyframes spark {
+@keyframes spark{
 
-  to {
-    opacity: 0;
+  to{
+    opacity:0;
 
     transform:
       translate(
@@ -1115,49 +1088,49 @@ button {
    GAME OVER
 ========================= */
 
-.gameOver {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
+.gameOver{
+  position:absolute;
+  inset:0;
+  z-index:100;
 
-  background: rgba(0,0,0,.82);
+  background:rgba(0,0,0,.82);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  text-align: center;
-  flex-direction: column;
+  text-align:center;
+  flex-direction:column;
 }
 
-.gameOver h2 {
-  font-size: 40px;
-  margin: 0 0 10px;
+.gameOver h2{
+  font-size:40px;
+  margin:0 0 10px;
 }
 
-.gameOver p {
-  color: #ccc;
-  line-height: 1.7;
-  margin: 4px 20px;
+.gameOver p{
+  color:#ccc;
+  line-height:1.7;
+  margin:4px 20px;
 }
 
-.bestBadge {
-  font-size: 20px;
-  font-weight: bold;
-  color: #ffcc00;
-  margin: 5px 0;
+.bestBadge{
+  font-size:20px;
+  font-weight:bold;
+  color:#ffcc00;
+  margin:5px 0;
 }
 
-.againBtn {
-  background: #ffcc00;
-  color: #111;
-  margin-top: 15px;
+.againBtn{
+  background:#ffcc00;
+  color:#111;
+  margin-top:15px;
 }
 
-.homeBtn {
-  background: #333;
-  color: white;
-  margin-top: 10px;
+.homeBtn{
+  background:#333;
+  color:#fff;
+  margin-top:10px;
 }
 
 
@@ -1165,50 +1138,53 @@ button {
    MOBILE
 ========================= */
 
-@media (max-width: 380px) {
+@media(max-width:380px){
 
-  .hud {
-    gap: 2px;
+  .hud{
+    gap:2px;
   }
 
-  .hud span {
-    font-size: 10px;
-    padding: 6px 4px;
+  .hud span{
+    font-size:10px;
+    padding:6px 4px;
   }
 
-  .powerStatus {
-    top: 52px;
+  .powerStatus{
+    top:52px;
   }
 
-  .statusItem {
-    font-size: 11px;
-    padding: 5px 6px;
+  .statusItem{
+    font-size:11px;
+    padding:5px 6px;
   }
 
-  .carEmoji {
-    font-size: 35px;
-    width: 45px;
+  .carEmoji{
+    font-size:35px;
+    width:45px;
   }
 
-  .carInfo b {
-    font-size: 15px;
+  .carInfo b{
+    font-size:15px;
   }
 
-  .carInfo small {
-    font-size: 11px;
+  .carInfo small{
+    font-size:11px;
   }
 
-  .carAction {
-    min-width: 75px;
-    font-size: 11px;
+  .carAction{
+    min-width:75px;
+    font-size:11px;
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
+
+
 <!-- =========================
      HOME
 ========================= -->
@@ -1624,7 +1600,7 @@ button {
 
 
 <!-- =========================
-     DAILY REWARDS
+     DAILY
 ========================= -->
 
 <div
@@ -1714,30 +1690,22 @@ button {
 
     <span>
       🏆
-      <span id="score">
-        0
-      </span>
+      <span id="score">0</span>
     </span>
 
     <span>
       🪙
-      <span id="raceCoins">
-        0
-      </span>
+      <span id="raceCoins">0</span>
     </span>
 
     <span>
       📏
-      <span id="distance">
-        0
-      </span>m
+      <span id="distance">0</span>m
     </span>
 
     <span>
       ❤️
-      <span id="lives">
-        3
-      </span>
+      <span id="lives">3</span>
     </span>
 
   </div>
@@ -1774,16 +1742,9 @@ button {
     id="road"
   >
 
-    <div
-      class="laneLine lane1"
-    ></div>
+    <div class="laneLine lane1"></div>
 
-    <div
-      class="laneLine lane2"
-    ></div>
-
-
-    <!-- SPEED EFFECT -->
+    <div class="laneLine lane2"></div>
 
     <div
       class="speedFX"
@@ -1800,7 +1761,6 @@ button {
       <span></span>
 
     </div>
-
 
     <div
       id="player"
@@ -1880,7 +1840,6 @@ button {
 
 <script>
 
-
 /* =========================
    CAR DATA
 ========================= */
@@ -1888,38 +1847,33 @@ button {
 const cars = [
 
   {
-    emoji: "🚗",
-    speed: 1.00,
-    price: 0
+    emoji:"🚗",
+    speed:1.00,
+    price:0
   },
 
   {
-    emoji: "🏎️",
-    speed: 1.08,
-    price: 100
+    emoji:"🏎️",
+    speed:1.08,
+    price:100
   },
 
   {
-    emoji: "🚀",
-    speed: 1.16,
-    price: 300
+    emoji:"🚀",
+    speed:1.16,
+    price:300
   },
 
   {
-    emoji: "⚡",
-    speed: 1.25,
-    price: 700
+    emoji:"⚡",
+    speed:1.25,
+    price:700
   }
 
 ];
 
 
-/* =========================
-   DAILY REWARD DATA
-========================= */
-
 const dailyRewards = [
-
   25,
   50,
   75,
@@ -1927,7 +1881,6 @@ const dailyRewards = [
   150,
   200,
   500
-
 ];
 
 
@@ -1943,50 +1896,50 @@ let saved =
   ) || {};
 
 
-if (
+if(
   typeof saved.coins !==
   "number"
-) {
+){
   saved.coins = 0;
 }
 
 
-if (
+if(
   typeof saved.best !==
   "number"
-) {
+){
   saved.best = 0;
 }
 
 
-if (
+if(
   typeof saved.races !==
   "number"
-) {
+){
   saved.races = 0;
 }
 
 
-if (
+if(
   typeof saved.car !==
   "number"
-) {
+){
   saved.car = 0;
 }
 
 
-if (
+if(
   !Array.isArray(
     saved.unlocked
   )
-) {
+){
   saved.unlocked = [0];
 }
 
 
-if (
+if(
   !saved.unlocked.includes(0)
-) {
+){
   saved.unlocked.push(0);
 }
 
@@ -1995,73 +1948,73 @@ if (
    MISSIONS SAVE
 ========================= */
 
-if (
+if(
   !saved.missions
-) {
+){
 
   saved.missions = {
 
-    coins: 0,
+    coins:0,
 
-    distance: 0,
+    distance:0,
 
-    powerups: 0,
+    powerups:0,
 
-    coinRewarded: false,
+    coinRewarded:false,
 
-    distanceRewarded: false,
+    distanceRewarded:false,
 
-    powerupRewarded: false
+    powerupRewarded:false
 
   };
 
 }
 
 
-if (
+if(
   typeof saved.missions.coins !==
   "number"
-) {
+){
   saved.missions.coins = 0;
 }
 
 
-if (
+if(
   typeof saved.missions.distance !==
   "number"
-) {
+){
   saved.missions.distance = 0;
 }
 
 
-if (
+if(
   typeof saved.missions.powerups !==
   "number"
-) {
+){
   saved.missions.powerups = 0;
 }
 
 
-if (
+if(
   typeof saved.missions.coinRewarded !==
   "boolean"
-) {
+){
   saved.missions.coinRewarded = false;
 }
 
 
-if (
+if(
   typeof saved.missions.distanceRewarded !==
   "boolean"
-) {
+){
   saved.missions.distanceRewarded = false;
 }
 
 
-if (
+if(
   typeof saved.missions.powerupRewarded !==
   "boolean"
-) {
+){
   saved.missions.powerupRewarded = false;
 }
 
@@ -2070,26 +2023,26 @@ if (
    DAILY SAVE
 ========================= */
 
-if (
+if(
   typeof saved.dailyStreak !==
   "number"
-) {
+){
   saved.dailyStreak = 0;
 }
 
 
-if (
+if(
   typeof saved.dailyLastClaim !==
   "string"
-) {
+){
   saved.dailyLastClaim = "";
 }
 
 
-if (
+if(
   typeof saved.dailyDay !==
   "number"
-) {
+){
   saved.dailyDay = 0;
 }
 
@@ -2098,14 +2051,12 @@ if (
    LEADERBOARD SAVE
 ========================= */
 
-if (
+if(
   !Array.isArray(
     saved.leaderboard
   )
-) {
-
+){
   saved.leaderboard = [];
-
 }
 
 
@@ -2148,17 +2099,11 @@ let powerupTimer = 0;
 
 let animationFrame;
 
-
-/* POWER-UPS */
-
 let shieldActive = false;
 
 let turboTime = 0;
 
 let magnetTime = 0;
-
-
-/* LANE ANIMATION */
 
 let laneChangeTimer = null;
 
@@ -2168,219 +2113,138 @@ let laneChangeTimer = null;
 ========================= */
 
 const home =
-  document.getElementById(
-    "home"
-  );
+  document.getElementById("home");
 
 const garage =
-  document.getElementById(
-    "garage"
-  );
+  document.getElementById("garage");
 
 const missions =
-  document.getElementById(
-    "missions"
-  );
+  document.getElementById("missions");
 
 const daily =
-  document.getElementById(
-    "daily"
-  );
+  document.getElementById("daily");
 
 const leaderboard =
-  document.getElementById(
-    "leaderboard"
-  );
+  document.getElementById("leaderboard");
 
 const race =
-  document.getElementById(
-    "race"
-  );
+  document.getElementById("race");
 
 
 const startButton =
-  document.getElementById(
-    "startButton"
-  );
+  document.getElementById("startButton");
 
 const garageButton =
-  document.getElementById(
-    "garageButton"
-  );
+  document.getElementById("garageButton");
 
 const missionButton =
-  document.getElementById(
-    "missionButton"
-  );
+  document.getElementById("missionButton");
 
 const dailyButton =
-  document.getElementById(
-    "dailyButton"
-  );
+  document.getElementById("dailyButton");
 
 const leaderboardButton =
-  document.getElementById(
-    "leaderboardButton"
-  );
+  document.getElementById("leaderboardButton");
 
 
 const garageStart =
-  document.getElementById(
-    "garageStart"
-  );
+  document.getElementById("garageStart");
 
 const backHome =
-  document.getElementById(
-    "backHome"
-  );
+  document.getElementById("backHome");
 
 const missionsBack =
-  document.getElementById(
-    "missionsBack"
-  );
+  document.getElementById("missionsBack");
 
 const dailyBack =
-  document.getElementById(
-    "dailyBack"
-  );
+  document.getElementById("dailyBack");
 
 const leaderboardBack =
-  document.getElementById(
-    "leaderboardBack"
-  );
+  document.getElementById("leaderboardBack");
 
 
 const road =
-  document.getElementById(
-    "road"
-  );
+  document.getElementById("road");
 
 const player =
-  document.getElementById(
-    "player"
-  );
+  document.getElementById("player");
 
 
 const scoreText =
-  document.getElementById(
-    "score"
-  );
+  document.getElementById("score");
 
 const raceCoinsText =
-  document.getElementById(
-    "raceCoins"
-  );
+  document.getElementById("raceCoins");
 
 const distanceText =
-  document.getElementById(
-    "distance"
-  );
+  document.getElementById("distance");
 
 const livesText =
-  document.getElementById(
-    "lives"
-  );
+  document.getElementById("lives");
 
 
 const countdown =
-  document.getElementById(
-    "countdown"
-  );
+  document.getElementById("countdown");
 
 const gameOver =
-  document.getElementById(
-    "gameOver"
-  );
+  document.getElementById("gameOver");
 
 const finalText =
-  document.getElementById(
-    "finalText"
-  );
+  document.getElementById("finalText");
 
 const bestBadge =
-  document.getElementById(
-    "bestBadge"
-  );
+  document.getElementById("bestBadge");
 
 
 const leftButton =
-  document.getElementById(
-    "leftButton"
-  );
+  document.getElementById("leftButton");
 
 const rightButton =
-  document.getElementById(
-    "rightButton"
-  );
+  document.getElementById("rightButton");
 
 
 const againButton =
-  document.getElementById(
-    "againButton"
-  );
+  document.getElementById("againButton");
 
 const raceHome =
-  document.getElementById(
-    "raceHome"
-  );
+  document.getElementById("raceHome");
 
 
 const garageCoinsText =
-  document.getElementById(
-    "garageCoins"
-  );
+  document.getElementById("garageCoins");
 
 const missionCoinsText =
-  document.getElementById(
-    "missionCoins"
-  );
+  document.getElementById("missionCoins");
 
 
 const shieldStatus =
-  document.getElementById(
-    "shieldStatus"
-  );
+  document.getElementById("shieldStatus");
 
 const turboStatus =
-  document.getElementById(
-    "turboStatus"
-  );
+  document.getElementById("turboStatus");
 
 const magnetStatus =
-  document.getElementById(
-    "magnetStatus"
-  );
+  document.getElementById("magnetStatus");
 
 
 const streakNumber =
-  document.getElementById(
-    "streakNumber"
-  );
-
+  document.getElementById("streakNumber");
 
 const rewardList =
-  document.getElementById(
-    "rewardList"
-  );
-
+  document.getElementById("rewardList");
 
 const leaderList =
-  document.getElementById(
-    "leaderList"
-  );
-
+  document.getElementById("leaderList");
 
 const speedFX =
-  document.getElementById(
-    "speedFX"
-  );
+  document.getElementById("speedFX");
 
 
 /* =========================
    SAVE GAME
 ========================= */
 
-function saveGame() {
+function saveGame(){
 
   localStorage.setItem(
     "turboRush",
@@ -2394,19 +2258,17 @@ function saveGame() {
    HOME
 ========================= */
 
-function updateHome() {
+function updateHome(){
 
   document.getElementById(
     "homeCoins"
   ).textContent =
     saved.coins;
 
-
   document.getElementById(
     "homeBest"
   ).textContent =
     saved.best;
-
 
   document.getElementById(
     "homeRaces"
@@ -2420,7 +2282,9 @@ function updateHome() {
    SCREEN
 ========================= */
 
-function showScreen(screen) {
+function showScreen(
+  screen
+){
 
   [
     home,
@@ -2450,23 +2314,21 @@ function showScreen(screen) {
 
 function vibrate(
   ms = 20
-) {
+){
 
-  try {
+  try{
 
-    if (
+    if(
       navigator.vibrate
-    ) {
+    ){
 
-      navigator.vibrate(
-        ms
-      );
+      navigator.vibrate(ms);
 
     }
 
   }
 
-  catch(e) {}
+  catch(e){}
 
 }
 
@@ -2475,7 +2337,7 @@ function vibrate(
    MISSIONS
 ========================= */
 
-function updateMissions() {
+function updateMissions(){
 
   const m =
     saved.missions;
@@ -2485,7 +2347,7 @@ function updateMissions() {
     saved.coins;
 
 
-  const coinProgress =
+  const cp =
     Math.min(
       m.coins,
       50
@@ -2495,7 +2357,7 @@ function updateMissions() {
   document.getElementById(
     "missionProgress1"
   ).textContent =
-    coinProgress +
+    cp +
     " / 50";
 
 
@@ -2503,13 +2365,14 @@ function updateMissions() {
     "progress1"
   ).style.width =
     (
-      coinProgress /
+      cp /
       50 *
       100
-    ) + "%";
+    ) +
+    "%";
 
 
-  const distanceProgress =
+  const mp =
     Math.min(
       m.distance,
       1000
@@ -2519,9 +2382,7 @@ function updateMissions() {
   document.getElementById(
     "missionProgress2"
   ).textContent =
-    Math.floor(
-      distanceProgress
-    ) +
+    Math.floor(mp) +
     " / 1000m";
 
 
@@ -2529,13 +2390,14 @@ function updateMissions() {
     "progress2"
   ).style.width =
     (
-      distanceProgress /
+      mp /
       1000 *
       100
-    ) + "%";
+    ) +
+    "%";
 
 
-  const powerProgress =
+  const pp =
     Math.min(
       m.powerups,
       5
@@ -2545,7 +2407,7 @@ function updateMissions() {
   document.getElementById(
     "missionProgress3"
   ).textContent =
-    powerProgress +
+    pp +
     " / 5";
 
 
@@ -2553,14 +2415,14 @@ function updateMissions() {
     "progress3"
   ).style.width =
     (
-      powerProgress /
+      pp /
       5 *
       100
-    ) + "%";
+    ) +
+    "%";
 
 
-  const missionStates = [
-
+  [
     [
       "mission1",
       "missionProgress1",
@@ -2579,10 +2441,7 @@ function updateMissions() {
       m.powerupRewarded
     ]
 
-  ];
-
-
-  missionStates.forEach(
+  ].forEach(
     item => {
 
       const card =
@@ -2590,7 +2449,7 @@ function updateMissions() {
           item[0]
         );
 
-      const text =
+      const txt =
         document.getElementById(
           item[1]
         );
@@ -2602,11 +2461,11 @@ function updateMissions() {
       );
 
 
-      if (
+      if(
         item[2]
-      ) {
+      ){
 
-        text.innerHTML =
+        txt.innerHTML =
           '<span class="completedText">' +
           '✓ COMPLETED' +
           '</span>';
@@ -2619,11 +2478,7 @@ function updateMissions() {
 }
 
 
-/* =========================
-   MISSION REWARDS
-========================= */
-
-function checkMissionRewards() {
+function checkMissionRewards(){
 
   const m =
     saved.missions;
@@ -2632,51 +2487,47 @@ function checkMissionRewards() {
   let reward = 0;
 
 
-  if (
+  if(
     m.coins >= 50 &&
     !m.coinRewarded
-  ) {
+  ){
 
-    m.coinRewarded =
-      true;
+    m.coinRewarded = true;
 
     reward += 100;
 
   }
 
 
-  if (
+  if(
     m.distance >= 1000 &&
     !m.distanceRewarded
-  ) {
+  ){
 
-    m.distanceRewarded =
-      true;
+    m.distanceRewarded = true;
 
     reward += 150;
 
   }
 
 
-  if (
+  if(
     m.powerups >= 5 &&
     !m.powerupRewarded
-  ) {
+  ){
 
-    m.powerupRewarded =
-      true;
+    m.powerupRewarded = true;
 
     reward += 200;
 
   }
 
 
-  if (
+  if(
     reward > 0
-  ) {
+  ){
 
-    saved.coins +=
-      reward;
+    saved.coins += reward;
 
     saveGame();
 
@@ -2687,13 +2538,9 @@ function checkMissionRewards() {
 }
 
 
-/* =========================
-   MISSIONS OPEN
-========================= */
-
 missionButton.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateMissions();
 
@@ -2707,7 +2554,7 @@ missionButton.addEventListener(
 
 missionsBack.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateHome();
 
@@ -2723,16 +2570,14 @@ missionsBack.addEventListener(
    GARAGE
 ========================= */
 
-function updateGarage() {
+function updateGarage(){
 
   garageCoinsText.textContent =
     saved.coins;
 
 
   document
-    .querySelectorAll(
-      ".car"
-    )
+    .querySelectorAll(".car")
     .forEach(
       card => {
 
@@ -2763,10 +2608,9 @@ function updateGarage() {
         );
 
 
-        if (
-          saved.car ===
-          index
-        ) {
+        if(
+          saved.car === index
+        ){
 
           card.classList.add(
             "selected"
@@ -2781,14 +2625,13 @@ function updateGarage() {
             "carAction selectedBtn";
 
 
-          button.disabled =
-            true;
+          button.disabled = true;
 
         }
 
-        else if (
+        else if(
           unlocked
-        ) {
+        ){
 
           button.textContent =
             "SELECT";
@@ -2798,12 +2641,11 @@ function updateGarage() {
             "carAction selectBtn";
 
 
-          button.disabled =
-            false;
+          button.disabled = false;
 
         }
 
-        else {
+        else{
 
           card.classList.add(
             "locked"
@@ -2819,8 +2661,7 @@ function updateGarage() {
             "carAction buyBtn";
 
 
-          button.disabled =
-            false;
+          button.disabled = false;
 
         }
 
@@ -2830,33 +2671,23 @@ function updateGarage() {
 }
 
 
-/* =========================
-   CAR ACTIONS
-========================= */
-
 document
-  .querySelectorAll(
-    ".carAction"
-  )
+  .querySelectorAll(".carAction")
   .forEach(
     button => {
 
       button.addEventListener(
         "click",
-        function(event) {
+        function(event){
 
           event.stopPropagation();
 
 
-          const card =
-            button.closest(
-              ".car"
-            );
-
-
           const index =
             Number(
-              card.dataset.car
+              button
+                .closest(".car")
+                .dataset.car
             );
 
 
@@ -2864,20 +2695,16 @@ document
             cars[index];
 
 
-          const unlocked =
-            saved.unlocked.includes(
+          if(
+            !saved.unlocked.includes(
               index
-            );
+            )
+          ){
 
-
-          if (
-            !unlocked
-          ) {
-
-            if (
+            if(
               saved.coins <
               car.price
-            ) {
+            ){
 
               alert(
                 "You need " +
@@ -2940,10 +2767,6 @@ document
   );
 
 
-/* =========================
-   START
-========================= */
-
 startButton.addEventListener(
   "click",
   startRace
@@ -2956,13 +2779,9 @@ garageStart.addEventListener(
 );
 
 
-/* =========================
-   GARAGE
-========================= */
-
 garageButton.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateGarage();
 
@@ -2976,7 +2795,7 @@ garageButton.addEventListener(
 
 backHome.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateHome();
 
@@ -2989,10 +2808,10 @@ backHome.addEventListener(
 
 
 /* =========================
-   DAILY DATE
+   DAILY
 ========================= */
 
-function todayString() {
+function todayString(){
 
   const d =
     new Date();
@@ -3002,31 +2821,25 @@ function todayString() {
     d.getFullYear() +
     "-" +
     String(
-      d.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    ) +
+      d.getMonth()+1
+    ).padStart(2,"0") +
     "-" +
     String(
       d.getDate()
-    ).padStart(
-      2,
-      "0"
-    )
+    ).padStart(2,"0")
   );
 
 }
 
 
-function yesterdayString() {
+function yesterdayString(){
 
   const d =
     new Date();
 
 
   d.setDate(
-    d.getDate() - 1
+    d.getDate()-1
   );
 
 
@@ -3034,28 +2847,18 @@ function yesterdayString() {
     d.getFullYear() +
     "-" +
     String(
-      d.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    ) +
+      d.getMonth()+1
+    ).padStart(2,"0") +
     "-" +
     String(
       d.getDate()
-    ).padStart(
-      2,
-      "0"
-    )
+    ).padStart(2,"0")
   );
 
 }
 
 
-/* =========================
-   DAILY REWARD STATUS
-========================= */
-
-function updateDaily() {
+function updateDaily(){
 
   const today =
     todayString();
@@ -3074,14 +2877,14 @@ function updateDaily() {
     "";
 
 
-  for (
-    let i = 0;
-    i < 7;
+  for(
+    let i=0;
+    i<7;
     i++
-  ) {
+  ){
 
     const day =
-      i + 1;
+      i+1;
 
 
     const item =
@@ -3094,11 +2897,11 @@ function updateDaily() {
       "rewardDay";
 
 
-    if (
+    if(
       day ===
-      saved.dailyDay + 1 &&
+      saved.dailyDay+1 &&
       !alreadyClaimed
-    ) {
+    ){
 
       item.classList.add(
         "current"
@@ -3107,10 +2910,10 @@ function updateDaily() {
     }
 
 
-    if (
+    if(
       day <=
       saved.dailyDay
-    ) {
+    ){
 
       item.classList.add(
         "claimed"
@@ -3165,76 +2968,69 @@ function updateDaily() {
       dailyRewards[i];
 
 
-    item.appendChild(
-      number
-    );
-
-    item.appendChild(
-      info
-    );
-
-    item.appendChild(
+    item.append(
+      number,
+      info,
       amount
     );
 
 
-    if (
+    if(
       day ===
-      saved.dailyDay + 1 &&
+      saved.dailyDay+1 &&
       !alreadyClaimed
-    ) {
+    ){
 
-      const button =
+      const b =
         document.createElement(
           "button"
         );
 
 
-      button.className =
+      b.className =
         "claimBtn";
 
 
-      button.textContent =
+      b.textContent =
         "CLAIM";
 
 
-      button.addEventListener(
+      b.addEventListener(
         "click",
         claimDailyReward
       );
 
 
       item.appendChild(
-        button
+        b
       );
 
     }
 
-    else if (
+    else if(
       day <=
       saved.dailyDay
-    ) {
+    ){
 
-      const button =
+      const b =
         document.createElement(
           "button"
         );
 
 
-      button.className =
+      b.className =
         "claimedBtn";
 
 
-      button.textContent =
+      b.textContent =
         "✓ CLAIMED";
 
 
-      button.disabled =
-        true;
+      b.disabled = true;
 
 
       item.appendChild(
-        button
+        b
       );
 
     }
@@ -3249,20 +3045,16 @@ function updateDaily() {
 }
 
 
-/* =========================
-   CLAIM DAILY
-========================= */
-
-function claimDailyReward() {
+function claimDailyReward(){
 
   const today =
     todayString();
 
 
-  if (
+  if(
     saved.dailyLastClaim ===
     today
-  ) {
+  ){
 
     alert(
       "Today's reward is already claimed."
@@ -3273,30 +3065,27 @@ function claimDailyReward() {
   }
 
 
-  if (
+  if(
     saved.dailyLastClaim ===
     yesterdayString()
-  ) {
+  ){
 
     saved.dailyStreak++;
 
   }
 
-  else {
+  else{
 
-    saved.dailyStreak =
-      1;
+    saved.dailyStreak = 1;
 
   }
 
 
-  if (
-    saved.dailyStreak >
-    7
-  ) {
+  if(
+    saved.dailyStreak > 7
+  ){
 
-    saved.dailyStreak =
-      1;
+    saved.dailyStreak = 1;
 
   }
 
@@ -3307,7 +3096,7 @@ function claimDailyReward() {
 
   const reward =
     dailyRewards[
-      saved.dailyDay - 1
+      saved.dailyDay-1
     ];
 
 
@@ -3338,13 +3127,9 @@ function claimDailyReward() {
 }
 
 
-/* =========================
-   DAILY OPEN
-========================= */
-
 dailyButton.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateDaily();
 
@@ -3358,7 +3143,7 @@ dailyButton.addEventListener(
 
 dailyBack.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateHome();
 
@@ -3374,7 +3159,7 @@ dailyBack.addEventListener(
    LEADERBOARD
 ========================= */
 
-function updateLeaderboard() {
+function updateLeaderboard(){
 
   leaderList.innerHTML =
     "";
@@ -3386,35 +3171,26 @@ function updateLeaderboard() {
     ];
 
 
-  if (
-    saved.best > 0
-  ) {
+  if(
+    saved.best > 0 &&
+    !scores.some(
+      item =>
+        item.score ===
+        saved.best * 2
+    )
+  ){
 
-    const exists =
-      scores.some(
-        item =>
-          item.score ===
-          saved.best * 2
-      );
+    scores.push({
 
+      name:"You",
 
-    if (
-      !exists
-    ) {
+      score:
+        saved.best * 2,
 
-      scores.push({
+      distance:
+        saved.best
 
-        name: "You",
-
-        score:
-          saved.best * 2,
-
-        distance:
-          saved.best
-
-      });
-
-    }
+    });
 
   }
 
@@ -3433,10 +3209,9 @@ function updateLeaderboard() {
     );
 
 
-  if (
-    top.length ===
-    0
-  ) {
+  if(
+    !top.length
+  ){
 
     leaderList.innerHTML =
       '<div class="emptyLeaderboard">' +
@@ -3461,10 +3236,9 @@ function updateLeaderboard() {
         "leaderRow";
 
 
-      if (
-        item.name ===
-        "You"
-      ) {
+      if(
+        item.name === "You"
+      ){
 
         row.classList.add(
           "me"
@@ -3483,42 +3257,15 @@ function updateLeaderboard() {
         "rank";
 
 
-      if (
+      rank.textContent =
         index === 0
-      ) {
-
-        rank.textContent =
-          "🥇";
-
-      }
-
-      else if (
-        index === 1
-      ) {
-
-        rank.textContent =
-          "🥈";
-
-      }
-
-      else if (
-        index === 2
-      ) {
-
-        rank.textContent =
-          "🥉";
-
-      }
-
-      else {
-
-        rank.textContent =
-          "#" +
-          (
-            index + 1
-          );
-
-      }
+          ? "🥇"
+          : index === 1
+          ? "🥈"
+          : index === 2
+          ? "🥉"
+          : "#" +
+            (index+1);
 
 
       const name =
@@ -3535,17 +3282,17 @@ function updateLeaderboard() {
         item.name;
 
 
-      const scoreBox =
+      const box =
         document.createElement(
           "div"
         );
 
 
-      scoreBox.className =
+      box.className =
         "playerScore";
 
 
-      scoreBox.innerHTML =
+      box.innerHTML =
         "<b>" +
         item.score +
         " pts</b>" +
@@ -3556,16 +3303,10 @@ function updateLeaderboard() {
         "m</small>";
 
 
-      row.appendChild(
-        rank
-      );
-
-      row.appendChild(
-        name
-      );
-
-      row.appendChild(
-        scoreBox
+      row.append(
+        rank,
+        name,
+        box
       );
 
 
@@ -3579,32 +3320,19 @@ function updateLeaderboard() {
 }
 
 
-/* =========================
-   ADD SCORE
-========================= */
+function addLeaderboardScore(){
 
-function addLeaderboardScore() {
+  saved.leaderboard.push({
 
-  const newScore = {
-
-    name: "You",
+    name:"You",
 
     score:
-      Math.floor(
-        score
-      ),
+      Math.floor(score),
 
     distance:
-      Math.floor(
-        distance
-      )
+      Math.floor(distance)
 
-  };
-
-
-  saved.leaderboard.push(
-    newScore
-  );
+  });
 
 
   saved.leaderboard.sort(
@@ -3626,13 +3354,9 @@ function addLeaderboardScore() {
 }
 
 
-/* =========================
-   LEADERBOARD OPEN
-========================= */
-
 leaderboardButton.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateLeaderboard();
 
@@ -3646,7 +3370,7 @@ leaderboardButton.addEventListener(
 
 leaderboardBack.addEventListener(
   "click",
-  function() {
+  function(){
 
     updateHome();
 
@@ -3662,7 +3386,7 @@ leaderboardBack.addEventListener(
    CLEAR RACE OBJECTS
 ========================= */
 
-function clearRaceObjects() {
+function clearRaceObjects(){
 
   document
     .querySelectorAll(
@@ -3679,914 +3403,454 @@ function clearRaceObjects() {
   coins = [];
 
   powerups = [];
+  function startRace(){
 
-}
-/* =========================
-   START RACE
-========================= */
-
-function startRace() {
-
-  showScreen(race);
-
-  running = false;
-
-  cancelAnimationFrame(
-    animationFrame
-  );
-
-
-  score = 0;
+  gameRunning = true;
   distance = 0;
+  score = 0;
+  coinsThisRace = 0;
   raceCoins = 0;
-  lives = 3;
-  difficulty = 1;
-  hitCooldown = 0;
-
-
-  shieldActive = false;
-  turboTime = 0;
-  magnetTime = 0;
-
-
-  playerLane = 1;
-
-  spawnTimer = 0;
+  racePowerups = 0;
+  speed = 5;
+  trafficTimer = 0;
   coinTimer = 0;
   powerupTimer = 0;
+  lastTime = performance.now();
 
+  lives = 3;
 
   clearRaceObjects();
 
+  if(carPlayer){
+    carPlayer.remove();
+  }
 
-  player.textContent =
-    cars[saved.car].emoji;
+  carPlayer = document.createElement("div");
+  carPlayer.className = "carPlayer";
+  carPlayer.innerHTML = selectedCar.emoji;
 
+  road.appendChild(carPlayer);
 
-  player.className =
-    "carPlayer";
-
-
-  road.classList.remove(
-    "theme-night",
-    "theme-neon",
-    "theme-sunset",
-    "crashShake",
-    "crashFlash"
-  );
-
-
-  speedFX.classList.remove(
-    "active",
-    "fast"
-  );
-
-
-  gameOver.classList.add(
-    "hidden"
-  );
-
-
-  bestBadge.classList.add(
-    "hidden"
-  );
-
-
-  updatePowerStatus();
-
-  updateHUD();
+  playerLane = 1;
+  targetLane = 1;
 
   placePlayer();
 
+  gameHome.classList.add("hidden");
+  garage.classList.add("hidden");
+  missions.classList.add("hidden");
+  daily.classList.add("hidden");
+  leaderboard.classList.add("hidden");
+  gameOver.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
 
-  countdown.classList.remove(
-    "hidden"
-  );
+  updateHUD();
+  updatePowerStatus();
+  updateTheme();
 
-
-  let count = 3;
-
-  countdown.textContent =
-    count;
-
-
-  const timer =
-    setInterval(
-      function() {
-
-        count--;
-
-
-        if (
-          count > 0
-        ) {
-
-          countdown.textContent =
-            count;
-
-
-          countdown.style.animation =
-            "none";
-
-
-          void countdown.offsetWidth;
-
-
-          countdown.style.animation =
-            "countPop .45s ease";
-
-        }
-
-
-        else if (
-          count === 0
-        ) {
-
-          countdown.textContent =
-            "GO!";
-
-
-          countdown.style.animation =
-            "none";
-
-
-          void countdown.offsetWidth;
-
-
-          countdown.style.animation =
-            "countPop .45s ease";
-
-
-          vibrate(30);
-
-        }
-
-
-        else {
-
-          clearInterval(
-            timer
-          );
-
-
-          countdown.classList.add(
-            "hidden"
-          );
-
-
-          running = true;
-
-
-          lastTime =
-            performance.now();
-
-
-          animationFrame =
-            requestAnimationFrame(
-              gameLoop
-            );
-
-        }
-
-      },
-      700
-    );
-
+  requestAnimationFrame(gameLoop);
 }
 
 
-/* =========================
-   PLACE PLAYER
-========================= */
+function placePlayer(){
 
-function placePlayer(
-  direction = 0
-) {
+  if(!carPlayer) return;
 
-  const width =
-    road.clientWidth;
-
-
-  const laneWidth =
-    width / 3;
-
-
-  const x =
-    laneWidth *
-      playerLane +
-    laneWidth / 2;
-
-
-  player.style.left =
-    x + "px";
-
-
-  if (
-    direction !== 0
-  ) {
-
-    player.classList.remove(
-      "turnLeft",
-      "turnRight"
-    );
-
-
-    void player.offsetWidth;
-
-
-    player.classList.add(
-      direction < 0
-        ? "turnLeft"
-        : "turnRight"
-    );
-
-
-    clearTimeout(
-      laneChangeTimer
-    );
-
-
-    laneChangeTimer =
-      setTimeout(
-        function() {
-
-          player.classList.remove(
-            "turnLeft",
-            "turnRight"
-          );
-
-        },
-        220
-      );
-
-  }
-
+  carPlayer.style.left = lanePercent(targetLane) + "%";
 }
 
 
-/* =========================
-   MOVE LEFT
-========================= */
+function moveLeft(){
 
-function moveLeft() {
+  if(!gameRunning) return;
 
-  if (
-    !running
-  ) {
-    return;
+  if(targetLane > 0){
+
+    targetLane--;
+
+    placePlayer();
+
+    vibrate(15);
   }
-
-
-  if (
-    playerLane > 0
-  ) {
-
-    playerLane--;
-
-
-    placePlayer(
-      -1
-    );
-
-
-    vibrate(12);
-
-  }
-
 }
 
 
-/* =========================
-   MOVE RIGHT
-========================= */
+function moveRight(){
 
-function moveRight() {
+  if(!gameRunning) return;
 
-  if (
-    !running
-  ) {
-    return;
+  if(targetLane < 2){
+
+    targetLane++;
+
+    placePlayer();
+
+    vibrate(15);
   }
-
-
-  if (
-    playerLane < 2
-  ) {
-
-    playerLane++;
-
-
-    placePlayer(
-      1
-    );
-
-
-    vibrate(12);
-
-  }
-
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+function lanePercent(lane){
 
-leftButton.addEventListener(
-  "click",
-  moveLeft
-);
-
-
-rightButton.addEventListener(
-  "click",
-  moveRight
-);
-
-
-/* =========================
-   KEYBOARD
-========================= */
-
-document.addEventListener(
-  "keydown",
-  function(e) {
-
-    if (
-      e.key ===
-      "ArrowLeft"
-    ) {
-
-      moveLeft();
-
-    }
-
-
-    if (
-      e.key ===
-      "ArrowRight"
-    ) {
-
-      moveRight();
-
-    }
-
-  }
-);
-
-
-/* =========================
-   LANE POSITION
-========================= */
-
-function lanePercent(
-  lane
-) {
-
-  return (
-    (
-      (lane + .5) /
-      3 *
-      100
-    ) + "%"
-  );
-
+  if(lane === 0) return 20;
+  if(lane === 1) return 50;
+  return 80;
 }
 
 
-/* =========================
-   TRAFFIC
-========================= */
+function spawnTraffic(){
 
-function spawnTraffic() {
+  const traffic = document.createElement("div");
 
-  const lane =
-    Math.floor(
-      Math.random() * 3
-    );
+  traffic.className = "traffic";
 
-
-  const vehicle =
-    document.createElement(
-      "div"
-    );
-
-
-  vehicle.className =
-    "traffic";
-
-
-  const vehicles = [
+  const types = [
     "🚙",
     "🚕",
     "🚓",
-    "🚚"
+    "🚗",
+    "🚐"
   ];
 
+  traffic.innerHTML =
+    types[Math.floor(Math.random() * types.length)];
 
-  vehicle.textContent =
-    vehicles[
-      Math.floor(
-        Math.random() *
-        vehicles.length
-      )
-    ];
+  trafficLane =
+    Math.floor(Math.random() * 3);
 
+  traffic.dataset.lane = trafficLane;
 
-  vehicle.style.left =
-    lanePercent(
-      lane
-    );
+  traffic.style.left =
+    lanePercent(trafficLane) + "%";
 
+  traffic.style.top = "-120px";
 
-  vehicle.style.top =
-    "-70px";
+  road.appendChild(traffic);
 
-
-  road.appendChild(
-    vehicle
-  );
-
-
-  traffic.push({
-
-    el: vehicle,
-
-    lane: lane,
-
-    y: -70,
-
-    speed:
-      220 +
-      Math.random() *
-      100
-
+  trafficObjects.push({
+    element: traffic,
+    lane: trafficLane,
+    y: -120,
+    speed: speed + Math.random() * 2
   });
-
 }
 
 
-/* =========================
-   COINS
-========================= */
+function spawnCoin(){
 
-function spawnCoin() {
+  const coin = document.createElement("div");
+
+  coin.className = "coin";
+
+  coin.innerHTML = "🪙";
 
   const lane =
-    Math.floor(
-      Math.random() * 3
-    );
+    Math.floor(Math.random() * 3);
 
-
-  const coin =
-    document.createElement(
-      "div"
-    );
-
-
-  coin.className =
-    "coin";
-
-
-  coin.textContent =
-    "🪙";
-
+  coin.dataset.lane = lane;
 
   coin.style.left =
-    lanePercent(
-      lane
-    );
+    lanePercent(lane) + "%";
 
+  coin.style.top = "-60px";
 
-  coin.style.top =
-    "-50px";
+  road.appendChild(coin);
 
-
-  road.appendChild(
-    coin
-  );
-
-
-  coins.push({
-
-    el: coin,
-
+  coinObjects.push({
+    element: coin,
     lane: lane,
-
-    y: -50,
-
-    speed: 230
-
+    y: -60,
+    speed: speed
   });
-
 }
 
 
-/* =========================
-   POWER-UPS
-========================= */
+function spawnPowerup(){
 
-function spawnPowerup() {
+  const powerup = document.createElement("div");
 
-  const lane =
-    Math.floor(
-      Math.random() * 3
-    );
-
-
-  const powerup =
-    document.createElement(
-      "div"
-    );
-
-
-  powerup.className =
-    "powerup";
-
+  powerup.className = "powerup";
 
   const types = [
-
     {
       type: "shield",
       emoji: "🛡️"
     },
-
     {
       type: "turbo",
       emoji: "⚡"
     },
-
     {
       type: "magnet",
       emoji: "🧲"
     },
-
     {
       type: "life",
       emoji: "❤️"
     }
-
   ];
 
+  const item =
+    types[Math.floor(Math.random() * types.length)];
 
-  const selected =
-    types[
-      Math.floor(
-        Math.random() *
-        types.length
-      )
-    ];
+  powerup.innerHTML = item.emoji;
+  powerup.dataset.type = item.type;
 
+  const lane =
+    Math.floor(Math.random() * 3);
 
-  powerup.textContent =
-    selected.emoji;
-
-
-  powerup.dataset.type =
-    selected.type;
-
+  powerup.dataset.lane = lane;
 
   powerup.style.left =
-    lanePercent(
-      lane
-    );
+    lanePercent(lane) + "%";
 
+  powerup.style.top = "-70px";
 
-  powerup.style.top =
-    "-60px";
+  road.appendChild(powerup);
 
-
-  road.appendChild(
-    powerup
-  );
-
-
-  powerups.push({
-
-    el: powerup,
-
+  powerupObjects.push({
+    element: powerup,
     lane: lane,
-
-    y: -60,
-
-    speed: 215,
-
-    type:
-      selected.type
-
+    y: -70,
+    speed: speed
   });
-
 }
 
 
-/* =========================
-   COLLISION CHECK
-========================= */
+function hitPlayer(){
 
-function hitPlayer(
-  objY
-) {
+  if(playerInvincible){
 
-  const playerY =
-    road.clientHeight -
-    130;
-
-
-  return (
-    objY >
-      playerY - 55 &&
-    objY <
-      playerY + 55
-  );
-
-}
-
-
-/* =========================
-   PICKUP EFFECT
-========================= */
-
-function createPickupFX(
-  el,
-  emoji
-) {
-
-  if (!el) {
     return;
   }
 
+  if(shieldActive){
 
-  const rect =
-    el.getBoundingClientRect();
+    shieldActive = false;
 
-
-  const roadRect =
-    road.getBoundingClientRect();
-
-
-  const fx =
-    document.createElement(
-      "div"
+    createPickupFX(
+      carPlayer,
+      "🛡️"
     );
 
+    updatePowerStatus();
 
-  fx.className =
-    "pickupFX";
-
-
-  fx.textContent =
-    emoji;
-
-
-  fx.style.left =
-    (
-      rect.left -
-      roadRect.left +
-      rect.width / 2
-    ) + "px";
-
-
-  fx.style.top =
-    (
-      rect.top -
-      roadRect.top +
-      rect.height / 2
-    ) + "px";
-
-
-  road.appendChild(
-    fx
-  );
-
-
-  for (
-    let i = 0;
-    i < 6;
-    i++
-  ) {
-
-    const spark =
-      document.createElement(
-        "div"
-      );
-
-
-    spark.className =
-      "spark";
-
-
-    spark.style.left =
-      (
-        rect.left -
-        roadRect.left +
-        rect.width / 2
-      ) + "px";
-
-
-    spark.style.top =
-      (
-        rect.top -
-        roadRect.top +
-        rect.height / 2
-      ) + "px";
-
-
-    spark.style.setProperty(
-      "--dx",
-      (
-        Math.random() *
-        90 -
-        45
-      ) + "px"
-    );
-
-
-    spark.style.setProperty(
-      "--dy",
-      (
-        Math.random() *
-        90 -
-        65
-      ) + "px"
-    );
-
-
-    road.appendChild(
-      spark
-    );
-
-
-    setTimeout(
-      function() {
-
-        spark.remove();
-
-      },
-      500
-    );
-
+    return;
   }
 
+  lives--;
 
-  setTimeout(
-    function() {
+  crashEffect();
 
-      fx.remove();
-
-    },
-    600
-  );
-
-}
-
-
-/* =========================
-   CRASH EFFECT
-========================= */
-
-function crashEffect() {
-
-  road.classList.remove(
-    "crashShake",
-    "crashFlash"
-  );
-
-
-  void road.offsetWidth;
-
-
-  road.classList.add(
-    "crashShake",
-    "crashFlash"
-  );
-
-
-  vibrate(80);
-
-
-  setTimeout(
-    function() {
-
-      road.classList.remove(
-        "crashShake",
-        "crashFlash"
-      );
-
-    },
-    350
-  );
-
-}
-
-
-/* =========================
-   POWER-UP ACTIVATION
-========================= */
-
-function activatePowerup(
-  type
-) {
-
-  if (
-    type ===
-    "shield"
-  ) {
-
-    shieldActive =
-      true;
-
-  }
-
-
-  if (
-    type ===
-    "turbo"
-  ) {
-
-    turboTime =
-      5;
-
-  }
-
-
-  if (
-    type ===
-    "magnet"
-  ) {
-
-    magnetTime =
-      7;
-
-  }
-
-
-  if (
-    type ===
-    "life" &&
-    lives < 3
-  ) {
-
-    lives++;
-
-  }
-
-
-  saved.missions.powerups++;
-
-
-  checkMissionRewards();
-
-
-  saveGame();
-
+  vibrate(100);
 
   updateHUD();
 
+  if(lives <= 0){
+
+    endRace();
+
+  }else{
+
+    playerInvincible = true;
+
+    carPlayer.classList.add(
+      "playerInvincible"
+    );
+
+    setTimeout(function(){
+
+      playerInvincible = false;
+
+      if(carPlayer){
+        carPlayer.classList.remove(
+          "playerInvincible"
+        );
+      }
+
+    }, 1500);
+  }
+}
+
+
+function createPickupFX(element, emoji){
+
+  if(!element) return;
+
+  const rect =
+    element.getBoundingClientRect();
+
+  const fx =
+    document.createElement("div");
+
+  fx.className = "pickupFX";
+
+  fx.innerHTML = emoji;
+
+  fx.style.left =
+    rect.left +
+    rect.width / 2 +
+    "px";
+
+  fx.style.top =
+    rect.top +
+    rect.height / 2 +
+    "px";
+
+  document.body.appendChild(fx);
+
+  setTimeout(function(){
+
+    fx.remove();
+
+  }, 700);
+
+  for(let i = 0; i < 6; i++){
+
+    const spark =
+      document.createElement("div");
+
+    spark.className = "spark";
+
+    spark.style.left =
+      rect.left +
+      rect.width / 2 +
+      "px";
+
+    spark.style.top =
+      rect.top +
+      rect.height / 2 +
+      "px";
+
+    spark.style.setProperty(
+      "--x",
+      (Math.random() * 100 - 50) + "px"
+    );
+
+    spark.style.setProperty(
+      "--y",
+      (Math.random() * 100 - 50) + "px"
+    );
+
+    document.body.appendChild(spark);
+
+    setTimeout(function(){
+
+      spark.remove();
+
+    }, 600);
+  }
+
+  vibrate(25);
+}
+
+
+function crashEffect(){
+
+  if(!road) return;
+
+  road.classList.add("crashShake");
+
+  crashFlash.classList.remove("hidden");
+
+  setTimeout(function(){
+
+    road.classList.remove("crashShake");
+
+    crashFlash.classList.add("hidden");
+
+  }, 350);
+}
+
+
+function activatePowerup(type){
+
+  if(type === "shield"){
+
+    shieldActive = true;
+
+    powerupText = "SHIELD";
+
+    powerupTimer = 8000;
+
+  }
+
+  if(type === "turbo"){
+
+    turboActive = true;
+
+    powerupText = "TURBO";
+
+    turboTimer = 5000;
+
+  }
+
+  if(type === "magnet"){
+
+    magnetActive = true;
+
+    powerupText = "MAGNET";
+
+    magnetTimer = 7000;
+
+  }
+
+  if(type === "life"){
+
+    if(lives < 3){
+
+      lives++;
+
+    }
+
+    powerupText = "EXTRA LIFE";
+
+    updateHUD();
+  }
+
   updatePowerStatus();
-
-
-  vibrate(45);
-
 }
 
 
-/* =========================
-   POWER STATUS
-========================= */
+function updatePowerStatus(){
 
-function updatePowerStatus() {
+  if(!powerStatus) return;
 
-  shieldStatus.classList.toggle(
-    "show",
-    shieldActive
-  );
+  const active = [];
 
+  if(shieldActive){
+    active.push("🛡️ Shield");
+  }
 
-  turboStatus.classList.toggle(
-    "show",
-    turboTime > 0
-  );
+  if(turboActive){
+    active.push("⚡ Turbo");
+  }
 
+  if(magnetActive){
+    active.push("🧲 Magnet");
+  }
 
-  magnetStatus.classList.toggle(
-    "show",
-    magnetTime > 0
-  );
+  if(active.length){
 
+    powerStatus.innerHTML =
+      active.join(" • ");
 
-  player.classList.toggle(
-    "shielded",
-    shieldActive
-  );
+    powerStatus.classList.remove(
+      "hidden"
+    );
 
+  }else{
+
+    powerStatus.classList.add(
+      "hidden"
+    );
+  }
 }
 
 
-/* =========================
-   ROAD THEMES
-========================= */
+function updateTheme(){
 
-function updateTheme() {
+  if(!road) return;
 
   road.classList.remove(
     "theme-night",
@@ -4594,641 +3858,463 @@ function updateTheme() {
     "theme-sunset"
   );
 
-
-  if (
-    distance >= 900
-  ) {
+  if(distance < 1000){
 
     road.classList.add(
       "theme-night"
     );
 
-  }
-
-  else if (
-    distance >= 600
-  ) {
+  }else if(distance < 2500){
 
     road.classList.add(
       "theme-neon"
     );
 
-  }
-
-  else if (
-    distance >= 300
-  ) {
+  }else{
 
     road.classList.add(
       "theme-sunset"
     );
-
   }
-
 }
 
 
-/* =========================
-   GAME LOOP
-========================= */
+function checkCollision(a, b){
 
-function gameLoop(
-  time
-) {
+  const r1 =
+    a.getBoundingClientRect();
 
-  if (
-    !running
-  ) {
+  const r2 =
+    b.getBoundingClientRect();
 
-    return;
+  return !(
+    r1.right < r2.left ||
+    r1.left > r2.right ||
+    r1.bottom < r2.top ||
+    r1.top > r2.bottom
+  );
+}
 
-  }
 
+function collectCoin(coinObj){
 
-  const dt =
-    Math.min(
-      (
-        time -
-        lastTime
-      ) / 1000,
-      .05
-    );
+  if(!coinObj.element) return;
 
-
-  lastTime =
-    time;
-
-
-  /*
-    Difficulty increases
-    every 150 meters.
-  */
-
-  difficulty =
-    1 +
-    Math.floor(
-      distance / 150
-    );
-
-
-  /*
-    Base speed.
-
-    Better cars become faster.
-    Distance also slowly increases
-    the speed.
-  */
-
-  let speedMultiplier =
-    cars[saved.car].speed *
-    (
-      1 +
-      (
-        difficulty - 1
-      ) *
-      .08
-    );
-
-
-  /*
-    TURBO
-  */
-
-  if (
-    turboTime > 0
-  ) {
-
-    turboTime -=
-      dt;
-
-
-    speedMultiplier *=
-      1.45;
-
-  }
-
-
-  /*
-    MAGNET
-  */
-
-  if (
-    magnetTime > 0
-  ) {
-
-    magnetTime -=
-      dt;
-
-  }
-
-
-  /*
-    COLLISION COOLDOWN
-  */
-
-  if (
-    hitCooldown > 0
-  ) {
-
-    hitCooldown -=
-      dt;
-
-  }
-
-
-  /*
-    DISTANCE
-  */
-
-  distance +=
-    dt *
-    55 *
-    speedMultiplier;
-
-
-  /*
-    SCORE
-  */
-
-  score =
-    Math.floor(
-      distance * 2
-    );
-
-
-  /*
-    MISSION DISTANCE
-  */
-
-  saved.missions.distance +=
-    dt *
-    55 *
-    speedMultiplier;
-
-
-  checkMissionRewards();
-
-
-  /*
-    TIMERS
-  */
-
-  spawnTimer +=
-    dt;
-
-  coinTimer +=
-    dt;
-
-  powerupTimer +=
-    dt;
-
-
-  /*
-    TRAFFIC SPAWN
-  */
-
-  const trafficInterval =
-    Math.max(
-      .65,
-      1.1 -
-      (
-        difficulty - 1
-      ) *
-      .04
-    );
-
-
-  if (
-    spawnTimer >
-    trafficInterval
-  ) {
-
-    spawnTraffic();
-
-    spawnTimer =
-      0;
-
-  }
-
-
-  /*
-    COIN SPAWN
-  */
-
-  if (
-    coinTimer >
-    .8
-  ) {
-
-    spawnCoin();
-
-    coinTimer =
-      0;
-
-  }
-
-
-  /*
-    POWER-UP SPAWN
-  */
-
-  if (
-    powerupTimer >
-    7
-  ) {
-
-    if (
-      Math.random() <
-      .75
-    ) {
-
-      spawnPowerup();
-
-    }
-
-
-    powerupTimer =
-      0;
-
-  }
-
-
-  /*
-    CHANGE ROAD THEME
-  */
-
-  updateTheme();
-
-
-  /*
-    SPEED LINES
-  */
-
-  const fastMode =
-    speedMultiplier >
-    1.22;
-
-
-  speedFX.classList.toggle(
-    "active",
-    fastMode
+  createPickupFX(
+    coinObj.element,
+    "🪙"
   );
 
+  coinObj.element.remove();
 
-  speedFX.classList.toggle(
-    "fast",
-    speedMultiplier >
-    1.55
+  coinsThisRace++;
+  raceCoins++;
+
+  coins += 1;
+
+  localStorage.setItem(
+    "turboCoins",
+    coins
   );
-
-
-  /* =====================
-     TRAFFIC UPDATE
-  ===================== */
-
-  traffic.forEach(
-    obj => {
-
-      obj.y +=
-        obj.speed *
-        speedMultiplier *
-        dt;
-
-
-      obj.el.style.top =
-        obj.y + "px";
-
-
-      if (
-        obj.lane ===
-        playerLane &&
-        hitPlayer(obj.y) &&
-        hitCooldown <= 0
-      ) {
-
-        /*
-          Shield blocks crash.
-        */
-
-        createPickupFX(
-          obj.el,
-          shieldActive
-            ? "🛡️"
-            : "💥"
-        );
-
-
-        if (
-          shieldActive
-        ) {
-
-          shieldActive =
-            false;
-
-          hitCooldown =
-            1;
-
-        }
-
-        else {
-
-          lives--;
-
-          hitCooldown =
-            1.2;
-
-          crashEffect();
-
-        }
-
-
-        obj.y =
-          9999;
-
-
-        obj.el.remove();
-
-
-        updateHUD();
-
-        updatePowerStatus();
-
-
-        if (
-          lives <= 0
-        ) {
-
-          endRace();
-
-          return;
-
-        }
-
-      }
-
-    }
-  );
-
-
-  if (
-    !running
-  ) {
-
-    return;
-
-  }
-
-
-  /* =====================
-     COINS UPDATE
-  ===================== */
-
-  coins.forEach(
-    obj => {
-
-      /*
-        Magnet pulls coins
-        toward player's lane.
-      */
-
-      if (
-        magnetTime > 0 &&
-        obj.lane !==
-        playerLane
-      ) {
-
-        obj.el.style.left =
-          lanePercent(
-            playerLane
-          );
-
-
-        obj.lane =
-          playerLane;
-
-      }
-
-
-      obj.y +=
-        obj.speed *
-        speedMultiplier *
-        dt;
-
-
-      obj.el.style.top =
-        obj.y + "px";
-
-
-      if (
-        obj.lane ===
-        playerLane &&
-        hitPlayer(obj.y)
-      ) {
-
-        raceCoins++;
-
-
-        saved.missions.coins++;
-
-
-        createPickupFX(
-          obj.el,
-          "🪙"
-        );
-
-
-        vibrate(15);
-
-
-        checkMissionRewards();
-
-
-        saveGame();
-
-
-        obj.y =
-          9999;
-
-
-        obj.el.remove();
-
-
-        updateHUD();
-
-      }
-
-    }
-  );
-
-
-  /* =====================
-     POWER-UP UPDATE
-  ===================== */
-
-  powerups.forEach(
-    obj => {
-
-      obj.y +=
-        obj.speed *
-        speedMultiplier *
-        dt;
-
-
-      obj.el.style.top =
-        obj.y + "px";
-
-
-      if (
-        obj.lane ===
-        playerLane &&
-        hitPlayer(obj.y)
-      ) {
-
-        createPickupFX(
-          obj.el,
-          obj.el.textContent
-        );
-
-
-        activatePowerup(
-          obj.type
-        );
-
-
-        obj.y =
-          9999;
-
-
-        obj.el.remove();
-
-      }
-
-    }
-  );
-
-
-  /* =====================
-     REMOVE OLD OBJECTS
-  ===================== */
-
-  traffic =
-    traffic.filter(
-      obj => {
-
-        if (
-          obj.y >
-          road.clientHeight +
-          100
-        ) {
-
-          obj.el.remove();
-
-          return false;
-
-        }
-
-        return true;
-
-      }
-    );
-
-
-  coins =
-    coins.filter(
-      obj => {
-
-        if (
-          obj.y >
-          road.clientHeight +
-          100
-        ) {
-
-          obj.el.remove();
-
-          return false;
-
-        }
-
-        return true;
-
-      }
-    );
-
-
-  powerups =
-    powerups.filter(
-      obj => {
-
-        if (
-          obj.y >
-          road.clientHeight +
-          100
-        ) {
-
-          obj.el.remove();
-
-          return false;
-
-        }
-
-        return true;
-
-      }
-    );
-
-
-  /*
-    Update HUD.
-  */
 
   updateHUD();
 
-  updatePowerStatus();
+  checkMissions();
+}
 
 
-  /*
-    Continue game.
-  */
+function collectPowerup(powerObj){
 
-  if (
-    running
-  ) {
+  if(!powerObj.element) return;
 
-    animationFrame =
-      requestAnimationFrame(
-        gameLoop
-      );
+  createPickupFX(
+    powerObj.element,
+    powerObj.element.innerHTML
+  );
 
+  const type =
+    powerObj.element.dataset.type;
+
+  powerObj.element.remove();
+
+  racePowerups++;
+
+  activatePowerup(type);
+
+  checkMissions();
+}
+
+
+function updatePowerTimers(delta){
+
+  if(shieldActive){
+
+    shieldTimer -= delta;
+
+    if(shieldTimer <= 0){
+
+      shieldActive = false;
+    }
   }
 
+  if(turboActive){
+
+    turboTimer -= delta;
+
+    if(turboTimer <= 0){
+
+      turboActive = false;
+    }
+  }
+
+  if(magnetActive){
+
+    magnetTimer -= delta;
+
+    if(magnetTimer <= 0){
+
+      magnetActive = false;
+    }
+  }
+
+  updatePowerStatus();
+}
+
+
+function gameLoop(timestamp){
+
+  if(!gameRunning) return;
+
+  const delta =
+    Math.min(
+      timestamp - lastTime,
+      50
+    );
+
+  lastTime = timestamp;
+
+  const dt =
+    delta / 16.67;
+
+  distance +=
+    speed * dt;
+
+  score =
+    Math.floor(distance);
+
+  speed +=
+    0.0008 * dt;
+
+  if(turboActive){
+
+    speed +=
+      0.002 * dt;
+  }
+
+  trafficTimer += delta;
+  coinTimer += delta;
+  powerupTimer += delta;
+
+  if(
+    trafficTimer >
+    Math.max(
+      420,
+      950 - distance * 0.12
+    )
+  ){
+
+    spawnTraffic();
+
+    trafficTimer = 0;
+  }
+
+
+  if(coinTimer > 850){
+
+    spawnCoin();
+
+    coinTimer = 0;
+  }
+
+
+  if(
+    powerupTimer >
+    6000
+  ){
+
+    spawnPowerup();
+
+    powerupTimer = 0;
+  }
+
+
+  updatePowerTimers(delta);
+
+  /* TRAFFIC */
+
+  for(
+    let i = trafficObjects.length - 1;
+    i >= 0;
+    i--
+  ){
+
+    const obj =
+      trafficObjects[i];
+
+    obj.y +=
+      obj.speed * dt;
+
+    obj.element.style.top =
+      obj.y + "px";
+
+    if(
+      obj.y >
+      road.clientHeight + 150
+    ){
+
+      obj.element.remove();
+
+      trafficObjects.splice(i, 1);
+
+      continue;
+    }
+
+
+    if(
+      obj.lane === targetLane &&
+      checkCollision(
+        carPlayer,
+        obj.element
+      )
+    ){
+
+      hitPlayer();
+
+      obj.element.remove();
+
+      trafficObjects.splice(i, 1);
+    }
+  }
+
+
+  /* COINS */
+
+  for(
+    let i = coinObjects.length - 1;
+    i >= 0;
+    i--
+  ){
+
+    const obj =
+      coinObjects[i];
+
+    obj.y +=
+      obj.speed * dt;
+
+    obj.element.style.top =
+      obj.y + "px";
+
+
+    if(
+      magnetActive &&
+      obj.lane === targetLane &&
+      obj.y > road.clientHeight * 0.45
+    ){
+
+      obj.lane = targetLane;
+
+      obj.element.style.left =
+        lanePercent(targetLane) +
+        "%";
+    }
+
+
+    if(
+      obj.y >
+      road.clientHeight + 100
+    ){
+
+      obj.element.remove();
+
+      coinObjects.splice(i, 1);
+
+      continue;
+    }
+
+
+    if(
+      checkCollision(
+        carPlayer,
+        obj.element
+      )
+    ){
+
+      collectCoin(obj);
+
+      coinObjects.splice(i, 1);
+    }
+  }
+
+
+  /* POWER-UPS */
+
+  for(
+    let i = powerupObjects.length - 1;
+    i >= 0;
+    i--
+  ){
+
+    const obj =
+      powerupObjects[i];
+
+    obj.y +=
+      obj.speed * dt;
+
+    obj.element.style.top =
+      obj.y + "px";
+
+
+    if(
+      obj.y >
+      road.clientHeight + 100
+    ){
+
+      obj.element.remove();
+
+      powerupObjects.splice(i, 1);
+
+      continue;
+    }
+
+
+    if(
+      checkCollision(
+        carPlayer,
+        obj.element
+      )
+    ){
+
+      collectPowerup(obj);
+
+      powerupObjects.splice(i, 1);
+    }
+  }
+
+
+  /* SPEED EFFECT */
+
+  if(
+    speedFX &&
+    speed > 7
+  ){
+
+    speedFX.classList.add(
+      "active"
+    );
+
+  }else if(speedFX){
+
+    speedFX.classList.remove(
+      "active"
+    );
+  }
+
+
+  updateTheme();
+
+  updateHUD();
+
+  requestAnimationFrame(
+    gameLoop
+  );
+}
+  function updateHUD(){
+
+  if(scoreText){
+    scoreText.textContent =
+      Math.floor(score);
+  }
+
+  if(distanceText){
+    distanceText.textContent =
+      Math.floor(distance) + " m";
+  }
+
+  if(coinsText){
+    coinsText.textContent =
+      coins;
+  }
+
+  if(livesText){
+    livesText.textContent =
+      "❤️".repeat(lives) +
+      "🖤".repeat(3 - lives);
+  }
+
+  if(speedText){
+
+    let displaySpeed =
+      Math.floor(speed * 20);
+
+    speedText.textContent =
+      displaySpeed + " km/h";
+  }
 }
 
 
 /* =========================
-   HUD
+   MISSIONS
 ========================= */
 
-function updateHUD() {
+function checkMissions(){
 
-  scoreText.textContent =
-    Math.floor(
-      score
-    );
+  let changed = false;
+
+  if(coinsThisRace >= 50){
+    missionProgress.coins50 = true;
+  }
+
+  if(distance >= 1000){
+    missionProgress.distance1000 = true;
+  }
+
+  if(racePowerups >= 5){
+    missionProgress.powerups5 = true;
+  }
+
+  localStorage.setItem(
+    "turboMissions",
+    JSON.stringify(missionProgress)
+  );
+
+  updateMissionDisplay();
+}
 
 
-  raceCoinsText.textContent =
-    raceCoins;
+function updateMissionDisplay(){
 
+  if(!missionCoinsText) return;
 
-  distanceText.textContent =
-    Math.floor(
-      distance
-    );
+  missionCoinsText.textContent =
+    missionProgress.coins50
+      ? "✓ Complete"
+      : coinsThisRace + " / 50";
 
+  if(missionDistanceText){
 
-  livesText.textContent =
-    lives;
+    missionDistanceText.textContent =
+      distance >= 1000
+        ? "✓ Complete"
+        : Math.floor(distance) + " / 1000 m";
+  }
 
+  if(missionPowerupText){
+
+    missionPowerupText.textContent =
+      racePowerups >= 5
+        ? "✓ Complete"
+        : racePowerups + " / 5";
+  }
 }
 
 
@@ -5236,113 +4322,141 @@ function updateHUD() {
    END RACE
 ========================= */
 
-function endRace() {
+function endRace(){
 
-  if (
-    !running
-  ) {
+  gameRunning = false;
 
-    return;
+  clearRaceObjects();
 
-  }
-
-
-  running =
-    false;
-
-
-  cancelAnimationFrame(
-    animationFrame
-  );
-
-
-  speedFX.classList.remove(
-    "active",
-    "fast"
-  );
-
+  const finalScore =
+    Math.floor(score);
 
   const finalDistance =
-    Math.floor(
-      distance
+    Math.floor(distance);
+
+  const previousBest =
+    Number(
+      localStorage.getItem(
+        "turboBestScore"
+      ) || 0
     );
 
+  let newBest = false;
 
-  const wasBest =
-    finalDistance >
-    saved.best;
+  if(finalScore > previousBest){
 
+    localStorage.setItem(
+      "turboBestScore",
+      finalScore
+    );
 
-  /*
-    Give race coins.
-  */
-
-  saved.coins +=
-    raceCoins;
-
-
-  /*
-    Count race.
-  */
-
-  saved.races++;
-
-
-  /*
-    Save best distance.
-  */
-
-  if (
-    wasBest
-  ) {
-
-    saved.best =
-      finalDistance;
-
+    newBest = true;
   }
 
 
-  /*
-    Add leaderboard result.
-  */
+  /* SAVE LEADERBOARD */
 
-  addLeaderboardScore();
+  let leaderboardData =
+    JSON.parse(
+      localStorage.getItem(
+        "turboLeaderboard"
+      ) || "[]"
+    );
 
+  leaderboardData.push({
+    score: finalScore,
+    distance: finalDistance,
+    date: Date.now()
+  });
 
-  saveGame();
-
-
-  updateHome();
-
-
-  /*
-    Final screen.
-  */
-
-  finalText.innerHTML =
-    "Score: <b>" +
-    Math.floor(score) +
-    "</b><br>" +
-
-    "Distance: <b>" +
-    finalDistance +
-    "m</b><br>" +
-
-    "Coins: <b>+" +
-    raceCoins +
-    " 🪙</b>";
-
-
-  bestBadge.classList.toggle(
-    "hidden",
-    !wasBest
+  leaderboardData.sort(
+    function(a, b){
+      return b.score - a.score;
+    }
   );
 
+  leaderboardData =
+    leaderboardData.slice(0, 10);
+
+  localStorage.setItem(
+    "turboLeaderboard",
+    JSON.stringify(
+      leaderboardData
+    )
+  );
+
+
+  /* GAME OVER SCREEN */
+
+  if(finalScoreText){
+
+    finalScoreText.textContent =
+      finalScore;
+  }
+
+  if(finalDistanceText){
+
+    finalDistanceText.textContent =
+      finalDistance + " m";
+  }
+
+  if(finalCoinsText){
+
+    finalCoinsText.textContent =
+      "+" + coinsThisRace;
+  }
+
+
+  if(newBest){
+
+    if(newBestText){
+
+      newBestText.textContent =
+        "🏆 NEW BEST!";
+    }
+
+  }else{
+
+    if(newBestText){
+
+      newBestText.textContent =
+        "";
+    }
+  }
+
+
+  gameScreen.classList.add(
+    "hidden"
+  );
 
   gameOver.classList.remove(
     "hidden"
   );
+}
 
+
+/* =========================
+   ADSGRAM
+========================= */
+
+let AdController = null;
+
+try{
+
+  if(window.Adsgram){
+
+    AdController =
+      window.Adsgram.init({
+        blockId: "int-47362"
+      });
+  }
+
+}catch(error){
+
+  console.log(
+    "AdsGram initialization error:",
+    error
+  );
 }
 
 
@@ -5350,74 +4464,684 @@ function endRace() {
    RACE AGAIN
 ========================= */
 
-againButton.addEventListener(
-  "click",
-  startRace
-);
+if(againButton){
+
+  againButton.addEventListener(
+    "click",
+    async function(){
+
+      gameOver.classList.add(
+        "hidden"
+      );
+
+      /*
+        Ads appear only between races.
+        If no ad is available,
+        the player can continue normally.
+      */
+
+      if(AdController){
+
+        try{
+
+          await AdController.show();
+
+        }catch(error){
+
+          console.log(
+            "AdsGram ad unavailable:",
+            error
+          );
+        }
+      }
+
+      startRace();
+    }
+  );
+}
 
 
 /* =========================
-   RACE HOME
+   HOME BUTTON
 ========================= */
 
-raceHome.addEventListener(
-  "click",
-  function() {
+if(homeButton){
 
-    running =
-      false;
+  homeButton.addEventListener(
+    "click",
+    function(){
+
+      gameOver.classList.add(
+        "hidden"
+      );
+
+      gameScreen.classList.add(
+        "hidden"
+      );
+
+      gameHome.classList.remove(
+        "hidden"
+      );
+    }
+  );
+}
 
 
-    cancelAnimationFrame(
-      animationFrame
+/* =========================
+   START BUTTON
+========================= */
+
+if(startButton){
+
+  startButton.addEventListener(
+    "click",
+    function(){
+
+      startRace();
+    }
+  );
+}
+
+
+/* =========================
+   GARAGE
+========================= */
+
+if(garageButton){
+
+  garageButton.addEventListener(
+    "click",
+    function(){
+
+      gameHome.classList.add(
+        "hidden"
+      );
+
+      garage.classList.remove(
+        "hidden"
+      );
+
+      updateGarage();
+    }
+  );
+}
+
+
+if(garageBackButton){
+
+  garageBackButton.addEventListener(
+    "click",
+    function(){
+
+      garage.classList.add(
+        "hidden"
+      );
+
+      gameHome.classList.remove(
+        "hidden"
+      );
+    }
+  );
+}
+
+
+function updateGarage(){
+
+  if(!garageCars) return;
+
+  garageCars.innerHTML = "";
+
+  cars.forEach(
+    function(car, index){
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "garageCar";
+
+      const unlocked =
+        unlockedCars.includes(index);
+
+      const selected =
+        selectedCarIndex === index;
+
+      button.innerHTML = `
+        <div class="garageEmoji">
+          ${car.emoji}
+        </div>
+
+        <div class="garageName">
+          ${car.name}
+        </div>
+
+        <div class="garageSpeed">
+          Speed ${car.speed}x
+        </div>
+
+        <div class="garagePrice">
+          ${
+            unlocked
+              ? selected
+                ? "✓ SELECTED"
+                : "SELECT"
+              : "🪙 " + car.price
+          }
+        </div>
+      `;
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          if(unlocked){
+
+            selectedCarIndex =
+              index;
+
+            selectedCar =
+              cars[index];
+
+            localStorage.setItem(
+              "turboSelectedCar",
+              selectedCarIndex
+            );
+
+            updateGarage();
+
+            return;
+          }
+
+
+          if(coins >= car.price){
+
+            coins -= car.price;
+
+            unlockedCars.push(
+              index
+            );
+
+            selectedCarIndex =
+              index;
+
+            selectedCar =
+              cars[index];
+
+            localStorage.setItem(
+              "turboCoins",
+              coins
+            );
+
+            localStorage.setItem(
+              "turboUnlockedCars",
+              JSON.stringify(
+                unlockedCars
+              )
+            );
+
+            localStorage.setItem(
+              "turboSelectedCar",
+              selectedCarIndex
+            );
+
+            updateHUD();
+
+            updateGarage();
+          }
+        }
+      );
+
+      garageCars.appendChild(
+        button
+      );
+    }
+  );
+}
+
+
+/* =========================
+   MISSIONS SCREEN
+========================= */
+
+if(missionsButton){
+
+  missionsButton.addEventListener(
+    "click",
+    function(){
+
+      gameHome.classList.add(
+        "hidden"
+      );
+
+      missions.classList.remove(
+        "hidden"
+      );
+
+      updateMissionDisplay();
+    }
+  );
+}
+
+
+if(missionsBackButton){
+
+  missionsBackButton.addEventListener(
+    "click",
+    function(){
+
+      missions.classList.add(
+        "hidden"
+      );
+
+      gameHome.classList.remove(
+        "hidden"
+      );
+    }
+  );
+}
+
+
+/* =========================
+   DAILY REWARDS
+========================= */
+
+const dailyRewards = [
+  25,
+  50,
+  75,
+  100,
+  150,
+  200,
+  500
+];
+
+
+function getToday(){
+
+  const now =
+    new Date();
+
+  return (
+    now.getFullYear() +
+    "-" +
+    (now.getMonth() + 1) +
+    "-" +
+    now.getDate()
+  );
+}
+
+
+function updateDailyDisplay(){
+
+  if(!dailyRewardText) return;
+
+  const day =
+    Math.min(
+      dailyStreak + 1,
+      7
     );
 
+  const reward =
+    dailyRewards[day - 1];
 
-    gameOver.classList.add(
-      "hidden"
+  dailyRewardText.textContent =
+    "Day " +
+    day +
+    " — 🪙 " +
+    reward;
+}
+
+
+if(dailyButton){
+
+  dailyButton.addEventListener(
+    "click",
+    function(){
+
+      gameHome.classList.add(
+        "hidden"
+      );
+
+      daily.classList.remove(
+        "hidden"
+      );
+
+      updateDailyDisplay();
+    }
+  );
+}
+
+
+if(dailyClaimButton){
+
+  dailyClaimButton.addEventListener(
+    "click",
+    function(){
+
+      const today =
+        getToday();
+
+      if(lastDailyClaim === today){
+
+        return;
+      }
+
+
+      const reward =
+        dailyRewards[
+          Math.min(
+            dailyStreak,
+            6
+          )
+        ];
+
+
+      coins += reward;
+
+      dailyStreak++;
+
+      if(dailyStreak >= 7){
+
+        dailyStreak = 0;
+      }
+
+      lastDailyClaim =
+        today;
+
+
+      localStorage.setItem(
+        "turboCoins",
+        coins
+      );
+
+      localStorage.setItem(
+        "turboDailyStreak",
+        dailyStreak
+      );
+
+      localStorage.setItem(
+        "turboLastDaily",
+        lastDailyClaim
+      );
+
+
+      updateHUD();
+
+      updateDailyDisplay();
+
+      dailyClaimButton.textContent =
+        "✓ CLAIMED";
+    }
+  );
+}
+
+
+if(dailyBackButton){
+
+  dailyBackButton.addEventListener(
+    "click",
+    function(){
+
+      daily.classList.add(
+        "hidden"
+      );
+
+      gameHome.classList.remove(
+        "hidden"
+      );
+    }
+  );
+}
+
+
+/* =========================
+   LEADERBOARD
+========================= */
+
+if(leaderboardButton){
+
+  leaderboardButton.addEventListener(
+    "click",
+    function(){
+
+      gameHome.classList.add(
+        "hidden"
+      );
+
+      leaderboard.classList.remove(
+        "hidden"
+      );
+
+      updateLeaderboard();
+    }
+  );
+}
+
+
+function updateLeaderboard(){
+
+  if(!leaderboardList) return;
+
+  const data =
+    JSON.parse(
+      localStorage.getItem(
+        "turboLeaderboard"
+      ) || "[]"
     );
 
-
-    speedFX.classList.remove(
-      "active",
-      "fast"
-    );
+  leaderboardList.innerHTML = "";
 
 
-    updateHome();
+  if(data.length === 0){
+
+    leaderboardList.innerHTML =
+      "<p>No races yet.</p>";
+
+    return;
+  }
 
 
-    showScreen(
-      home
-    );
+  data.forEach(
+    function(item, index){
 
+      const row =
+        document.createElement(
+          "div"
+        );
+
+      row.className =
+        "leaderboardRow";
+
+      row.innerHTML = `
+        <span>
+          #${index + 1}
+        </span>
+
+        <span>
+          🏆 ${item.score}
+        </span>
+
+        <span>
+          📏 ${item.distance}m
+        </span>
+      `;
+
+      leaderboardList.appendChild(
+        row
+      );
+    }
+  );
+}
+
+
+if(leaderboardBackButton){
+
+  leaderboardBackButton.addEventListener(
+    "click",
+    function(){
+
+      leaderboard.classList.add(
+        "hidden"
+      );
+
+      gameHome.classList.remove(
+        "hidden"
+      );
+    }
+  );
+}
+
+
+/* =========================
+   KEYBOARD CONTROLS
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "ArrowLeft"){
+
+      moveLeft();
+
+    }else if(
+      event.key === "ArrowRight"
+    ){
+
+      moveRight();
+    }
   }
 );
 
 
 /* =========================
-   WINDOW RESIZE
+   TOUCH CONTROLS
 ========================= */
 
-window.addEventListener(
-  "resize",
-  placePlayer
+let touchStartX = 0;
+
+document.addEventListener(
+  "touchstart",
+  function(event){
+
+    if(
+      !event.touches ||
+      !event.touches.length
+    ){
+
+      return;
+    }
+
+    touchStartX =
+      event.touches[0].clientX;
+  },
+  {
+    passive: true
+  }
+);
+
+
+document.addEventListener(
+  "touchend",
+  function(event){
+
+    if(
+      !event.changedTouches ||
+      !event.changedTouches.length
+    ){
+
+      return;
+    }
+
+    const touchEndX =
+      event.changedTouches[0].clientX;
+
+    const difference =
+      touchEndX - touchStartX;
+
+
+    if(Math.abs(difference) < 35){
+
+      return;
+    }
+
+
+    if(difference < 0){
+
+      moveLeft();
+
+    }else{
+
+      moveRight();
+    }
+
+  },
+  {
+    passive: true
+  }
 );
 
 
 /* =========================
-   INITIALIZE
+   RESIZE
 ========================= */
 
-updateHome();
+window.addEventListener(
+  "resize",
+  function(){
 
-updateGarage();
+    placePlayer();
+  }
+);
 
-updateMissions();
 
-updateDaily();
+/* =========================
+   INITIALIZATION
+========================= */
 
-updateLeaderboard();
+function initializeGame(){
+
+  clearRaceObjects();
+
+  updateHUD();
+
+  updateGarage();
+
+  updateMissionDisplay();
+
+  updateDailyDisplay();
+
+  gameScreen.classList.add(
+    "hidden"
+  );
+
+  garage.classList.add(
+    "hidden"
+  );
+
+  missions.classList.add(
+    "hidden"
+  );
+
+  daily.classList.add(
+    "hidden"
+  );
+
+  leaderboard.classList.add(
+    "hidden"
+  );
+
+  gameOver.classList.add(
+    "hidden"
+  );
+
+  gameHome.classList.remove(
+    "hidden"
+  );
+}
+
+
+initializeGame();
 
 </script>
 

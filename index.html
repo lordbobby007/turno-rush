@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Turbo Rush</title>
+<title>Turbo Rush — Street Challenge</title>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
 <style>
@@ -141,6 +141,15 @@ button{border:0;border-radius:15px;padding:14px 20px;font-size:17px;font-weight:
 .bestBadge{font-size:20px;font-weight:bold;color:#ffcc00;margin:5px 0}
 .againBtn{background:#ffcc00;color:#111;margin-top:15px}.homeBtn{background:#333;color:#fff;margin-top:10px}
 
+
+/* TURBO RUSH V2 — ORIGINAL GAMEPLAY UI */
+.challengeCard{width:100%;max-width:460px;background:linear-gradient(135deg,rgba(255,204,0,.16),rgba(255,255,255,.06));border:1px solid rgba(255,204,0,.35);border-radius:18px;padding:14px;margin:4px 0 12px}
+.challengeCard b{color:#ffcc00}.challengeProgress{height:8px;background:rgba(255,255,255,.12);border-radius:10px;margin-top:9px;overflow:hidden}.challengeProgress i{display:block;height:100%;width:0;background:#ffcc00;transition:width .25s}
+.comboBadge{position:absolute;top:92px;left:0;right:0;z-index:26;text-align:center;font-size:22px;font-weight:900;opacity:0;transform:scale(.7);transition:.18s;pointer-events:none;text-shadow:0 2px 8px #000}.comboBadge.show{opacity:1;transform:scale(1)}
+.nitroWrap{position:absolute;left:14%;right:14%;bottom:92px;z-index:31;pointer-events:none}.nitroLabel{font-size:11px;font-weight:800;text-align:center;margin-bottom:3px;text-shadow:0 2px 4px #000}.nitroBar{height:7px;background:rgba(0,0,0,.65);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.18)}.nitroBar i{display:block;height:100%;width:0;background:#ffcc00;transition:width .15s}
+.nitroBtn{position:absolute;right:18px;bottom:98px;z-index:32;width:76px;height:50px;padding:0;background:#ffcc00;color:#111;font-size:12px;border-radius:14px}.nitroBtn:disabled{opacity:.35}
+.challengeComplete{color:#35d07f;font-weight:900}.nearMissText{color:#ffcc00;font-weight:900}
+
 @media(max-width:380px){
  .hud{gap:2px}.hud span{font-size:10px;padding:6px 4px}.powerStatus{top:52px}
  .statusItem{font-size:11px;padding:5px 6px}.carEmoji{font-size:35px;width:45px}
@@ -153,17 +162,19 @@ button{border:0;border-radius:15px;padding:14px 20px;font-size:17px;font-weight:
 
 <div id="home" class="screen active">
   <div class="logo">🏎️</div><h1>Turbo Rush</h1>
-  <div class="subtitle">Dodge. Drive. Survive.</div>
+  <div class="subtitle">Street Challenge • Near-Miss • Nitro</div>
   <div class="stats">
     <div class="stat">🪙<b id="homeCoins">0</b>Coins</div>
     <div class="stat">🏆<b id="homeBest">0</b>Best</div>
     <div class="stat">🏁<b id="homeRaces">0</b>Races</div>
   </div>
+  <div class="challengeCard"><b>🏁 STREET CHALLENGE</b><br><span id="homeChallenge">Reach 500m and score 2 near-misses</span></div>
   <button class="startBtn" id="startButton">▶ START RACE</button>
   <button class="garageBtn" id="garageButton">🚘 GARAGE</button>
   <button class="missionBtn" id="missionButton">🎯 MISSIONS</button>
   <button class="dailyBtn" id="dailyButton">🎁 DAILY REWARD</button>
-  <button class="leaderboardBtn" id="leaderboardButton">🏆 LEADERBOARD</button>
+  <button class="leaderboardBtn" id="leaderboardButton">🏆 RECORDS</button>
+  <div style="margin-top:8px;color:#9fa7bd;font-size:11px;max-width:320px;text-align:center;line-height:1.5">Play is always available without ads. An optional interstitial may appear only between races.</div>
 </div>
 
 <div id="garage" class="screen">
@@ -201,1390 +212,200 @@ button{border:0;border-radius:15px;padding:14px 20px;font-size:17px;font-weight:
   <div class="leaderList" id="leaderList"></div>
   <button class="leaderboardBtn" id="leaderboardBack">← BACK</button>
 </div>
-<div id="race" class="screen">
 
+<div id="race" class="screen">
   <div class="hud">
     <span>🏆 <span id="score">0</span></span>
-    <span>📏 <span id="distance">0</span>m</span>
     <span>🪙 <span id="raceCoins">0</span></span>
+    <span>📏 <span id="distance">0</span>m</span>
     <span>❤️ <span id="lives">3</span></span>
   </div>
 
   <div class="powerStatus">
-    <div class="statusItem" id="shieldStatus">🛡️ SHIELD</div>
-    <div class="statusItem" id="turboStatus">⚡ TURBO</div>
-    <div class="statusItem" id="magnetStatus">🧲 MAGNET</div>
+    <div id="shieldStatus" class="statusItem">🛡️ SHIELD</div>
+    <div id="turboStatus" class="statusItem">⚡ TURBO</div>
+    <div id="magnetStatus" class="statusItem">🧲 MAGNET</div>
   </div>
 
-  <div class="speedFX" id="speedFX">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
+  <div id="comboBadge" class="comboBadge">🔥 NEAR MISS!</div>
+  <div class="nitroWrap"><div class="nitroLabel">NITRO <span id="nitroPercent">0%</span></div><div class="nitroBar"><i id="nitroFill"></i></div></div>
+  <button id="nitroButton" class="nitroBtn" disabled>⚡ NITRO</button>
 
   <div class="road" id="road">
-    <div class="laneLine lane1"></div>
-    <div class="laneLine lane2"></div>
-
-    <div class="carPlayer" id="player">🚗</div>
+    <div class="laneLine lane1"></div><div class="laneLine lane2"></div>
+    <div class="speedFX" id="speedFX">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div id="player" class="carPlayer">🚗</div>
   </div>
+
+  <div id="countdown" class="countdown">3</div>
 
   <div class="controls">
-    <button class="controlBtn" id="leftBtn">◀</button>
-    <button class="controlBtn" id="rightBtn">▶</button>
+    <button class="controlBtn" id="leftButton">⬅️</button>
+    <button class="controlBtn" id="rightButton">➡️</button>
   </div>
 
-  <div class="countdown hidden" id="countdown">3</div>
-
-  <div class="gameOver hidden" id="gameOver">
-    <h2 id="gameOverTitle">💥 CRASH!</h2>
-
-    <div class="bestBadge hidden" id="bestBadge">
-      🏆 NEW BEST!
-    </div>
-
-    <p>
-      Score: <b id="finalScore">0</b><br>
-      Distance: <b id="finalDistance">0</b>m<br>
-      Coins: <b id="finalCoins">0</b>
-    </p>
-
-    <button class="againBtn" id="againButton">
-      🔄 RACE AGAIN
-    </button>
-
-    <button class="homeBtn" id="raceHome">
-      🏠 HOME
-    </button>
+  <div id="gameOver" class="gameOver hidden">
+    <h2>💥 CRASH!</h2>
+    <div id="bestBadge" class="bestBadge hidden">🏆 NEW BEST!</div>
+    <p id="finalText"></p>
+    <button class="againBtn" id="againButton">🔄 RACE AGAIN</button>
+    <button class="homeBtn" id="raceHome">🏠 HOME</button>
   </div>
-
 </div>
 
 <script>
 "use strict";
 
-const saved = JSON.parse(localStorage.getItem("turboRushSave") || "null") || {
-  coins: 0,
-  best: 0,
-  races: 0,
-  car: 0,
-  owned: [0],
-  missionCoins: 0,
-  missionDistance: 0,
-  missionPowerups: 0,
-  missionClaimed: [false,false,false],
-  streak: 0,
-  lastDaily: "",
-  dailyClaimed: []
-};
-
-const cars = [
-  {emoji:"🚗",name:"Street Fox",speed:1.00,price:0},
-  {emoji:"🏎️",name:"Rapid GT",speed:1.08,price:100},
-  {emoji:"🚀",name:"Rocket",speed:1.16,price:300},
-  {emoji:"⚡",name:"Volt",speed:1.25,price:700}
+const cars=[
+ {emoji:"🚗",name:"Street Fox",speed:1.00,handling:1.00,price:0},
+ {emoji:"🏎️",name:"Rapid GT",speed:1.08,handling:.95,price:100},
+ {emoji:"🚀",name:"Rocket",speed:1.16,handling:.90,price:300},
+ {emoji:"⚡",name:"Volt",speed:1.25,handling:.86,price:700}
+];
+const dailyRewards=[25,50,75,100,150,200,500];
+const challenges=[
+ {distance:500,near:2,coins:50,text:"Reach 500m and score 2 near-misses"},
+ {distance:800,near:3,coins:75,text:"Reach 800m and score 3 near-misses"},
+ {distance:1200,near:5,coins:120,text:"Reach 1,200m and score 5 near-misses"}
 ];
 
-let running=false;
-let playerLane=1;
-let score=0;
-let distance=0;
-let raceCoins=0;
-let lives=3;
-let difficulty=1;
-let hitCooldown=0;
+let saved=JSON.parse(localStorage.getItem("turboRushV2" )||"null")||{};
+if(typeof saved.coins!=="number")saved.coins=0;
+if(typeof saved.best!=="number")saved.best=0;
+if(typeof saved.races!=="number")saved.races=0;
+if(typeof saved.car!=="number")saved.car=0;
+if(!Array.isArray(saved.unlocked))saved.unlocked=[0];
+if(!saved.unlocked.includes(0))saved.unlocked.push(0);
+if(!saved.missions)saved.missions={coins:0,distance:0,powerups:0,nearMisses:0,coinRewarded:false,distanceRewarded:false,powerupRewarded:false,nearRewarded:false};
+for(const k of ["coins","distance","powerups","nearMisses"])if(typeof saved.missions[k]!=="number")saved.missions[k]=0;
+for(const k of ["coinRewarded","distanceRewarded","powerupRewarded","nearRewarded"])if(typeof saved.missions[k]!=="boolean")saved.missions[k]=false;
+if(typeof saved.dailyStreak!=="number")saved.dailyStreak=0;
+if(typeof saved.dailyLastClaim!=="string")saved.dailyLastClaim="";
+if(typeof saved.dailyDay!=="number")saved.dailyDay=0;
+if(!Array.isArray(saved.leaderboard))saved.leaderboard=[];
+if(typeof saved.challengeIndex!=="number")saved.challengeIndex=0;
+if(typeof saved.challengeClaimed!=="boolean")saved.challengeClaimed=false;
 
-let traffic=[];
-let coins=[];
-let powerups=[];
+function saveGame(){localStorage.setItem("turboRushV2",JSON.stringify(saved))}
+saveGame();
 
-let lastTime=0;
-let spawnTimer=0;
-let coinTimer=0;
-let powerupTimer=0;
-let animationFrame;
+let running=false,playerLane=1,score=0,distance=0,raceCoins=0,lives=3,difficulty=1,hitCooldown=0;
+let traffic=[],coins=[],powerups=[],lastTime=0,spawnTimer=0,coinTimer=0,powerupTimer=0,animationFrame;
+let shieldActive=false,turboTime=0,magnetTime=0,laneChangeTimer=null;
+let nitro=0,combo=0,nearMisses=0,runChallengeDone=false,runStartScore=0;
 
-let shieldActive=false;
-let turboTime=0;
-let magnetTime=0;
-let laneChangeTimer=null;
-
-
-/* SCREENS */
-
-const home=document.getElementById("home");
-const garage=document.getElementById("garage");
-const missions=document.getElementById("missions");
-const daily=document.getElementById("daily");
-const leaderboard=document.getElementById("leaderboard");
-const race=document.getElementById("race");
-
-const startButton=document.getElementById("startButton");
-const garageButton=document.getElementById("garageButton");
-const missionButton=document.getElementById("missionButton");
-const dailyButton=document.getElementById("dailyButton");
-const leaderboardButton=document.getElementById("leaderboardButton");
-
-const garageStart=document.getElementById("garageStart");
-const backHome=document.getElementById("backHome");
-const missionsBack=document.getElementById("missionsBack");
-const dailyBack=document.getElementById("dailyBack");
-const leaderboardBack=document.getElementById("leaderboardBack");
-const raceHome=document.getElementById("raceHome");
-
-const road=document.getElementById("road");
-const player=document.getElementById("player");
-const leftBtn=document.getElementById("leftBtn");
-const rightBtn=document.getElementById("rightBtn");
-
-const scoreEl=document.getElementById("score");
-const distanceEl=document.getElementById("distance");
-const raceCoinsEl=document.getElementById("raceCoins");
-const livesEl=document.getElementById("lives");
-
-const homeCoins=document.getElementById("homeCoins");
-const homeBest=document.getElementById("homeBest");
-const homeRaces=document.getElementById("homeRaces");
-
-const garageCoinsEl=document.getElementById("garageCoins");
-const missionCoinsEl=document.getElementById("missionCoins");
-
-const countdown=document.getElementById("countdown");
-const gameOver=document.getElementById("gameOver");
-const gameOverTitle=document.getElementById("gameOverTitle");
-const finalScore=document.getElementById("finalScore");
-const finalDistance=document.getElementById("finalDistance");
-const finalCoins=document.getElementById("finalCoins");
-const bestBadge=document.getElementById("bestBadge");
-const speedFX=document.getElementById("speedFX");
-
-const shieldStatus=document.getElementById("shieldStatus");
-const turboStatus=document.getElementById("turboStatus");
-const magnetStatus=document.getElementById("magnetStatus");
-
-
-function saveGame(){
-  localStorage.setItem("turboRushSave",JSON.stringify(saved));
-}
-
+const home=document.getElementById("home"),garage=document.getElementById("garage"),missions=document.getElementById("missions"),daily=document.getElementById("daily"),leaderboard=document.getElementById("leaderboard"),race=document.getElementById("race");
+const startButton=document.getElementById("startButton"),garageButton=document.getElementById("garageButton"),missionButton=document.getElementById("missionButton"),dailyButton=document.getElementById("dailyButton"),leaderboardButton=document.getElementById("leaderboardButton");
+const garageStart=document.getElementById("garageStart"),backHome=document.getElementById("backHome"),missionsBack=document.getElementById("missionsBack"),dailyBack=document.getElementById("dailyBack"),leaderboardBack=document.getElementById("leaderboardBack");
+const road=document.getElementById("road"),player=document.getElementById("player"),scoreText=document.getElementById("score"),raceCoinsText=document.getElementById("raceCoins"),distanceText=document.getElementById("distance"),livesText=document.getElementById("lives");
+const countdown=document.getElementById("countdown"),gameOver=document.getElementById("gameOver"),finalText=document.getElementById("finalText"),bestBadge=document.getElementById("bestBadge"),leftButton=document.getElementById("leftButton"),rightButton=document.getElementById("rightButton"),againButton=document.getElementById("againButton"),raceHome=document.getElementById("raceHome");
+const garageCoinsText=document.getElementById("garageCoins"),missionCoinsText=document.getElementById("missionCoins"),shieldStatus=document.getElementById("shieldStatus"),turboStatus=document.getElementById("turboStatus"),magnetStatus=document.getElementById("magnetStatus"),streakNumber=document.getElementById("streakNumber"),rewardList=document.getElementById("rewardList"),leaderList=document.getElementById("leaderList"),speedFX=document.getElementById("speedFX");
+const comboBadge=document.getElementById("comboBadge"),nitroFill=document.getElementById("nitroFill"),nitroPercent=document.getElementById("nitroPercent"),nitroButton=document.getElementById("nitroButton");
 
 function updateHome(){
-  homeCoins.textContent=saved.coins;
-  homeBest.textContent=saved.best;
-  homeRaces.textContent=saved.races;
-  garageCoinsEl.textContent=saved.coins;
-  missionCoinsEl.textContent=saved.coins;
+ document.getElementById("homeCoins").textContent=saved.coins;
+ document.getElementById("homeBest").textContent=saved.best;
+ document.getElementById("homeRaces").textContent=saved.races;
+ const c=challenges[saved.challengeIndex];
+ const h=document.getElementById("homeChallenge");
+ h.textContent=saved.challengeClaimed?"Challenge complete! New street challenge unlocked.":c.text+" • Reward: "+c.coins+" coins";
 }
+function showScreen(screen){[home,garage,missions,daily,leaderboard,race].forEach(s=>s.classList.remove("active"));screen.classList.add("active")}
+function vibrate(ms=20){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(e){}}
+function beep(freq=440,dur=.05){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
 
-
-function showScreen(screen){
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
-  });
-
-  screen.classList.add("active");
-
-  updateHome();
-
-  if(screen===garage){
-    renderGarage();
-  }
-
-  if(screen===missions){
-    renderMissions();
-  }
-
-  if(screen===daily){
-    renderDaily();
-  }
-
-  if(screen===leaderboard){
-    renderLeaderboard();
-  }
+function updateMissions(){
+ const m=saved.missions;missionCoinsText.textContent=saved.coins;
+ const vals=[Math.min(m.coins,50),Math.min(m.distance,1000),Math.min(m.powerups,5),Math.min(m.nearMisses,10)],targets=[50,1000,5,10];
+ document.getElementById("missionProgress1").textContent=vals[0]+" / 50";document.getElementById("progress1").style.width=vals[0]/50*100+"%";
+ document.getElementById("missionProgress2").textContent=Math.floor(vals[1])+" / 1000m";document.getElementById("progress2").style.width=vals[1]/1000*100+"%";
+ document.getElementById("missionProgress3").textContent=vals[2]+" / 5";document.getElementById("progress3").style.width=vals[2]/5*100+"%";
+ const cards=[["mission1",m.coinRewarded],["mission2",m.distanceRewarded],["mission3",m.powerupRewarded]];
+ cards.forEach(([id,done])=>document.getElementById(id).classList.toggle("completed",done));
 }
-
-
-function vibrate(ms){
-  try{
-    if(navigator.vibrate) navigator.vibrate(ms);
-  }catch(e){}
+function checkMissionRewards(){
+ const m=saved.missions;let reward=0;
+ if(m.coins>=50&&!m.coinRewarded){m.coinRewarded=true;reward+=100}
+ if(m.distance>=1000&&!m.distanceRewarded){m.distanceRewarded=true;reward+=150}
+ if(m.powerups>=5&&!m.powerupRewarded){m.powerupRewarded=true;reward+=200}
+ if(m.nearMisses>=10&&!m.nearRewarded){m.nearRewarded=true;reward+=250}
+ if(reward){saved.coins+=reward;beep(880,.08);vibrate(50);saveGame();updateHome()}
 }
+missionButton.addEventListener("click",()=>{updateMissions();showScreen(missions)});missionsBack.addEventListener("click",()=>{updateHome();showScreen(home)});
 
-
-/* MISSIONS */
-
-function renderMissions(){
-
-  const values=[
-    saved.missionCoins,
-    saved.missionDistance,
-    saved.missionPowerups
-  ];
-
-  const targets=[50,1000,5];
-
-  for(let i=0;i<3;i++){
-
-    const number=i+1;
-    const value=Math.min(values[i],targets[i]);
-    const percent=(value/targets[i])*100;
-
-    document.getElementById("progress"+number).style.width=
-      percent+"%";
-
-    let text=value+" / "+targets[i];
-
-    if(i===1){
-      text=value+" / 1000m";
-    }
-
-    document.getElementById("missionProgress"+number).textContent=text;
-
-    const box=document.getElementById("mission"+number);
-
-    if(value>=targets[i]){
-      box.classList.add("completed");
-
-      if(!saved.missionClaimed[i]){
-        saved.coins += [100,150,200][i];
-        saved.missionClaimed[i]=true;
-        saveGame();
-      }
-
-      const bottom=box.querySelector(".missionBottom");
-
-      if(bottom){
-        const reward=bottom.querySelector(".missionReward");
-        if(reward) reward.textContent="✓ COMPLETED";
-      }
-
-    }else{
-      box.classList.remove("completed");
-    }
-  }
-
-  updateHome();
+function updateGarage(){
+ garageCoinsText.textContent=saved.coins;
+ document.querySelectorAll(".car").forEach(card=>{const index=Number(card.dataset.car),button=card.querySelector(".carAction"),unlocked=saved.unlocked.includes(index);card.classList.remove("selected","locked");button.disabled=false;if(saved.car===index){card.classList.add("selected");button.textContent="✓ SELECTED";button.className="carAction selectedBtn";button.disabled=true}else if(unlocked){button.textContent="SELECT";button.className="carAction selectBtn"}else{card.classList.add("locked");button.textContent="BUY "+cars[index].price;button.className="carAction buyBtn"}})
 }
-
-
-/* MENU BUTTONS */
-
-startButton.addEventListener("click",startRace);
-
-garageButton.addEventListener("click",()=>{
-  showScreen(garage);
-});
-
-missionButton.addEventListener("click",()=>{
-  showScreen(missions);
-});
-
-dailyButton.addEventListener("click",()=>{
-  showScreen(daily);
-});
-
-leaderboardButton.addEventListener("click",()=>{
-  showScreen(leaderboard);
-});
-
-backHome.addEventListener("click",()=>{
-  showScreen(home);
-});
-
-missionsBack.addEventListener("click",()=>{
-  showScreen(home);
-});
-
-dailyBack.addEventListener("click",()=>{
-  showScreen(home);
-});
-
-leaderboardBack.addEventListener("click",()=>{
-  showScreen(home);
-});
-
-raceHome.addEventListener("click",()=>{
-  running=false;
-  cancelAnimationFrame(animationFrame);
-  showScreen(home);
-});
-
-
-/* GARAGE */
-
-function renderGarage(){
-
-  garageCoinsEl.textContent=saved.coins;
-
-  document.querySelectorAll(".car").forEach((card,index)=>{
-
-    const button=card.querySelector(".carAction");
-
-    card.classList.remove("selected","locked");
-
-    if(saved.owned.includes(index)){
-
-      if(saved.car===index){
-        card.classList.add("selected");
-        button.textContent="SELECTED";
-        button.className="carAction selectedBtn";
-      }else{
-        button.textContent="SELECT";
-        button.className="carAction selectBtn";
-      }
-
-    }else{
-
-      card.classList.add("locked");
-      button.textContent="BUY "+cars[index].price;
-      button.className="carAction buyBtn";
-
-    }
-
-  });
-}
-
-
-document.querySelectorAll(".car").forEach(card=>{
-
-  card.addEventListener("click",()=>{
-
-    const index=Number(card.dataset.car);
-    const car=cars[index];
-
-    if(saved.owned.includes(index)){
-
-      saved.car=index;
-      saveGame();
-      renderGarage();
-      updateHome();
-
-    }else if(saved.coins>=car.price){
-
-      saved.coins-=car.price;
-      saved.owned.push(index);
-      saved.car=index;
-
-      saveGame();
-      renderGarage();
-      updateHome();
-
-    }
-
-  });
-
-});
-
-
-garageStart.addEventListener("click",startRace);
-
-
-/* DAILY REWARDS */
-
-const dailyRewards=[25,50,75,100,150,200,500];
-
-function todayString(){
-  const d=new Date();
-  return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-}
-
-function renderDaily(){
-
-  const list=document.getElementById("rewardList");
-  const streakNumber=document.getElementById("streakNumber");
-
-  list.innerHTML="";
-  streakNumber.textContent=saved.streak;
-
-  const today=todayString();
-
-  dailyRewards.forEach((amount,index)=>{
-
-    const day=index+1;
-    const item=document.createElement("div");
-
-    item.className="rewardDay";
-
-    if(saved.dailyClaimed.includes(day)){
-      item.classList.add("claimed");
-    }
-
-    if(day===saved.streak+1 && !saved.dailyClaimed.includes(day)){
-      item.classList.add("current");
-    }
-
-    let buttonHTML="";
-
-    if(saved.dailyClaimed.includes(day)){
-      buttonHTML='<button class="claimedBtn">CLAIMED</button>';
-    }else if(day===saved.streak+1){
-      buttonHTML='<button class="claimBtn">CLAIM</button>';
-    }
-
-    item.innerHTML=`
-      <div class="rewardNumber">${day}</div>
-      <div class="rewardInfo">
-        <b>Day ${day}</b><br>
-        <small>Daily reward</small>
-      </div>
-      <div class="rewardAmount">🪙 ${amount}</div>
-      ${buttonHTML}
-    `;
-
-    const btn=item.querySelector(".claimBtn");
-
-    if(btn){
-      btn.addEventListener("click",()=>{
-
-        if(saved.lastDaily===today){
-          return;
-        }
-
-        saved.coins+=amount;
-        saved.streak=day;
-        saved.lastDaily=today;
-
-        if(!saved.dailyClaimed.includes(day)){
-          saved.dailyClaimed.push(day);
-        }
-
-        saveGame();
-        renderDaily();
-        updateHome();
-      });
-    }
-
-    list.appendChild(item);
-  });
-}
-  function renderLeaderboard(){
-
-  const list=document.getElementById("leaderList");
-
-  const entries=JSON.parse(
-    localStorage.getItem("turboRushLeaderboard") || "[]"
-  );
-
-  if(!entries.length){
-    list.innerHTML='<div class="emptyLeaderboard">🏁 Finish a race to appear here!</div>';
-    return;
-  }
-
-  entries.sort((a,b)=>b.score-a.score);
-
-  list.innerHTML="";
-
-  entries.slice(0,10).forEach((entry,index)=>{
-
-    const row=document.createElement("div");
-    row.className="leaderRow";
-
-    row.innerHTML=`
-      <div class="rank">${index===0?"🥇":index===1?"🥈":index===2?"🥉":index+1}</div>
-      <div class="playerName">Racer ${index+1}</div>
-      <div class="playerScore">
-        <b>${entry.score}</b>
-        <small>${entry.distance}m</small>
-      </div>
-    `;
-
-    list.appendChild(row);
-  });
-}
-
-
-/* RACE OBJECTS */
-
-function clearRaceObjects(){
-
-  traffic.forEach(o=>o.el.remove());
-  coins.forEach(o=>o.el.remove());
-  powerups.forEach(o=>o.el.remove());
-
-  traffic=[];
-  coins=[];
-  powerups=[];
-}
-
-
-/* START RACE */
-
+document.querySelectorAll(".carAction").forEach(button=>button.addEventListener("click",event=>{event.stopPropagation();const index=Number(button.closest(".car").dataset.car),car=cars[index];if(!saved.unlocked.includes(index)){if(saved.coins<car.price){alert("You need "+car.price+" coins to unlock this car.");return}saved.coins-=car.price;saved.unlocked.push(index);saved.car=index;saveGame();updateHome();updateGarage();beep(660,.1);return}saved.car=index;saveGame();updateHome();updateGarage()}));
+startButton.addEventListener("click",startRace);garageStart.addEventListener("click",startRace);garageButton.addEventListener("click",()=>{updateGarage();showScreen(garage)});backHome.addEventListener("click",()=>{updateHome();showScreen(home)});
+
+function todayString(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function yesterdayString(){const d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function updateDaily(){const today=todayString(),already=saved.dailyLastClaim===today;streakNumber.textContent=saved.dailyStreak;rewardList.innerHTML="";for(let i=0;i<7;i++){const day=i+1,item=document.createElement("div");item.className="rewardDay";if(day===saved.dailyDay+1&&!already)item.classList.add("current");if(day<=saved.dailyDay)item.classList.add("claimed");item.innerHTML='<div class="rewardNumber">'+day+'</div><div class="rewardInfo"><b>Day '+day+'</b><br><small>Daily reward</small></div><div class="rewardAmount">🪙 '+dailyRewards[i]+'</div>';if(day===saved.dailyDay+1&&!already){const b=document.createElement("button");b.className="claimBtn";b.textContent="CLAIM";b.onclick=claimDailyReward;item.appendChild(b)}else if(day<=saved.dailyDay){const b=document.createElement("button");b.className="claimedBtn";b.textContent="✓ CLAIMED";b.disabled=true;item.appendChild(b)}rewardList.appendChild(item)}}
+function claimDailyReward(){const today=todayString();if(saved.dailyLastClaim===today)return;if(saved.dailyLastClaim===yesterdayString())saved.dailyStreak++;else saved.dailyStreak=1;if(saved.dailyStreak>7)saved.dailyStreak=1;saved.dailyDay=saved.dailyStreak;saved.coins+=dailyRewards[saved.dailyDay-1];saved.dailyLastClaim=today;saveGame();updateHome();updateDaily();beep(900,.1);vibrate(50)}
+dailyButton.addEventListener("click",()=>{updateDaily();showScreen(daily)});dailyBack.addEventListener("click",()=>{updateHome();showScreen(home)});
+
+function updateLeaderboard(){leaderList.innerHTML="";const scores=[...saved.leaderboard].sort((a,b)=>b.score-a.score).slice(0,10);if(!scores.length){leaderList.innerHTML='<div class="emptyLeaderboard">🏁 Play a race to set your first record!</div>';return}scores.forEach((item,index)=>{const row=document.createElement("div");row.className="leaderRow";if(item.name==="You")row.classList.add("me");row.innerHTML='<div class="rank">'+(index<3?["🥇","🥈","🥉"][index]:"#"+(index+1))+'</div><div class="playerName">'+item.name+'</div><div class="playerScore"><b>'+item.score+' pts</b><small>'+item.distance+'m • '+item.near+' near</small></div>';leaderList.appendChild(row)})}
+function addLeaderboardScore(){saved.leaderboard.push({name:"You",score:Math.floor(score),distance:Math.floor(distance),near:nearMisses});saved.leaderboard.sort((a,b)=>b.score-a.score);saved.leaderboard=saved.leaderboard.slice(0,20);saveGame()}
+leaderboardButton.addEventListener("click",()=>{updateLeaderboard();showScreen(leaderboard)});leaderboardBack.addEventListener("click",()=>{updateHome();showScreen(home)});
+
+function clearRaceObjects(){document.querySelectorAll(".traffic,.coin,.powerup,.pickupFX,.spark").forEach(x=>x.remove());traffic=[];coins=[];powerups=[]}
+function currentChallenge(){return challenges[saved.challengeIndex]}
 function startRace(){
-
-  showScreen(race);
-
-  running=false;
-  cancelAnimationFrame(animationFrame);
-
-  score=0;
-  distance=0;
-  raceCoins=0;
-  lives=3;
-  difficulty=1;
-  hitCooldown=0;
-
-  shieldActive=false;
-  turboTime=0;
-  magnetTime=0;
-
-  playerLane=1;
-
-  spawnTimer=0;
-  coinTimer=0;
-  powerupTimer=0;
-
-  clearRaceObjects();
-
-  player.textContent=cars[saved.car].emoji;
-  player.className="carPlayer";
-
-  road.classList.remove(
-    "theme-night",
-    "theme-neon",
-    "theme-sunset",
-    "crashShake",
-    "crashFlash"
-  );
-
-  speedFX.classList.remove("active","fast");
-
-  gameOver.classList.add("hidden");
-  bestBadge.classList.add("hidden");
-
-  updatePowerStatus();
-  updateHUD();
-  placePlayer();
-
-  countdown.classList.remove("hidden");
-
-  let count=3;
-  countdown.textContent=count;
-
-  const timer=setInterval(()=>{
-
-    count--;
-
-    if(count>0){
-
-      countdown.textContent=count;
-
-      countdown.style.animation="none";
-      void countdown.offsetWidth;
-      countdown.style.animation="countPop .45s ease";
-
-    }else if(count===0){
-
-      countdown.textContent="GO!";
-
-      countdown.style.animation="none";
-      void countdown.offsetWidth;
-      countdown.style.animation="countPop .45s ease";
-
-      vibrate(30);
-
-    }else{
-
-      clearInterval(timer);
-
-      countdown.classList.add("hidden");
-
-      running=true;
-      lastTime=performance.now();
-
-      animationFrame=requestAnimationFrame(gameLoop);
-    }
-
-  },700);
-}
-
-
-/* PLAYER MOVEMENT */
-
-function placePlayer(){
-
-  const percent=16.665 + playerLane*33.33;
-
-  player.style.left=percent+"%";
-}
-
-
-function movePlayer(direction){
-
-  if(!running) return;
-
-  const oldLane=playerLane;
-
-  playerLane+=direction;
-
-  if(playerLane<0) playerLane=0;
-  if(playerLane>2) playerLane=2;
-
-  if(oldLane!==playerLane){
-
-    player.classList.remove("turnLeft","turnRight");
-
-    if(direction<0){
-      player.classList.add("turnLeft");
-    }else{
-      player.classList.add("turnRight");
-    }
-
-    placePlayer();
-
-    clearTimeout(laneChangeTimer);
-
-    laneChangeTimer=setTimeout(()=>{
-      player.classList.remove("turnLeft","turnRight");
-    },180);
-
-    vibrate(12);
-  }
-}
-
-
-leftBtn.addEventListener("click",()=>{
-  movePlayer(-1);
-});
-
-rightBtn.addEventListener("click",()=>{
-  movePlayer(1);
-});
-
-
-/* KEYBOARD */
-
-document.addEventListener("keydown",e=>{
-
-  if(!running) return;
-
-  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a"){
-    movePlayer(-1);
-  }
-
-  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d"){
-    movePlayer(1);
-  }
-
-});
-
-
-/* TOUCH SWIPE */
-
-let touchStartX=0;
-
-race.addEventListener("touchstart",e=>{
-  touchStartX=e.touches[0].clientX;
-},{passive:true});
-
-race.addEventListener("touchend",e=>{
-
-  const endX=e.changedTouches[0].clientX;
-  const difference=endX-touchStartX;
-
-  if(Math.abs(difference)>35){
-
-    if(difference>0){
-      movePlayer(1);
-    }else{
-      movePlayer(-1);
-    }
-
-  }
-
-},{passive:true});
-
-
-/* SPAWN TRAFFIC */
-
-function spawnTraffic(){
-
-  const lane=Math.floor(Math.random()*3);
-
-  const el=document.createElement("div");
-
-  const vehicles=[
-    "🚙",
-    "🚕",
-    "🚓",
-    "🚚",
-    "🚌",
-    "🚐"
-  ];
-
-  el.className="traffic";
-  el.textContent=
-    vehicles[Math.floor(Math.random()*vehicles.length)];
-
-  el.style.left=
-    (16.665 + lane*33.33)+"%";
-
-  el.style.top="-70px";
-
-  road.appendChild(el);
-
-  traffic.push({
-    el,
-    lane,
-    y:-70,
-    speed:180 + difficulty*22 + Math.random()*70
-  });
-}
-
-
-/* SPAWN COINS */
-
-function spawnCoin(){
-
-  const lane=Math.floor(Math.random()*3);
-
-  const el=document.createElement("div");
-
-  el.className="coin";
-  el.textContent="🪙";
-
-  el.style.left=
-    (16.665 + lane*33.33)+"%";
-
-  el.style.top="-50px";
-
-  road.appendChild(el);
-
-  coins.push({
-    el,
-    lane,
-    y:-50,
-    speed:170 + difficulty*18
-  });
-}
-
-
-/* SPAWN POWERUPS */
-
-function spawnPowerup(){
-
-  const lane=Math.floor(Math.random()*3);
-
-  const types=[
-    {type:"shield",emoji:"🛡️"},
-    {type:"turbo",emoji:"⚡"},
-    {type:"magnet",emoji:"🧲"},
-    {type:"life",emoji:"❤️"}
-  ];
-
-  const power=
-    types[Math.floor(Math.random()*types.length)];
-
-  const el=document.createElement("div");
-
-  el.className="powerup";
-  el.textContent=power.emoji;
-
-  el.style.left=
-    (16.665 + lane*33.33)+"%";
-
-  el.style.top="-50px";
-
-  road.appendChild(el);
-
-  powerups.push({
-    el,
-    lane,
-    y:-50,
-    speed:160 + difficulty*15,
-    type:power.type
-  });
-}
-
-
-/* COLLISION */
-
-function hitTest(a,b){
-
-  const aRect=a.el.getBoundingClientRect();
-  const bRect=b.el.getBoundingClientRect();
-
-  return !(
-    aRect.right<bRect.left+8 ||
-    aRect.left>bRect.right-8 ||
-    aRect.bottom<bRect.top+8 ||
-    aRect.top>bRect.bottom-8
-  );
-}
-
-
-/* PICKUP EFFECT */
-
-function createPickupFX(x,y,text){
-
-  const fx=document.createElement("div");
-
-  fx.className="pickupFX";
-  fx.textContent=text;
-
-  fx.style.left=x+"px";
-  fx.style.top=y+"px";
-
-  race.appendChild(fx);
-
-  setTimeout(()=>{
-    fx.remove();
-  },600);
-}
-
-
-function createSparks(x,y){
-
-  for(let i=0;i<8;i++){
-
-    const spark=document.createElement("div");
-
-    spark.className="spark";
-
-    spark.style.left=x+"px";
-    spark.style.top=y+"px";
-
-    spark.style.setProperty(
-      "--dx",
-      ((Math.random()-.5)*100)+"px"
-    );
-
-    spark.style.setProperty(
-      "--dy",
-      ((Math.random()-.5)*100)+"px"
-    );
-
-    race.appendChild(spark);
-
-    setTimeout(()=>{
-      spark.remove();
-    },500);
-  }
-}
-
-
-/* POWER STATUS */
-
-function updatePowerStatus(){
-
-  shieldStatus.classList.toggle("show",shieldActive);
-  turboStatus.classList.toggle("show",turboTime>0);
-  magnetStatus.classList.toggle("show",magnetTime>0);
-
-  if(turboTime>0){
-    turboStatus.textContent=
-      "⚡ TURBO "+Math.ceil(turboTime/1000);
-  }else{
-    turboStatus.textContent="⚡ TURBO";
-  }
-
-  if(magnetTime>0){
-    magnetStatus.textContent=
-      "🧲 MAGNET "+Math.ceil(magnetTime/1000);
-  }else{
-    magnetStatus.textContent="🧲 MAGNET";
-  }
-}
-
-
-/* GAME LOOP */
+ showScreen(race);running=false;cancelAnimationFrame(animationFrame);score=0;distance=0;raceCoins=0;lives=3;difficulty=1;hitCooldown=0;shieldActive=false;turboTime=0;magnetTime=0;playerLane=1;spawnTimer=0;coinTimer=0;powerupTimer=0;nitro=0;combo=0;nearMisses=0;runChallengeDone=false;runStartScore=0;clearRaceObjects();player.textContent=cars[saved.car].emoji;player.className="carPlayer";road.classList.remove("theme-night","theme-neon","theme-sunset","crashShake","crashFlash");speedFX.classList.remove("active","fast");gameOver.classList.add("hidden");bestBadge.classList.add("hidden");comboBadge.classList.remove("show");updatePowerStatus();updateHUD();placePlayer();countdown.classList.remove("hidden");let count=3;countdown.textContent=count;const timer=setInterval(()=>{count--;if(count>0){countdown.textContent=count;beep(360,.06)}else if(count===0){countdown.textContent="GO!";beep(720,.1);vibrate(30)}else{clearInterval(timer);countdown.classList.add("hidden");running=true;lastTime=performance.now();animationFrame=requestAnimationFrame(gameLoop)}},650)}
+function placePlayer(direction=0){const width=road.clientWidth,laneWidth=width/3;player.style.left=laneWidth*playerLane+laneWidth/2+"px";if(direction){player.classList.remove("turnLeft","turnRight");void player.offsetWidth;player.classList.add(direction<0?"turnLeft":"turnRight");clearTimeout(laneChangeTimer);laneChangeTimer=setTimeout(()=>player.classList.remove("turnLeft","turnRight"),220)}}
+function moveLeft(){if(!running)return;if(playerLane>0){playerLane--;placePlayer(-1);vibrate(10)}}function moveRight(){if(!running)return;if(playerLane<2){playerLane++;placePlayer(1);vibrate(10)}}
+leftButton.onclick=moveLeft;rightButton.onclick=moveRight;document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")moveLeft();if(e.key==="ArrowRight")moveRight();if(e.code==="Space")activateNitro()});
+
+function lanePercent(lane){return ((lane+.5)/3*100)+"%"}
+function spawnTraffic(){const lane=Math.floor(Math.random()*3),vehicle=document.createElement("div");vehicle.className="traffic";vehicle.textContent=["🚙","🚕","🚓","🚚","🚌","🚐"][Math.floor(Math.random()*6)];vehicle.style.left=lanePercent(lane);vehicle.style.top="-70px";road.appendChild(vehicle);traffic.push({el:vehicle,lane,y:-70,speed:220+Math.random()*110,passed:false})}
+function spawnCoin(){const lane=Math.floor(Math.random()*3),coin=document.createElement("div");coin.className="coin";coin.textContent="🪙";coin.style.left=lanePercent(lane);coin.style.top="-50px";road.appendChild(coin);coins.push({el:coin,lane,y:-50,speed:230})}
+function spawnPowerup(){const lane=Math.floor(Math.random()*3),el=document.createElement("div");el.className="powerup";const types=[{type:"shield",emoji:"🛡️"},{type:"turbo",emoji:"⚡"},{type:"magnet",emoji:"🧲"},{type:"life",emoji:"❤️"}];const x=types[Math.floor(Math.random()*types.length)];el.textContent=x.emoji;el.style.left=lanePercent(lane);el.style.top="-60px";road.appendChild(el);powerups.push({el,lane,y:-60,speed:215,type:x.type})}
+function hitPlayer(y){const playerY=road.clientHeight-130;return y>playerY-55&&y<playerY+55}
+function createPickupFX(el,emoji){if(!el)return;const r=el.getBoundingClientRect(),rr=road.getBoundingClientRect(),fx=document.createElement("div");fx.className="pickupFX";fx.textContent=emoji;fx.style.left=r.left-rr.left+r.width/2+"px";fx.style.top=r.top-rr.top+r.height/2+"px";road.appendChild(fx);for(let i=0;i<6;i++){const s=document.createElement("div");s.className="spark";s.style.left=r.left-rr.left+r.width/2+"px";s.style.top=r.top-rr.top+r.height/2+"px";s.style.setProperty("--dx",Math.random()*90-45+"px");s.style.setProperty("--dy",Math.random()*90-65+"px");road.appendChild(s);setTimeout(()=>s.remove(),500)}setTimeout(()=>fx.remove(),600)}
+function crashEffect(){road.classList.remove("crashShake","crashFlash");void road.offsetWidth;road.classList.add("crashShake","crashFlash");vibrate(80);setTimeout(()=>road.classList.remove("crashShake","crashFlash"),350)}
+function activatePowerup(type){if(type==="shield")shieldActive=true;if(type==="turbo")turboTime=5;if(type==="magnet")magnetTime=7;if(type==="life"&&lives<3)lives++;saved.missions.powerups++;checkMissionRewards();saveGame();updateHUD();updatePowerStatus();beep(760,.08);vibrate(45)}
+function updatePowerStatus(){shieldStatus.classList.toggle("show",shieldActive);turboStatus.classList.toggle("show",turboTime>0);magnetStatus.classList.toggle("show",magnetTime>0);player.classList.toggle("shielded",shieldActive)}
+function updateTheme(){road.classList.remove("theme-night","theme-neon","theme-sunset");if(distance>=900)road.classList.add("theme-night");else if(distance>=600)road.classList.add("theme-neon");else if(distance>=300)road.classList.add("theme-sunset")}
+function showCombo(text){comboBadge.textContent=text;comboBadge.classList.remove("show");void comboBadge.offsetWidth;comboBadge.classList.add("show");clearTimeout(showCombo.t);showCombo.t=setTimeout(()=>comboBadge.classList.remove("show"),650)}
+function addNearMiss(){nearMisses++;combo++;const bonus=25*combo;score+=bonus;nitro=Math.min(100,nitro+18+combo*2);saved.missions.nearMisses++;showCombo("🔥 NEAR MISS +"+bonus+" • COMBO ×"+combo);beep(500+combo*60,.07);vibrate(20);checkMissionRewards()}
+function activateNitro(){if(!running||nitro<50)return;nitro-=50;turboTime=Math.max(turboTime,4);showCombo("⚡ NITRO BOOST!");beep(980,.12);vibrate(35)}
+nitroButton.onclick=activateNitro;
+function updateNitro(){const p=Math.floor(nitro);nitroFill.style.width=p+"%";nitroPercent.textContent=p+"%";nitroButton.disabled=!running||nitro<50}
 
 function gameLoop(time){
-
-  if(!running) return;
-
-  const delta=Math.min(
-    time-lastTime,
-    50
-  );
-
-  lastTime=time;
-
-  const dt=delta/1000;
-
-  difficulty+=dt*0.025;
-
-  distance+=dt*(
-    105*cars[saved.car].speed*
-    (turboTime>0?1.7:1)
-  );
-
-  score=Math.floor(distance);
-
-  if(hitCooldown>0){
-    hitCooldown-=delta;
-  }
-
-  if(turboTime>0){
-    turboTime-=delta;
-
-    if(turboTime<=0){
-      turboTime=0;
-    }
-  }
-
-  if(magnetTime>0){
-    magnetTime-=delta;
-
-    if(magnetTime<=0){
-      magnetTime=0;
-    }
-  }
-
-  spawnTimer+=delta;
-  coinTimer+=delta;
-  powerupTimer+=delta;
-
-  const trafficDelay=
-    Math.max(
-      430,
-      1000-difficulty*55
-    );
-
-  if(spawnTimer>trafficDelay){
-
-    spawnTimer=0;
-    spawnTraffic();
-
-  }
-
-  if(coinTimer>650){
-
-    coinTimer=0;
-    spawnCoin();
-
-  }
-
-  if(powerupTimer>2600){
-
-    powerupTimer=0;
-    spawnPowerup();
-
-  }
-
-
-  const playerRect=
-    player.getBoundingClientRect();
-
-
-  /* TRAFFIC */
-
-  for(let i=traffic.length-1;i>=0;i--){
-
-    const obj=traffic[i];
-
-    obj.y+=
-      obj.speed*
-      dt*
-      (turboTime>0?1.65:1);
-
-    obj.el.style.top=obj.y+"px";
-
-    if(
-      obj.lane===playerLane &&
-      hitCooldown<=0 &&
-      hitTest(
-        {el:player},
-        obj
-      )
-    ){
-
-      hitCooldown=1200;
-
-      const rect=
-        obj.el.getBoundingClientRect();
-
-      createSparks(
-        rect.left+rect.width/2,
-        rect.top+rect.height/2
-      );
-
-      if(shieldActive){
-
-        shieldActive=false;
-
-        createPickupFX(
-          rect.left+rect.width/2,
-          rect.top,
-          "🛡️ BLOCKED!"
-        );
-
-        obj.el.remove();
-        traffic.splice(i,1);
-
-        vibrate(50);
-
-        continue;
-
-      }
-
-      lives--;
-
-      vibrate([80,50,80]);
-
-      road.classList.remove("crashShake","crashFlash");
-      void road.offsetWidth;
-      road.classList.add("crashShake","crashFlash");
-
-      player.style.transform=
-        "translateX(-50%) rotate(15deg) scale(1.1)";
-
-      setTimeout(()=>{
-        player.style.transform=
-          "translateX(-50%) rotate(0deg) scale(1)";
-      },250);
-
-      obj.el.remove();
-      traffic.splice(i,1);
-
-      updateHUD();
-
-      if(lives<=0){
-
-        endRace();
-
-        return;
-      }
-
-      continue;
-    }
-
-    if(obj.y>road.clientHeight+100){
-
-      obj.el.remove();
-      traffic.splice(i,1);
-    }
-  }
-
-
-  /* COINS */
-
-  for(let i=coins.length-1;i>=0;i--){
-
-    const obj=coins[i];
-
-    obj.y+=
-      obj.speed*
-      dt*
-      (turboTime>0?1.55:1);
-
-    if(magnetTime>0){
-
-      const coinRect=
-        obj.el.getBoundingClientRect();
-
-      const dx=
-        playerRect.left-
-        coinRect.left;
-
-      const dy=
-        playerRect.top-
-        coinRect.top;
-
-      if(Math.abs(dx)<180 && Math.abs(dy)<300){
-
-        obj.y+=
-          (playerRect.top-
-           coinRect.top)*
-          dt*2.8;
-      }
-    }
-
-    obj.el.style.top=obj.y+"px";
-
-    if(
-      obj.lane===playerLane &&
-      hitTest(
-        {el:player},
-        obj
-      )
-    ){
-
-      const rect=
-        obj.el.getBoundingClientRect();
-
-      raceCoins++;
-      score+=10;
-
-      saved.missionCoins++;
-
-      createPickupFX(
-        rect.left+rect.width/2,
-        rect.top,
-        "🪙 +1"
-      );
-
-      obj.el.remove();
-      coins.splice(i,1);
-
-      updateHUD();
-
-      continue;
-    }
-
-    if(obj.y>road.clientHeight+70){
-
-      obj.el.remove();
-      coins.splice(i,1);
-    }
-  }
-
-
-  /* POWERUPS */
-
-  for(let i=powerups.length-1;i>=0;i--){
-
-    const obj=powerups[i];
-
-    obj.y+=
-      obj.speed*
-      dt*
-      (turboTime>0?1.45:1);
-
-    obj.el.style.top=obj.y+"px";
-
-    if(
-      obj.lane===playerLane &&
-      hitTest(
-        {el:player},
-        obj
-      )
-    ){
-
-      const rect=
-        obj.el.getBoundingClientRect();
-
-      saved.missionPowerups++;
-
-      if(obj.type==="shield"){
-        shieldActive=true;
-      }
-
-      if(obj.type==="turbo"){
-        turboTime=7000;
-      }
-
-      if(obj.type==="magnet"){
-        magnetTime=7000;
-      }
-
-      if(obj.type==="life"){
-        lives=Math.min(3,lives+1);
-      }
-
-      createPickupFX(
-        rect.left+rect.width/2,
-        rect.top,
-        obj.el.textContent+"!"
-      );
-
-      obj.el.remove();
-      powerups.splice(i,1);
-
-      updateHUD();
-      updatePowerStatus();
-
-      continue;
-    }
-
-    if(obj.y>road.clientHeight+70){
-
-      obj.el.remove();
-      powerups.splice(i,1);
-    }
-  }
-
-
-  updateHUD();
-  updatePowerStatus();
-
-  const speed=
-    cars[saved.car].speed*
-    (turboTime>0?1.7:1);
-
-  speedFX.classList.toggle(
-    "active",
-    speed>1.05
-  );
-
-  speedFX.classList.toggle(
-    "fast",
-    speed>1.35
-  );
-
-
-  /* THEMES */
-
-  const themeCycle=
-    Math.floor(distance/350)%4;
-
-  road.classList.remove(
-    "theme-night",
-    "theme-neon",
-    "theme-sunset"
-  );
-
-  if(themeCycle===1){
-    road.classList.add("theme-night");
-  }
-
-  if(themeCycle===2){
-    road.classList.add("theme-neon");
-  }
-
-  if(themeCycle===3){
-    road.classList.add("theme-sunset");
-  }
-
-
-  animationFrame=
-    requestAnimationFrame(gameLoop);
+ if(!running)return;
+ const dt=Math.min((time-lastTime)/1000,.05);lastTime=time;difficulty=1+Math.floor(distance/150);
+ let speedMultiplier=cars[saved.car].speed*(1+(difficulty-1)*.075);if(turboTime>0){turboTime-=dt;speedMultiplier*=1.45}if(magnetTime>0)magnetTime-=dt;if(hitCooldown>0)hitCooldown-=dt;
+ distance+=dt*55*speedMultiplier;score=Math.floor(distance*2)+combo*15;saved.missions.distance+=dt*55*speedMultiplier;checkMissionRewards();
+ spawnTimer+=dt;coinTimer+=dt;powerupTimer+=dt;const trafficInterval=Math.max(.62,1.08-(difficulty-1)*.035);if(spawnTimer>trafficInterval){spawnTraffic();spawnTimer=0}if(coinTimer>.78){spawnCoin();coinTimer=0}if(powerupTimer>6.5){if(Math.random()<.72)spawnPowerup();powerupTimer=0}
+ updateTheme();const fast=speedMultiplier>1.2;speedFX.classList.toggle("active",fast);speedFX.classList.toggle("fast",speedMultiplier>1.55);
+ traffic.forEach(obj=>{
+  const oldY=obj.y;obj.y+=obj.speed*speedMultiplier*dt;obj.el.style.top=obj.y+"px";
+  if(obj.lane===playerLane&&hitPlayer(obj.y)&&hitCooldown<=0){createPickupFX(obj.el,shieldActive?"🛡️":"💥");if(shieldActive){shieldActive=false;hitCooldown=1;showCombo("🛡️ SHIELD SAVED YOU")}else{lives--;hitCooldown=1.2;combo=0;crashEffect()}obj.y=9999;obj.el.remove();updateHUD();updatePowerStatus();if(lives<=0){endRace();return}}
+  if(obj.lane===playerLane&&!obj.passed&&oldY<road.clientHeight-180&&obj.y>=road.clientHeight-180&&obj.y<road.clientHeight-90){obj.passed=true;addNearMiss()}
+  if(obj.y>road.clientHeight+100)obj.el.remove();
+ });
+ if(!running)return;
+ coins.forEach(obj=>{if(magnetTime>0){obj.el.style.left=lanePercent(playerLane);obj.lane=playerLane}obj.y+=obj.speed*speedMultiplier*dt;obj.el.style.top=obj.y+"px";if(obj.lane===playerLane&&hitPlayer(obj.y)){raceCoins++;saved.missions.coins++;nitro=Math.min(100,nitro+5);createPickupFX(obj.el,"🪙");vibrate(12);checkMissionRewards();saveGame();obj.y=9999;obj.el.remove();updateHUD()}if(obj.y>road.clientHeight+100)obj.el.remove()});
+ powerups.forEach(obj=>{obj.y+=obj.speed*speedMultiplier*dt;obj.el.style.top=obj.y+"px";if(obj.lane===playerLane&&hitPlayer(obj.y)){createPickupFX(obj.el,obj.el.textContent);activatePowerup(obj.type);obj.y=9999;obj.el.remove()}if(obj.y>road.clientHeight+100)obj.el.remove()});
+ traffic=traffic.filter(o=>o.el.isConnected&&o.y<road.clientHeight+100);coins=coins.filter(o=>o.el.isConnected&&o.y<road.clientHeight+100);powerups=powerups.filter(o=>o.el.isConnected&&o.y<road.clientHeight+100);
+ const c=currentChallenge();if(!runChallengeDone&&distance>=c.distance&&nearMisses>=c.near){runChallengeDone=true;saved.coins+=c.coins;saved.challengeClaimed=true;showCombo("🏁 CHALLENGE COMPLETE +"+c.coins+" 🪙");beep(1000,.15);saveGame();updateHome();setTimeout(()=>{if(saved.challengeIndex<challenges.length-1){saved.challengeIndex++;saved.challengeClaimed=false;saveGame();updateHome()}},700)}
+ updateHUD();updatePowerStatus();updateNitro();animationFrame=requestAnimationFrame(gameLoop)
 }
-
-
-/* HUD */
-
-function updateHUD(){
-
-  scoreEl.textContent=score;
-  distanceEl.textContent=Math.floor(distance);
-  raceCoinsEl.textContent=raceCoins;
-  livesEl.textContent=lives;
-}
-
-
-/* END RACE */
-
-function endRace(){
-
-  running=false;
-
-  cancelAnimationFrame(animationFrame);
-
-  saved.coins+=raceCoins;
-  saved.races++;
-
-  saved.missionDistance+=Math.floor(distance);
-
-  const oldBest=saved.best;
-
-  if(score>saved.best){
-    saved.best=score;
-  }
-
-  const leaderboardData=
-    JSON.parse(
-      localStorage.getItem("turboRushLeaderboard") || "[]"
-    );
-
-  leaderboardData.push({
-    score,
-    distance:Math.floor(distance)
-  });
-
-  leaderboardData.sort(
-    (a,b)=>b.score-a.score
-  );
-
-  localStorage.setItem(
-    "turboRushLeaderboard",
-    JSON.stringify(
-      leaderboardData.slice(0,10)
-    )
-  );
-
-  saveGame();
-
-  finalScore.textContent=score;
-  finalDistance.textContent=Math.floor(distance);
-  finalCoins.textContent=raceCoins;
-
-  if(score>oldBest){
-
-    bestBadge.classList.remove("hidden");
-    gameOverTitle.textContent="🏆 NEW BEST!";
-
-  }else{
-
-    bestBadge.classList.add("hidden");
-    gameOverTitle.textContent="💥 CRASH!";
-
-  }
-
-  gameOver.classList.remove("hidden");
-
-  updateHome();
-}
-
-
-/* ADSGRAM */
+function updateHUD(){scoreText.textContent=Math.floor(score);raceCoinsText.textContent=raceCoins;distanceText.textContent=Math.floor(distance);livesText.textContent=lives}
+function endRace(){if(!running)return;running=false;cancelAnimationFrame(animationFrame);speedFX.classList.remove("active","fast");updateNitro();saved.coins+=raceCoins;saved.races++;const finalDistance=Math.floor(distance),wasBest=finalDistance>saved.best;if(wasBest)saved.best=finalDistance;addLeaderboardScore();saveGame();updateHome();finalText.innerHTML="Score: <b>"+Math.floor(score)+"</b><br>Distance: <b>"+finalDistance+"m</b><br>Coins: <b>+"+raceCoins+" 🪙</b><br>Near Misses: <b>"+nearMisses+"</b><br><span class='nearMissText'>Nitro charged: "+Math.floor(nitro)+"%</span><br><small style='color:#9fa7bd'>An advertisement may appear between races. Playing is never blocked by ads.</small>";bestBadge.classList.toggle("hidden",!wasBest);gameOver.classList.remove("hidden");beep(wasBest?1000:320,.12)}
 
 let AdController=null;
-
-try{
-
-  if(window.Adsgram){
-
-    AdController=window.Adsgram.init({
-      blockId:"int-47362"
-    });
-
-  }
-
-}catch(error){
-
-  console.log(
-    "AdsGram initialization error:",
-    error
-  );
-
-}
-
-
-/* RACE AGAIN + AD */
-
-againButton.addEventListener("click",async()=>{
-
-  gameOver.classList.add("hidden");
-
-  if(AdController){
-
-    try{
-
-      await AdController.show();
-
-    }catch(error){
-
-      console.log(
-        "AdsGram ad unavailable:",
-        error
-      );
-
-    }
-
-  }
-
-  startRace();
-
-});
-
-
-/* INITIALIZE */
-
-updateHome();
-renderGarage();
-renderMissions();
-renderDaily();
-renderLeaderboard();
-updatePowerStatus();
-placePlayer();
-
-
-window.addEventListener("resize",()=>{
-  if(running){
-    placePlayer();
-  }
-});
-
+try{if(window.Adsgram)AdController=window.Adsgram.init({blockId:"int-47362"})}catch(e){console.log("AdsGram init:",e)}
+againButton.addEventListener("click",async()=>{gameOver.classList.add("hidden");if(AdController){try{await AdController.show()}catch(e){console.log("AdsGram:",e)}}startRace()});
+raceHome.addEventListener("click",()=>{running=false;cancelAnimationFrame(animationFrame);gameOver.classList.add("hidden");speedFX.classList.remove("active","fast");updateHome();showScreen(home)});
+window.addEventListener("resize",()=>{if(running)placePlayer()});
+updateHome();updateGarage();updateMissions();updateDaily();updateLeaderboard();updateNitro();
 </script>
-
 </body>
 </html>

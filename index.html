@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Turbo Rush</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* HOME */
+#home {
+  background: linear-gradient(160deg,#10182f,#28134a);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.logo {
+  font-size: 48px;
+  margin-bottom: 5px;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: rgba(255,255,255,.1);
+  padding: 12px 18px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.stat b {
+  display: block;
+  font-size: 20px;
+}
+
+button {
+  border: 0;
+  border-radius: 15px;
+  padding: 16px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.startBtn {
+  width: 240px;
+  background: #ffcc00;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.garageBtn {
+  width: 240px;
+  background: rgba(255,255,255,.12);
+  color: white;
+}
+
+/* GARAGE */
+#garage {
+  background: linear-gradient(160deg,#10182f,#28134a);
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+
+#garage h2 {
+  margin-top: 10px;
+}
+
+.cars {
+  width: 100%;
+  max-width: 450px;
+}
+
+.car {
+  background: rgba(255,255,255,.1);
+  border: 2px solid transparent;
+  padding: 18px;
+  border-radius: 18px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.car.selected {
+  border-color: #ffcc00;
+}
+
+.carEmoji {
+  font-size: 45px;
+}
+
+.carInfo {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.carInfo b {
+  font-size: 19px;
+}
+
+.carInfo small {
+  color: #aaa;
+}
+
+/* RACE */
+#race {
+  position: relative;
+  background: #222;
+  flex-direction: column;
+}
+
+.hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.hud span {
+  background: rgba(0,0,0,.65);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.road {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 0;
+  bottom: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #444 0px,
+      #444 45px,
+      #555 45px,
+      #555 90px
+    );
+  border-left: 7px solid #ddd;
+  border-right: 7px solid #ddd;
+  overflow: hidden;
+}
+
+.laneLine {
+  position: absolute;
+  top: -100px;
+  bottom: -100px;
+  width: 5px;
+  background: repeating-linear-gradient(
+    to bottom,
+    white 0px,
+    white 60px,
+    transparent 60px,
+    transparent 120px
+  );
+  opacity: .7;
+}
+
+.lane1 {
+  left: 33.33%;
+}
+
+.lane2 {
+  left: 66.66%;
+}
+
+.carPlayer,
+.traffic,
+.coin {
+  position: absolute;
+  z-index: 5;
+  user-select: none;
+}
+
+.carPlayer {
+  font-size: 48px;
+  bottom: 80px;
+  transform: translateX(-50%);
+}
+
+.traffic {
+  font-size: 45px;
+  transform: translateX(-50%);
+}
+
+.coin {
+  font-size: 28px;
+  transform: translateX(-50%);
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+
+.controlBtn {
+  width: 90px;
+  height: 65px;
+  padding: 0;
+  font-size: 30px;
+  background: rgba(255,255,255,.2);
+  color: white;
+  border: 2px solid rgba(255,255,255,.3);
+}
+
+.countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 90px;
+  font-weight: bold;
+  background: rgba(0,0,0,.45);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* GAME OVER */
+.gameOver {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.gameOver h2 {
+  font-size: 40px;
+  margin: 0 0 15px;
+}
+
+.gameOver p {
+  color: #ccc;
+}
+
+.againBtn {
+  background: #ffcc00;
+  color: #111;
+  margin-top: 15px;
+}
+
+.homeBtn {
+  background: #333;
+  color: white;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="logo">🏎️</div>
+  <h1>Turbo Rush</h1>
+  <div class="subtitle">Dodge. Drive. Survive.</div>
+
+  <div class="stats">
+    <div class="stat">
+      🪙 <b id="homeCoins">0</b>
+      Coins
+    </div>
+
+    <div class="stat">
+      🏆 <b id="homeBest">0</b>
+      Best
+    </div>
+
+    <div class="stat">
+      🏁 <b id="homeRaces">0</b>
+      Races
+    </div>
+  </div>
+
+  <button class="startBtn" id="startButton">
+    ▶ START RACE
+  </button>
+
+  <button class="garageBtn" id="garageButton">
+    🚘 GARAGE
+  </button>
+</div>
+
+<!-- GARAGE -->
+<div id="garage" class="screen">
+  <h2>🚘 Your Garage</h2>
+  <p>Select your car</p>
+
+  <div class="cars">
+
+    <div class="car selected" data-car="0">
+      <div class="carEmoji">🚗</div>
+      <div class="carInfo">
+        <b>Street Fox</b><br>
+        <small>Speed: ★★★☆☆</small>
+      </div>
+      <span>✓</span>
+    </div>
+
+    <div class="car" data-car="1">
+      <div class="carEmoji">🏎️</div>
+      <div class="carInfo">
+        <b>Rapid GT</b><br>
+        <small>Speed: ★★★★☆</small>
+      </div>
+      <span></span>
+    </div>
+
+    <div class="car" data-car="2">
+      <div class="carEmoji">🚀</div>
+      <div class="carInfo">
+        <b>Rocket</b><br>
+        <small>Speed: ★★★★☆</small>
+      </div>
+      <span></span>
+    </div>
+
+    <div class="car" data-car="3">
+      <div class="carEmoji">⚡</div>
+      <div class="carInfo">
+        <b>Volt</b><br>
+        <small>Speed: ★★★★★</small>
+      </div>
+      <span></span>
+    </div>
+
+  </div>
+
+  <button class="startBtn" id="garageStart">
+    ▶ START RACE
+  </button>
+
+  <button class="garageBtn" id="backHome">
+    ← BACK
+  </button>
+</div>
+
+<!-- RACE -->
+<div id="race" class="screen">
+
+  <div class="hud">
+    <span>🏆 <span id="score">0</span></span>
+    <span>🪙 <span id="raceCoins">0</span></span>
+    <span>📏 <span id="distance">0</span>m</span>
+  </div>
+
+  <div class="road" id="road">
+
+    <div class="laneLine lane1"></div>
+    <div class="laneLine lane2"></div>
+
+    <div id="player" class="carPlayer">🚗</div>
+
+  </div>
+
+  <div id="countdown" class="countdown">
+    3
+  </div>
+
+  <div class="controls">
+    <button class="controlBtn" id="leftButton">⬅️</button>
+    <button class="controlBtn" id="rightButton">➡️</button>
+  </div>
+
+  <div id="gameOver" class="gameOver hidden">
+    <h2>💥 CRASH!</h2>
+    <p id="finalText"></p>
+
+    <button class="againBtn" id="againButton">
+      🔄 RACE AGAIN
+    </button>
+
+    <button class="homeBtn" id="raceHome">
+      🏠 HOME
+    </button>
+  </div>
+
+</div>
+
+<script>
+/* =========================
+   GAME DATA
+========================= */
+
+const cars = [
+  { emoji:"🚗", speed:1.00 },
+  { emoji:"🏎️", speed:1.08 },
+  { emoji:"🚀", speed:1.16 },
+  { emoji:"⚡", speed:1.25 }
+];
+
+let saved = JSON.parse(
+  localStorage.getItem("turboRush")
+) || {
+  coins: 0,
+  best: 0,
+  races: 0,
+  car: 0
+};
+
+let running = false;
+let playerLane = 1;
+let score = 0;
+let distance = 0;
+let raceCoins = 0;
+let traffic = [];
+let coins = [];
+let lastTime = 0;
+let spawnTimer = 0;
+let coinTimer = 0;
+let animationFrame;
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const home = document.getElementById("home");
+const garage = document.getElementById("garage");
+const race = document.getElementById("race");
+
+const startButton = document.getElementById("startButton");
+const garageButton = document.getElementById("garageButton");
+const garageStart = document.getElementById("garageStart");
+const backHome = document.getElementById("backHome");
+
+const road = document.getElementById("road");
+const player = document.getElementById("player");
+
+const scoreText = document.getElementById("score");
+const raceCoinsText = document.getElementById("raceCoins");
+const distanceText = document.getElementById("distance");
+
+const countdown = document.getElementById("countdown");
+const gameOver = document.getElementById("gameOver");
+const finalText = document.getElementById("finalText");
+
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+
+const againButton = document.getElementById("againButton");
+const raceHome = document.getElementById("raceHome");
+
+
+/* =========================
+   SCREEN CONTROL
+========================= */
+
+function showScreen(screen) {
+  home.classList.remove("active");
+  garage.classList.remove("active");
+  race.classList.remove("active");
+
+  screen.classList.add("active");
+}
+
+
+/* =========================
+   SAVE DATA
+========================= */
+
+function saveGame() {
+  localStorage.setItem(
+    "turboRush",
+    JSON.stringify(saved)
+  );
+}
+
+function updateHome() {
+  document.getElementById("homeCoins").textContent =
+    saved.coins;
+
+  document.getElementById("homeBest").textContent =
+    saved.best;
+
+  document.getElementById("homeRaces").textContent =
+    saved.races;
+}
+
+updateHome();
+
+
+/* =========================
+   GARAGE
+========================= */
+
+document.querySelectorAll(".car").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    const index = Number(
+      card.dataset.car
+    );
+
+    saved.car = index;
+
+    document.querySelectorAll(".car")
+      .forEach(c => {
+        c.classList.remove("selected");
+        c.querySelector("span").textContent = "";
+      });
+
+    card.classList.add("selected");
+    card.querySelector("span").textContent = "✓";
+
+    saveGame();
+  });
+
+});
+
+
+/* =========================
+   START BUTTON
+========================= */
+
+startButton.addEventListener("click", function() {
+  startRace();
+});
+
+garageStart.addEventListener("click", function() {
+  startRace();
+});
+
+
+/* =========================
+   START RACE
+========================= */
+
+function startRace() {
+
+  console.log("START RACE");
+
+  showScreen(race);
+
+  running = false;
+
+  score = 0;
+  distance = 0;
+  raceCoins = 0;
+
+  playerLane = 1;
+
+  traffic = [];
+  coins = [];
+
+  document.querySelectorAll(".traffic")
+    .forEach(x => x.remove());
+
+  document.querySelectorAll(".coin")
+    .forEach(x => x.remove());
+
+  player.textContent =
+    cars[saved.car].emoji;
+
+  gameOver.classList.add("hidden");
+
+  updateHUD();
+
+  placePlayer();
+
+  countdown.classList.remove("hidden");
+
+  let count = 3;
+
+  countdown.textContent = count;
+
+  const timer = setInterval(() => {
+
+    count--;
+
+    if (count > 0) {
+      countdown.textContent = count;
+    }
+
+    else if (count === 0) {
+      countdown.textContent = "GO!";
+
+    }
+
+    else {
+
+      clearInterval(timer);
+
+      countdown.classList.add("hidden");
+
+      running = true;
+
+      lastTime = performance.now();
+
+      spawnTimer = 0;
+
+      coinTimer = 0;
+
+      animationFrame =
+        requestAnimationFrame(gameLoop);
+    }
+
+  }, 700);
+}
+
+
+/* =========================
+   PLAYER
+========================= */
+
+function placePlayer() {
+
+  const width = road.clientWidth;
+
+  const laneWidth = width / 3;
+
+  const x =
+    laneWidth * playerLane +
+    laneWidth / 2;
+
+  player.style.left = x + "px";
+}
+
+
+/* =========================
+   MOVE
+========================= */
+
+function moveLeft() {
+
+  if (!running) return;
+
+  if (playerLane > 0) {
+    playerLane--;
+    placePlayer();
+  }
+}
+
+function moveRight() {
+
+  if (!running) return;
+
+  if (playerLane < 2) {
+    playerLane++;
+    placePlayer();
+  }
+}
+
+leftButton.addEventListener(
+  "click",
+  moveLeft
+);
+
+rightButton.addEventListener(
+  "click",
+  moveRight
+);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "ArrowLeft") {
+      moveLeft();
+    }
+
+    if (event.key === "ArrowRight") {
+      moveRight();
+    }
+
+  }
+);
+
+
+/* =========================
+   SPAWN TRAFFIC
+========================= */
+
+function spawnTraffic() {
+
+  const lane =
+    Math.floor(Math.random() * 3);
+
+  const vehicle =
+    document.createElement("div");
+
+  vehicle.className = "traffic";
+
+  const vehicles = [
+    "🚙",
+    "🚕",
+    "🚓",
+    "🚚"
+  ];
+
+  vehicle.textContent =
+    vehicles[
+      Math.floor(
+        Math.random() * vehicles.length
+      )
+    ];
+
+  vehicle.dataset.lane = lane;
+
+  vehicle.style.left =
+    ((lane + 0.5) / 3 * 100) + "%";
+
+  vehicle.style.top = "-70px";
+
+  road.appendChild(vehicle);
+
+  traffic.push({
+    el: vehicle,
+    lane: lane,
+    y: -70,
+    speed:
+      220 +
+      Math.random() * 100
+  });
+}
+
+
+/* =========================
+   SPAWN COIN
+========================= */
+
+function spawnCoin() {
+
+  const lane =
+    Math.floor(Math.random() * 3);
+
+  const coin =
+    document.createElement("div");
+
+  coin.className = "coin";
+
+  coin.textContent = "🪙";
+
+  coin.style.left =
+    ((lane + 0.5) / 3 * 100) + "%";
+
+  coin.style.top = "-50px";
+
+  road.appendChild(coin);
+
+  coins.push({
+    el: coin,
+    lane: lane,
+    y: -50,
+    speed: 230
+  });
+}
+
+
+/* =========================
+   COLLISION
+========================= */
+
+function hitPlayer(objY) {
+
+  const playerY =
+    road.clientHeight - 130;
+
+  return (
+    objY > playerY - 55 &&
+    objY < playerY + 55
+  );
+}
+
+
+/* =========================
+   GAME LOOP
+========================= */
+
+function gameLoop(time) {
+
+  if (!running) return;
+
+  const dt =
+    Math.min(
+      (time - lastTime) / 1000,
+      0.05
+    );
+
+  lastTime = time;
+
+  const speedMultiplier =
+    cars[saved.car].speed;
+
+  distance +=
+    dt * 55 * speedMultiplier;
+
+  score =
+    Math.floor(distance * 2);
+
+  spawnTimer += dt;
+
+  coinTimer += dt;
+
+  if (spawnTimer > 1.1) {
+
+    spawnTraffic();
+
+    spawnTimer = 0;
+  }
+
+  if (coinTimer > 0.8) {
+
+    spawnCoin();
+
+    coinTimer = 0;
+  }
+
+
+  /* Traffic */
+
+  traffic.forEach(obj => {
+
+    obj.y +=
+      obj.speed *
+      speedMultiplier *
+      dt;
+
+    obj.el.style.top =
+      obj.y + "px";
+
+    if (
+      obj.lane === playerLane &&
+      hitPlayer(obj.y)
+    ) {
+      endRace();
+    }
+
+  });
+
+
+  /* Coins */
+
+  coins.forEach(obj => {
+
+    obj.y +=
+      obj.speed *
+      speedMultiplier *
+      dt;
+
+    obj.el.style.top =
+      obj.y + "px";
+
+    if (
+      obj.lane === playerLane &&
+      hitPlayer(obj.y)
+    ) {
+
+      raceCoins++;
+
+      obj.y = 9999;
+
+      obj.el.remove();
+
+      updateHUD();
+    }
+
+  });
+
+
+  /* Remove old objects */
+
+  traffic =
+    traffic.filter(obj => {
+
+      if (obj.y > road.clientHeight + 100) {
+        obj.el.remove();
+        return false;
+      }
+
+      return true;
+    });
+
+
+  coins =
+    coins.filter(obj => {
+
+      if (obj.y > road.clientHeight + 100) {
+        obj.el.remove();
+        return false;
+      }
+
+      return true;
+    });
+
+
+  updateHUD();
+
+  animationFrame =
+    requestAnimationFrame(gameLoop);
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+function updateHUD() {
+
+  scoreText.textContent =
+    Math.floor(score);
+
+  raceCoinsText.textContent =
+    raceCoins;
+
+  distanceText.textContent =
+    Math.floor(distance);
+}
+
+
+/* =========================
+   END RACE
+========================= */
+
+function endRace() {
+
+  if (!running) return;
+
+  running = false;
+
+  cancelAnimationFrame(
+    animationFrame
+  );
+
+  saved.coins += raceCoins;
+
+  saved.races++;
+
+  if (
+    Math.floor(distance) >
+    saved.best
+  ) {
+    saved.best =
+      Math.floor(distance);
+  }
+
+  saveGame();
+
+  updateHome();
+
+  finalText.textContent =
+    "Score: " +
+    Math.floor(score) +
+    " • Distance: " +
+    Math.floor(distance) +
+    "m • Coins: " +
+    raceCoins;
+
+  gameOver.classList.remove(
+    "hidden"
+  );
+}
+
+
+/* =========================
+   AGAIN
+========================= */
+
+againButton.addEventListener(
+  "click",
+  function() {
+    startRace();
+  }
+);
+
+
+/* =========================
+   HOME
+========================= */
+
+raceHome.addEventListener(
+  "click",
+  function() {
+
+    running = false;
+
+    cancelAnimationFrame(
+      animationFrame
+    );
+
+    gameOver.classList.add(
+      "hidden"
+    );
+
+    updateHome();
+
+    showScreen(home);
+  }
+);
+
+
+garageButton.addEventListener(
+  "click",
+  function() {
+    showScreen(garage);
+  }
+);
+
+
+backHome.addEventListener(
+  "click",
+  function() {
+    updateHome();
+    showScreen(home);
+  }
+);
+
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  placePlayer
+);
+
+</script>
+
+</body>
+</html>

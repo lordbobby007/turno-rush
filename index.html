@@ -62,18 +62,18 @@ h1 {
 
 .subtitle {
   color: #aaa;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .stats {
   display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .stat {
   background: rgba(255,255,255,.1);
-  padding: 12px 18px;
+  padding: 10px 14px;
   border-radius: 15px;
   text-align: center;
 }
@@ -96,10 +96,17 @@ button {
   width: 240px;
   background: #ffcc00;
   color: #111;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .garageBtn {
+  width: 240px;
+  background: rgba(255,255,255,.12);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.missionBtn {
   width: 240px;
   background: rgba(255,255,255,.12);
   color: white;
@@ -192,6 +199,108 @@ button {
 
 .locked {
   opacity: .85;
+}
+
+
+/* =========================
+   MISSIONS
+========================= */
+
+#missions {
+  background: linear-gradient(160deg,#10182f,#28134a);
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  overflow-y: auto;
+}
+
+.missionHeader {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.missionHeader h2 {
+  margin: 5px 0;
+}
+
+.missionCoins {
+  background: rgba(255,255,255,.1);
+  padding: 9px 13px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.missionList {
+  width: 100%;
+  max-width: 460px;
+  margin-top: 15px;
+}
+
+.mission {
+  background: rgba(255,255,255,.1);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.missionTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.missionDescription {
+  color: #aaa;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.progressBar {
+  height: 9px;
+  background: rgba(255,255,255,.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  width: 0%;
+  background: #ffcc00;
+  border-radius: 10px;
+}
+
+.missionBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.missionProgress {
+  color: #ccc;
+  font-size: 13px;
+}
+
+.missionReward {
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.completed {
+  border: 2px solid #35d07f;
+}
+
+.completed .progressFill {
+  width: 100% !important;
+  background: #35d07f;
+}
+
+.completedText {
+  color: #35d07f;
+  font-weight: bold;
 }
 
 
@@ -305,7 +414,7 @@ button {
 
 
 /* =========================
-   POWERUP STATUS
+   POWER STATUS
 ========================= */
 
 .powerStatus {
@@ -541,6 +650,14 @@ button {
     🚘 GARAGE
   </button>
 
+
+  <button
+    class="missionBtn"
+    id="missionButton"
+  >
+    🎯 MISSIONS
+  </button>
+
 </div>
 
 
@@ -572,8 +689,6 @@ button {
   <div class="cars">
 
 
-    <!-- STREET FOX -->
-
     <div
       class="car"
       data-car="0"
@@ -601,7 +716,6 @@ button {
 
       <button
         class="carAction"
-        data-action="select"
       >
         SELECT
       </button>
@@ -609,8 +723,6 @@ button {
     </div>
 
 
-
-    <!-- RAPID GT -->
 
     <div
       class="car"
@@ -639,7 +751,6 @@ button {
 
       <button
         class="carAction"
-        data-action="buy"
       >
         BUY 100
       </button>
@@ -647,8 +758,6 @@ button {
     </div>
 
 
-
-    <!-- ROCKET -->
 
     <div
       class="car"
@@ -677,7 +786,6 @@ button {
 
       <button
         class="carAction"
-        data-action="buy"
       >
         BUY 300
       </button>
@@ -685,8 +793,6 @@ button {
     </div>
 
 
-
-    <!-- VOLT -->
 
     <div
       class="car"
@@ -715,7 +821,6 @@ button {
 
       <button
         class="carAction"
-        data-action="buy"
       >
         BUY 700
       </button>
@@ -746,6 +851,181 @@ button {
 
 
 <!-- =========================
+     MISSIONS
+========================= -->
+
+<div
+  id="missions"
+  class="screen"
+>
+
+  <div class="missionHeader">
+
+    <h2>
+      🎯 Missions
+    </h2>
+
+    <div class="missionCoins">
+      🪙
+      <span id="missionCoins">
+        0
+      </span>
+    </div>
+
+  </div>
+
+
+  <p style="color:#aaa;">
+    Complete missions and earn bonus coins.
+  </p>
+
+
+  <div class="missionList">
+
+
+    <!-- MISSION 1 -->
+
+    <div
+      class="mission"
+      id="mission1"
+    >
+
+      <div class="missionTitle">
+        🪙 Coin Collector
+      </div>
+
+      <div class="missionDescription">
+        Collect 50 coins
+      </div>
+
+      <div class="progressBar">
+
+        <div
+          class="progressFill"
+          id="progress1"
+        ></div>
+
+      </div>
+
+      <div class="missionBottom">
+
+        <span
+          class="missionProgress"
+          id="missionProgress1"
+        >
+          0 / 50
+        </span>
+
+        <span class="missionReward">
+          +100 🪙
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MISSION 2 -->
+
+    <div
+      class="mission"
+      id="mission2"
+    >
+
+      <div class="missionTitle">
+        📏 Long Drive
+      </div>
+
+      <div class="missionDescription">
+        Drive 1,000 meters
+      </div>
+
+      <div class="progressBar">
+
+        <div
+          class="progressFill"
+          id="progress2"
+        ></div>
+
+      </div>
+
+      <div class="missionBottom">
+
+        <span
+          class="missionProgress"
+          id="missionProgress2"
+        >
+          0 / 1000m
+        </span>
+
+        <span class="missionReward">
+          +150 🪙
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MISSION 3 -->
+
+    <div
+      class="mission"
+      id="mission3"
+    >
+
+      <div class="missionTitle">
+        ⚡ Power Hunter
+      </div>
+
+      <div class="missionDescription">
+        Collect 5 power-ups
+      </div>
+
+      <div class="progressBar">
+
+        <div
+          class="progressFill"
+          id="progress3"
+        ></div>
+
+      </div>
+
+      <div class="missionBottom">
+
+        <span
+          class="missionProgress"
+          id="missionProgress3"
+        >
+          0 / 5
+        </span>
+
+        <span class="missionReward">
+          +200 🪙
+        </span>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <button
+    class="missionBtn"
+    id="missionsBack"
+  >
+    ← BACK
+  </button>
+
+</div>
+
+
+
+<!-- =========================
      RACE
 ========================= -->
 
@@ -754,8 +1034,6 @@ button {
   class="screen"
 >
 
-
-  <!-- HUD -->
 
   <div class="hud">
 
@@ -782,8 +1060,6 @@ button {
   </div>
 
 
-
-  <!-- POWERUP STATUS -->
 
   <div class="powerStatus">
 
@@ -812,8 +1088,6 @@ button {
 
 
 
-  <!-- ROAD -->
-
   <div
     class="road"
     id="road"
@@ -839,8 +1113,6 @@ button {
 
 
 
-  <!-- COUNTDOWN -->
-
   <div
     id="countdown"
     class="countdown"
@@ -849,8 +1121,6 @@ button {
   </div>
 
 
-
-  <!-- CONTROLS -->
 
   <div class="controls">
 
@@ -871,8 +1141,6 @@ button {
   </div>
 
 
-
-  <!-- GAME OVER -->
 
   <div
     id="gameOver"
@@ -960,30 +1228,22 @@ let saved =
 
 if (
   typeof saved.coins !== "number"
-) {
-  saved.coins = 0;
-}
+) saved.coins = 0;
 
 
 if (
   typeof saved.best !== "number"
-) {
-  saved.best = 0;
-}
+) saved.best = 0;
 
 
 if (
   typeof saved.races !== "number"
-) {
-  saved.races = 0;
-}
+) saved.races = 0;
 
 
 if (
   typeof saved.car !== "number"
-) {
-  saved.car = 0;
-}
+) saved.car = 0;
 
 
 if (
@@ -1006,10 +1266,97 @@ if (
 }
 
 
-localStorage.setItem(
-  "turboRush",
-  JSON.stringify(saved)
-);
+/*
+   Mission data.
+
+   Existing players get
+   fresh mission progress.
+*/
+
+if (
+  !saved.missions
+) {
+
+  saved.missions = {
+
+    coins: 0,
+
+    distance: 0,
+
+    powerups: 0,
+
+    coinRewarded: false,
+
+    distanceRewarded: false,
+
+    powerupRewarded: false
+
+  };
+
+}
+
+
+if (
+  typeof saved.missions.coins !==
+  "number"
+) {
+
+  saved.missions.coins = 0;
+
+}
+
+
+if (
+  typeof saved.missions.distance !==
+  "number"
+) {
+
+  saved.missions.distance = 0;
+
+}
+
+
+if (
+  typeof saved.missions.powerups !==
+  "number"
+) {
+
+  saved.missions.powerups = 0;
+
+}
+
+
+if (
+  typeof saved.missions.coinRewarded !==
+  "boolean"
+) {
+
+  saved.missions.coinRewarded = false;
+
+}
+
+
+if (
+  typeof saved.missions.distanceRewarded !==
+  "boolean"
+) {
+
+  saved.missions.distanceRewarded = false;
+
+}
+
+
+if (
+  typeof saved.missions.powerupRewarded !==
+  "boolean"
+) {
+
+  saved.missions.powerupRewarded = false;
+
+}
+
+
+saveGame();
 
 
 
@@ -1050,9 +1397,7 @@ let powerupTimer = 0;
 let animationFrame;
 
 
-/* =========================
-   POWER-UP VARIABLES
-========================= */
+/* POWER-UPS */
 
 let shieldActive = false;
 
@@ -1076,6 +1421,11 @@ const garage =
     "garage"
   );
 
+const missions =
+  document.getElementById(
+    "missions"
+  );
+
 const race =
   document.getElementById(
     "race"
@@ -1092,6 +1442,11 @@ const garageButton =
     "garageButton"
   );
 
+const missionButton =
+  document.getElementById(
+    "missionButton"
+  );
+
 const garageStart =
   document.getElementById(
     "garageStart"
@@ -1100,6 +1455,11 @@ const garageStart =
 const backHome =
   document.getElementById(
     "backHome"
+  );
+
+const missionsBack =
+  document.getElementById(
+    "missionsBack"
   );
 
 
@@ -1178,6 +1538,11 @@ const garageCoinsText =
     "garageCoins"
   );
 
+const missionCoinsText =
+  document.getElementById(
+    "missionCoins"
+  );
+
 
 const shieldStatus =
   document.getElementById(
@@ -1197,7 +1562,7 @@ const magnetStatus =
 
 
 /* =========================
-   SAVE GAME
+   SAVE
 ========================= */
 
 function saveGame() {
@@ -1252,6 +1617,10 @@ function showScreen(screen) {
     "active"
   );
 
+  missions.classList.remove(
+    "active"
+  );
+
   race.classList.remove(
     "active"
   );
@@ -1261,6 +1630,267 @@ function showScreen(screen) {
   );
 
 }
+
+
+
+/* =========================
+   MISSIONS
+========================= */
+
+function updateMissions() {
+
+  const m =
+    saved.missions;
+
+
+  missionCoinsText.textContent =
+    saved.coins;
+
+
+  /* COINS */
+
+  const coinProgress =
+    Math.min(
+      m.coins,
+      50
+    );
+
+
+  document.getElementById(
+    "missionProgress1"
+  ).textContent =
+    coinProgress +
+    " / 50";
+
+
+  document.getElementById(
+    "progress1"
+  ).style.width =
+    (
+      coinProgress /
+      50 *
+      100
+    ) + "%";
+
+
+  if (
+    m.coinRewarded
+  ) {
+
+    document
+      .getElementById(
+        "mission1"
+      )
+      .classList.add(
+        "completed"
+      );
+
+    document.getElementById(
+      "missionProgress1"
+    ).innerHTML =
+      '<span class="completedText">✓ COMPLETED</span>';
+
+  }
+
+
+
+  /* DISTANCE */
+
+  const distanceProgress =
+    Math.min(
+      m.distance,
+      1000
+    );
+
+
+  document.getElementById(
+    "missionProgress2"
+  ).textContent =
+    Math.floor(
+      distanceProgress
+    ) +
+    " / 1000m";
+
+
+  document.getElementById(
+    "progress2"
+  ).style.width =
+    (
+      distanceProgress /
+      1000 *
+      100
+    ) + "%";
+
+
+  if (
+    m.distanceRewarded
+  ) {
+
+    document
+      .getElementById(
+        "mission2"
+      )
+      .classList.add(
+        "completed"
+      );
+
+    document.getElementById(
+      "missionProgress2"
+    ).innerHTML =
+      '<span class="completedText">✓ COMPLETED</span>';
+
+  }
+
+
+
+  /* POWER-UPS */
+
+  const powerProgress =
+    Math.min(
+      m.powerups,
+      5
+    );
+
+
+  document.getElementById(
+    "missionProgress3"
+  ).textContent =
+    powerProgress +
+    " / 5";
+
+
+  document.getElementById(
+    "progress3"
+  ).style.width =
+    (
+      powerProgress /
+      5 *
+      100
+    ) + "%";
+
+
+  if (
+    m.powerupRewarded
+  ) {
+
+    document
+      .getElementById(
+        "mission3"
+      )
+      .classList.add(
+        "completed"
+      );
+
+    document.getElementById(
+      "missionProgress3"
+    ).innerHTML =
+      '<span class="completedText">✓ COMPLETED</span>';
+
+  }
+
+}
+
+
+
+/* =========================
+   CHECK MISSION REWARDS
+========================= */
+
+function checkMissionRewards() {
+
+  const m =
+    saved.missions;
+
+
+  let reward =
+    0;
+
+
+  if (
+    m.coins >= 50 &&
+    !m.coinRewarded
+  ) {
+
+    m.coinRewarded =
+      true;
+
+    reward += 100;
+
+  }
+
+
+  if (
+    m.distance >= 1000 &&
+    !m.distanceRewarded
+  ) {
+
+    m.distanceRewarded =
+      true;
+
+    reward += 150;
+
+  }
+
+
+  if (
+    m.powerups >= 5 &&
+    !m.powerupRewarded
+  ) {
+
+    m.powerupRewarded =
+      true;
+
+    reward += 200;
+
+  }
+
+
+  if (
+    reward > 0
+  ) {
+
+    saved.coins +=
+      reward;
+
+
+    saveGame();
+
+  }
+
+}
+
+
+
+/* =========================
+   OPEN MISSIONS
+========================= */
+
+missionButton.addEventListener(
+  "click",
+  function() {
+
+    updateMissions();
+
+    showScreen(
+      missions
+    );
+
+  }
+);
+
+
+missionsBack.addEventListener(
+  "click",
+  function() {
+
+    updateHome();
+
+    showScreen(
+      home
+    );
+
+  }
+);
 
 
 
@@ -1300,6 +1930,7 @@ function updateGarage() {
         "selected"
       );
 
+
       card.classList.remove(
         "locked"
       );
@@ -1325,7 +1956,9 @@ function updateGarage() {
 
       }
 
-      else if (unlocked) {
+      else if (
+        unlocked
+      ) {
 
         button.textContent =
           "SELECT";
@@ -1469,7 +2102,7 @@ document
 
 
 /* =========================
-   START BUTTON
+   START
 ========================= */
 
 startButton.addEventListener(
@@ -1486,7 +2119,7 @@ garageStart.addEventListener(
 
 
 /* =========================
-   GARAGE
+   GARAGE OPEN
 ========================= */
 
 garageButton.addEventListener(
@@ -1686,7 +2319,7 @@ function startRace() {
 
 
 /* =========================
-   PLAYER POSITION
+   PLAYER
 ========================= */
 
 function placePlayer() {
@@ -1713,7 +2346,7 @@ function placePlayer() {
 
 
 /* =========================
-   MOVE
+   MOVEMENT
 ========================= */
 
 function moveLeft() {
@@ -1752,7 +2385,6 @@ function moveRight() {
   }
 
 }
-
 
 
 leftButton.addEventListener(
@@ -1801,7 +2433,7 @@ document.addEventListener(
 
 
 /* =========================
-   SPAWN TRAFFIC
+   TRAFFIC
 ========================= */
 
 function spawnTraffic() {
@@ -1877,7 +2509,7 @@ function spawnTraffic() {
 
 
 /* =========================
-   SPAWN COIN
+   COINS
 ========================= */
 
 function spawnCoin() {
@@ -1936,7 +2568,7 @@ function spawnCoin() {
 
 
 /* =========================
-   SPAWN POWER-UP
+   POWER-UPS
 ========================= */
 
 function spawnPowerup() {
@@ -2114,6 +2746,18 @@ function activatePowerup(
   }
 
 
+  /*
+     Mission progress.
+  */
+
+  saved.missions.powerups++;
+
+
+  checkMissionRewards();
+
+  saveGame();
+
+
   updateHUD();
 
   updatePowerStatus();
@@ -2173,9 +2817,7 @@ function gameLoop(time) {
     time;
 
 
-  /* =========================
-     DIFFICULTY
-  ========================= */
+  /* DIFFICULTY */
 
   difficulty =
     1 +
@@ -2197,9 +2839,7 @@ function gameLoop(time) {
     );
 
 
-  /* =========================
-     TURBO
-  ========================= */
+  /* TURBO */
 
   if (
     turboTime > 0
@@ -2215,9 +2855,7 @@ function gameLoop(time) {
   }
 
 
-  /* =========================
-     MAGNET
-  ========================= */
+  /* MAGNET */
 
   if (
     magnetTime > 0
@@ -2239,9 +2877,7 @@ function gameLoop(time) {
   }
 
 
-  /* =========================
-     DISTANCE
-  ========================= */
+  /* DISTANCE */
 
   distance +=
     dt *
@@ -2255,21 +2891,34 @@ function gameLoop(time) {
     );
 
 
+  /* MISSION DISTANCE */
+
+  /*
+     Add distance from this race
+     to permanent mission progress.
+  */
+
+  saved.missions.distance +=
+    dt *
+    55 *
+    speedMultiplier;
+
+
+  checkMissionRewards();
+
+
   spawnTimer +=
     dt;
 
-
   coinTimer +=
     dt;
-
 
   powerupTimer +=
     dt;
 
 
-  /* =========================
-     TRAFFIC SPAWN
-  ========================= */
+
+  /* TRAFFIC */
 
   const trafficInterval =
     Math.max(
@@ -2294,9 +2943,8 @@ function gameLoop(time) {
   }
 
 
-  /* =========================
-     COIN SPAWN
-  ========================= */
+
+  /* COINS */
 
   if (
     coinTimer >
@@ -2310,19 +2958,13 @@ function gameLoop(time) {
   }
 
 
-  /* =========================
-     POWER-UP SPAWN
-  ========================= */
+
+  /* POWER-UPS */
 
   if (
     powerupTimer >
     7
   ) {
-
-    /*
-       Power-ups don't appear
-       too frequently.
-    */
 
     if (
       Math.random() <
@@ -2373,10 +3015,6 @@ function gameLoop(time) {
         hitCooldown <= 0
 
       ) {
-
-        /*
-           SHIELD
-        */
 
         if (
           shieldActive
@@ -2435,14 +3073,11 @@ function gameLoop(time) {
     obj => {
 
       /*
-         Magnet pulls coins
-         toward the player.
+         Magnet.
       */
 
       if (
-        magnetTime > 0 &&
-        obj.y >
-        -20
+        magnetTime > 0
       ) {
 
         if (
@@ -2459,8 +3094,10 @@ function gameLoop(time) {
               100
             );
 
+
           obj.el.style.left =
             targetX + "%";
+
 
           obj.lane =
             playerLane;
@@ -2494,6 +3131,19 @@ function gameLoop(time) {
       ) {
 
         raceCoins++;
+
+
+        /*
+           Mission coin progress.
+        */
+
+        saved.missions.coins++;
+
+
+        checkMissionRewards();
+
+
+        saveGame();
 
 
         obj.y =
@@ -2729,6 +3379,7 @@ function endRace() {
 
   saveGame();
 
+
   updateHome();
 
 
@@ -2765,7 +3416,7 @@ againButton.addEventListener(
 
 
 /* =========================
-   HOME
+   RACE HOME
 ========================= */
 
 raceHome.addEventListener(
@@ -2815,6 +3466,8 @@ window.addEventListener(
 updateHome();
 
 updateGarage();
+
+updateMissions();
 
 </script>
 

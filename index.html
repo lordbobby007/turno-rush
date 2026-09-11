@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
 <title>Turbo Rush</title>
 
@@ -208,15 +213,15 @@ button {
   z-index: 20;
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 4px;
 }
 
 .hud span {
   background: rgba(0,0,0,.65);
-  padding: 7px 8px;
+  padding: 7px 7px;
   border-radius: 10px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -226,6 +231,7 @@ button {
   right: 12%;
   top: 0;
   bottom: 0;
+
   background:
     repeating-linear-gradient(
       to bottom,
@@ -234,6 +240,7 @@ button {
       #555 45px,
       #555 90px
     );
+
   border-left: 7px solid #ddd;
   border-right: 7px solid #ddd;
   overflow: hidden;
@@ -244,6 +251,7 @@ button {
   top: -100px;
   bottom: -100px;
   width: 5px;
+
   background:
     repeating-linear-gradient(
       to bottom,
@@ -252,6 +260,7 @@ button {
       transparent 60px,
       transparent 120px
     );
+
   opacity: .7;
 }
 
@@ -265,7 +274,8 @@ button {
 
 .carPlayer,
 .traffic,
-.coin {
+.coin,
+.powerup {
   position: absolute;
   z-index: 5;
   user-select: none;
@@ -287,12 +297,55 @@ button {
   transform: translateX(-50%);
 }
 
+.powerup {
+  font-size: 32px;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 7px rgba(255,255,255,.8));
+}
+
+
+/* =========================
+   POWERUP STATUS
+========================= */
+
+.powerStatus {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  right: 0;
+  z-index: 25;
+
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  pointer-events: none;
+}
+
+.statusItem {
+  background: rgba(0,0,0,.75);
+  border-radius: 12px;
+  padding: 6px 9px;
+  font-size: 13px;
+  font-weight: bold;
+  display: none;
+}
+
+.statusItem.show {
+  display: block;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
 .controls {
   position: absolute;
   bottom: 20px;
   left: 0;
   right: 0;
   z-index: 30;
+
   display: flex;
   justify-content: space-between;
   padding: 0 25px;
@@ -303,20 +356,30 @@ button {
   height: 65px;
   padding: 0;
   font-size: 30px;
+
   background: rgba(255,255,255,.2);
   color: white;
+
   border: 2px solid rgba(255,255,255,.3);
 }
+
+
+/* =========================
+   COUNTDOWN
+========================= */
 
 .countdown {
   position: absolute;
   inset: 0;
   z-index: 50;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   font-size: 90px;
   font-weight: bold;
+
   background: rgba(0,0,0,.45);
 }
 
@@ -333,10 +396,13 @@ button {
   position: absolute;
   inset: 0;
   z-index: 100;
+
   background: rgba(0,0,0,.78);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-align: center;
   flex-direction: column;
 }
@@ -370,12 +436,21 @@ button {
 @media (max-width: 380px) {
 
   .hud {
-    gap: 3px;
+    gap: 2px;
   }
 
   .hud span {
+    font-size: 10px;
+    padding: 6px 4px;
+  }
+
+  .powerStatus {
+    top: 52px;
+  }
+
+  .statusItem {
     font-size: 11px;
-    padding: 6px 5px;
+    padding: 5px 6px;
   }
 
   .carEmoji {
@@ -399,6 +474,7 @@ button {
 }
 
 </style>
+
 </head>
 
 
@@ -409,7 +485,10 @@ button {
      HOME
 ========================= -->
 
-<div id="home" class="screen active">
+<div
+  id="home"
+  class="screen active"
+>
 
   <div class="logo">
     🏎️
@@ -470,22 +549,30 @@ button {
      GARAGE
 ========================= -->
 
-<div id="garage" class="screen">
+<div
+  id="garage"
+  class="screen"
+>
 
   <h2>
     🚘 Your Garage
   </h2>
 
+
   <div class="garageCoins">
+
     🪙 Coins:
-    <span id="garageCoins">0</span>
+    <span id="garageCoins">
+      0
+    </span>
+
   </div>
 
 
   <div class="cars">
 
 
-    <!-- CAR 1 -->
+    <!-- STREET FOX -->
 
     <div
       class="car"
@@ -523,7 +610,7 @@ button {
 
 
 
-    <!-- CAR 2 -->
+    <!-- RAPID GT -->
 
     <div
       class="car"
@@ -561,7 +648,7 @@ button {
 
 
 
-    <!-- CAR 3 -->
+    <!-- ROCKET -->
 
     <div
       class="car"
@@ -599,7 +686,7 @@ button {
 
 
 
-    <!-- CAR 4 -->
+    <!-- VOLT -->
 
     <div
       class="car"
@@ -662,8 +749,13 @@ button {
      RACE
 ========================= -->
 
-<div id="race" class="screen">
+<div
+  id="race"
+  class="screen"
+>
 
+
+  <!-- HUD -->
 
   <div class="hud">
 
@@ -690,14 +782,50 @@ button {
   </div>
 
 
+
+  <!-- POWERUP STATUS -->
+
+  <div class="powerStatus">
+
+    <div
+      id="shieldStatus"
+      class="statusItem"
+    >
+      🛡️ SHIELD
+    </div>
+
+    <div
+      id="turboStatus"
+      class="statusItem"
+    >
+      ⚡ TURBO
+    </div>
+
+    <div
+      id="magnetStatus"
+      class="statusItem"
+    >
+      🧲 MAGNET
+    </div>
+
+  </div>
+
+
+
+  <!-- ROAD -->
+
   <div
     class="road"
     id="road"
   >
 
-    <div class="laneLine lane1"></div>
+    <div
+      class="laneLine lane1"
+    ></div>
 
-    <div class="laneLine lane2"></div>
+    <div
+      class="laneLine lane2"
+    ></div>
 
 
     <div
@@ -710,6 +838,9 @@ button {
   </div>
 
 
+
+  <!-- COUNTDOWN -->
+
   <div
     id="countdown"
     class="countdown"
@@ -717,6 +848,9 @@ button {
     3
   </div>
 
+
+
+  <!-- CONTROLS -->
 
   <div class="controls">
 
@@ -737,6 +871,9 @@ button {
   </div>
 
 
+
+  <!-- GAME OVER -->
+
   <div
     id="gameOver"
     class="gameOver hidden"
@@ -746,7 +883,9 @@ button {
       💥 CRASH!
     </h2>
 
-    <p id="finalText"></p>
+    <p
+      id="finalText"
+    ></p>
 
 
     <button
@@ -819,11 +958,6 @@ let saved =
   ) || {};
 
 
-/*
-   Make sure old players
-   don't lose their progress.
-*/
-
 if (
   typeof saved.coins !== "number"
 ) {
@@ -852,25 +986,16 @@ if (
 }
 
 
-/*
-   New unlocked-car system.
-
-   Existing players automatically
-   keep Street Fox unlocked.
-*/
-
 if (
-  !Array.isArray(saved.unlocked)
+  !Array.isArray(
+    saved.unlocked
+  )
 ) {
 
   saved.unlocked = [0];
 
 }
 
-
-/*
-   Make sure car 0 is always unlocked.
-*/
 
 if (
   !saved.unlocked.includes(0)
@@ -912,13 +1037,28 @@ let traffic = [];
 
 let coins = [];
 
+let powerups = [];
+
 let lastTime = 0;
 
 let spawnTimer = 0;
 
 let coinTimer = 0;
 
+let powerupTimer = 0;
+
 let animationFrame;
+
+
+/* =========================
+   POWER-UP VARIABLES
+========================= */
+
+let shieldActive = false;
+
+let turboTime = 0;
+
+let magnetTime = 0;
 
 
 
@@ -1039,9 +1179,25 @@ const garageCoinsText =
   );
 
 
+const shieldStatus =
+  document.getElementById(
+    "shieldStatus"
+  );
+
+const turboStatus =
+  document.getElementById(
+    "turboStatus"
+  );
+
+const magnetStatus =
+  document.getElementById(
+    "magnetStatus"
+  );
+
+
 
 /* =========================
-   SAVE
+   SAVE GAME
 ========================= */
 
 function saveGame() {
@@ -1109,7 +1265,7 @@ function showScreen(screen) {
 
 
 /* =========================
-   GARAGE DISPLAY
+   GARAGE
 ========================= */
 
 function updateGarage() {
@@ -1149,19 +1305,6 @@ function updateGarage() {
       );
 
 
-      button.classList.remove(
-        "buyBtn"
-      );
-
-      button.classList.remove(
-        "selectBtn"
-      );
-
-      button.classList.remove(
-        "selectedBtn"
-      );
-
-
       if (
         saved.car === index
       ) {
@@ -1170,13 +1313,15 @@ function updateGarage() {
           "selected"
         );
 
+
         button.textContent =
           "✓ SELECTED";
 
         button.className =
           "carAction selectedBtn";
 
-        button.disabled = true;
+        button.disabled =
+          true;
 
       }
 
@@ -1188,7 +1333,8 @@ function updateGarage() {
         button.className =
           "carAction selectBtn";
 
-        button.disabled = false;
+        button.disabled =
+          false;
 
       }
 
@@ -1198,6 +1344,7 @@ function updateGarage() {
           "locked"
         );
 
+
         button.textContent =
           "BUY " +
           cars[index].price;
@@ -1205,7 +1352,8 @@ function updateGarage() {
         button.className =
           "carAction buyBtn";
 
-        button.disabled = false;
+        button.disabled =
+          false;
 
       }
 
@@ -1216,11 +1364,13 @@ function updateGarage() {
 
 
 /* =========================
-   GARAGE BUTTON ACTION
+   CAR ACTIONS
 ========================= */
 
 document
-  .querySelectorAll(".carAction")
+  .querySelectorAll(
+    ".carAction"
+  )
   .forEach(button => {
 
     button.addEventListener(
@@ -1231,7 +1381,9 @@ document
 
 
         const card =
-          button.closest(".car");
+          button.closest(
+            ".car"
+          );
 
 
         const index =
@@ -1249,10 +1401,6 @@ document
             index
           );
 
-
-        /*
-           BUY
-        */
 
         if (!unlocked) {
 
@@ -1287,7 +1435,6 @@ document
 
           saveGame();
 
-
           updateHome();
 
           updateGarage();
@@ -1295,8 +1442,7 @@ document
 
           alert(
             car.emoji +
-            " " +
-            "Car unlocked!"
+            " Car unlocked!"
           );
 
 
@@ -1305,16 +1451,11 @@ document
         }
 
 
-        /*
-           SELECT
-        */
-
         saved.car =
           index;
 
 
         saveGame();
-
 
         updateHome();
 
@@ -1328,22 +1469,24 @@ document
 
 
 /* =========================
-   HOME START
+   START BUTTON
 ========================= */
 
 startButton.addEventListener(
   "click",
-  function() {
+  startRace
+);
 
-    startRace();
 
-  }
+garageStart.addEventListener(
+  "click",
+  startRace
 );
 
 
 
 /* =========================
-   GARAGE OPEN
+   GARAGE
 ========================= */
 
 garageButton.addEventListener(
@@ -1359,26 +1502,6 @@ garageButton.addEventListener(
   }
 );
 
-
-
-/* =========================
-   GARAGE START
-========================= */
-
-garageStart.addEventListener(
-  "click",
-  function() {
-
-    startRace();
-
-  }
-);
-
-
-
-/* =========================
-   BACK HOME
-========================= */
 
 backHome.addEventListener(
   "click",
@@ -1401,11 +1524,6 @@ backHome.addEventListener(
 
 function startRace() {
 
-  console.log(
-    "START RACE"
-  );
-
-
   showScreen(
     race
   );
@@ -1427,12 +1545,28 @@ function startRace() {
   hitCooldown = 0;
 
 
+  shieldActive = false;
+
+  turboTime = 0;
+
+  magnetTime = 0;
+
+
   playerLane = 1;
 
 
   traffic = [];
 
   coins = [];
+
+  powerups = [];
+
+
+  spawnTimer = 0;
+
+  coinTimer = 0;
+
+  powerupTimer = 0;
 
 
   document
@@ -1453,6 +1587,15 @@ function startRace() {
     );
 
 
+  document
+    .querySelectorAll(
+      ".powerup"
+    )
+    .forEach(
+      x => x.remove()
+    );
+
+
   player.textContent =
     cars[
       saved.car
@@ -1464,8 +1607,9 @@ function startRace() {
   );
 
 
-  updateHUD();
+  updatePowerStatus();
 
+  updateHUD();
 
   placePlayer();
 
@@ -1526,11 +1670,6 @@ function startRace() {
             performance.now();
 
 
-          spawnTimer = 0;
-
-          coinTimer = 0;
-
-
           animationFrame =
             requestAnimationFrame(
               gameLoop
@@ -1574,7 +1713,7 @@ function placePlayer() {
 
 
 /* =========================
-   LEFT
+   MOVE
 ========================= */
 
 function moveLeft() {
@@ -1596,11 +1735,6 @@ function moveLeft() {
 }
 
 
-
-/* =========================
-   RIGHT
-========================= */
-
 function moveRight() {
 
   if (!running)
@@ -1620,10 +1754,6 @@ function moveRight() {
 }
 
 
-
-/* =========================
-   CONTROLS
-========================= */
 
 leftButton.addEventListener(
   "click",
@@ -1671,7 +1801,7 @@ document.addEventListener(
 
 
 /* =========================
-   TRAFFIC
+   SPAWN TRAFFIC
 ========================= */
 
 function spawnTraffic() {
@@ -1711,10 +1841,6 @@ function spawnTraffic() {
     ];
 
 
-  vehicle.dataset.lane =
-    lane;
-
-
   vehicle.style.left =
     (
       (lane + 0.5) /
@@ -1751,7 +1877,7 @@ function spawnTraffic() {
 
 
 /* =========================
-   COIN
+   SPAWN COIN
 ========================= */
 
 function spawnCoin() {
@@ -1810,6 +1936,106 @@ function spawnCoin() {
 
 
 /* =========================
+   SPAWN POWER-UP
+========================= */
+
+function spawnPowerup() {
+
+  const lane =
+    Math.floor(
+      Math.random() * 3
+    );
+
+
+  const powerup =
+    document.createElement(
+      "div"
+    );
+
+
+  powerup.className =
+    "powerup";
+
+
+  const types = [
+
+    {
+      type: "shield",
+      emoji: "🛡️"
+    },
+
+    {
+      type: "turbo",
+      emoji: "⚡"
+    },
+
+    {
+      type: "magnet",
+      emoji: "🧲"
+    },
+
+    {
+      type: "life",
+      emoji: "❤️"
+    }
+
+  ];
+
+
+  const selected =
+    types[
+      Math.floor(
+        Math.random() *
+        types.length
+      )
+    ];
+
+
+  powerup.textContent =
+    selected.emoji;
+
+
+  powerup.dataset.type =
+    selected.type;
+
+
+  powerup.style.left =
+    (
+      (lane + 0.5) /
+      3 *
+      100
+    ) + "%";
+
+
+  powerup.style.top =
+    "-60px";
+
+
+  road.appendChild(
+    powerup
+  );
+
+
+  powerups.push({
+
+    el: powerup,
+
+    lane: lane,
+
+    y: -60,
+
+    speed: 215,
+
+    type:
+      selected.type
+
+  });
+
+}
+
+
+
+/* =========================
    COLLISION
 ========================= */
 
@@ -1832,6 +2058,91 @@ function hitPlayer(
     objY <
       playerY + 55
 
+  );
+
+}
+
+
+
+/* =========================
+   ACTIVATE POWERUP
+========================= */
+
+function activatePowerup(
+  type
+) {
+
+  if (
+    type === "shield"
+  ) {
+
+    shieldActive = true;
+
+  }
+
+
+  if (
+    type === "turbo"
+  ) {
+
+    turboTime = 5;
+
+  }
+
+
+  if (
+    type === "magnet"
+  ) {
+
+    magnetTime = 7;
+
+  }
+
+
+  if (
+    type === "life"
+  ) {
+
+    if (
+      lives < 3
+    ) {
+
+      lives++;
+
+    }
+
+  }
+
+
+  updateHUD();
+
+  updatePowerStatus();
+
+}
+
+
+
+/* =========================
+   POWER STATUS
+========================= */
+
+function updatePowerStatus() {
+
+  shieldStatus.classList.toggle(
+    "show",
+    shieldActive
+  );
+
+
+  turboStatus.classList.toggle(
+    "show",
+    turboTime > 0
+  );
+
+
+  magnetStatus.classList.toggle(
+    "show",
+    magnetTime > 0
   );
 
 }
@@ -1862,10 +2173,9 @@ function gameLoop(time) {
     time;
 
 
-  /*
-     Difficulty increases
-     every 150 meters.
-  */
+  /* =========================
+     DIFFICULTY
+  ========================= */
 
   difficulty =
     1 +
@@ -1874,7 +2184,7 @@ function gameLoop(time) {
     );
 
 
-  const speedMultiplier =
+  let speedMultiplier =
     cars[
       saved.car
     ].speed *
@@ -1887,10 +2197,37 @@ function gameLoop(time) {
     );
 
 
-  /*
-     Temporary protection
-     after collision.
-  */
+  /* =========================
+     TURBO
+  ========================= */
+
+  if (
+    turboTime > 0
+  ) {
+
+    turboTime -=
+      dt;
+
+
+    speedMultiplier *=
+      1.45;
+
+  }
+
+
+  /* =========================
+     MAGNET
+  ========================= */
+
+  if (
+    magnetTime > 0
+  ) {
+
+    magnetTime -=
+      dt;
+
+  }
+
 
   if (
     hitCooldown > 0
@@ -1902,19 +2239,15 @@ function gameLoop(time) {
   }
 
 
-  /*
-     Distance
-  */
+  /* =========================
+     DISTANCE
+  ========================= */
 
   distance +=
     dt *
     55 *
     speedMultiplier;
 
-
-  /*
-     Score
-  */
 
   score =
     Math.floor(
@@ -1930,10 +2263,13 @@ function gameLoop(time) {
     dt;
 
 
-  /*
-     Traffic becomes
-     more frequent.
-  */
+  powerupTimer +=
+    dt;
+
+
+  /* =========================
+     TRAFFIC SPAWN
+  ========================= */
 
   const trafficInterval =
     Math.max(
@@ -1958,6 +2294,10 @@ function gameLoop(time) {
   }
 
 
+  /* =========================
+     COIN SPAWN
+  ========================= */
+
   if (
     coinTimer >
     0.8
@@ -1966,6 +2306,35 @@ function gameLoop(time) {
     spawnCoin();
 
     coinTimer = 0;
+
+  }
+
+
+  /* =========================
+     POWER-UP SPAWN
+  ========================= */
+
+  if (
+    powerupTimer >
+    7
+  ) {
+
+    /*
+       Power-ups don't appear
+       too frequently.
+    */
+
+    if (
+      Math.random() <
+      0.75
+    ) {
+
+      spawnPowerup();
+
+    }
+
+
+    powerupTimer = 0;
 
   }
 
@@ -2005,11 +2374,30 @@ function gameLoop(time) {
 
       ) {
 
-        lives--;
+        /*
+           SHIELD
+        */
 
+        if (
+          shieldActive
+        ) {
 
-        hitCooldown =
-          1.2;
+          shieldActive =
+            false;
+
+          hitCooldown =
+            1.0;
+
+        }
+
+        else {
+
+          lives--;
+
+          hitCooldown =
+            1.2;
+
+        }
 
 
         obj.y =
@@ -2020,6 +2408,8 @@ function gameLoop(time) {
 
 
         updateHUD();
+
+        updatePowerStatus();
 
 
         if (
@@ -2043,6 +2433,42 @@ function gameLoop(time) {
 
   coins.forEach(
     obj => {
+
+      /*
+         Magnet pulls coins
+         toward the player.
+      */
+
+      if (
+        magnetTime > 0 &&
+        obj.y >
+        -20
+      ) {
+
+        if (
+          obj.lane !==
+          playerLane
+        ) {
+
+          const targetX =
+            (
+              (
+                playerLane +
+                0.5
+              ) / 3 *
+              100
+            );
+
+          obj.el.style.left =
+            targetX + "%";
+
+          obj.lane =
+            playerLane;
+
+        }
+
+      }
+
 
       obj.y +=
         obj.speed *
@@ -2078,6 +2504,54 @@ function gameLoop(time) {
 
 
         updateHUD();
+
+      }
+
+    }
+  );
+
+
+
+  /* =========================
+     POWER-UPS
+  ========================= */
+
+  powerups.forEach(
+    obj => {
+
+      obj.y +=
+        obj.speed *
+        speedMultiplier *
+        dt;
+
+
+      obj.el.style.top =
+        obj.y + "px";
+
+
+      if (
+
+        obj.lane ===
+          playerLane
+
+        &&
+
+        hitPlayer(
+          obj.y
+        )
+
+      ) {
+
+        activatePowerup(
+          obj.type
+        );
+
+
+        obj.y =
+          9999;
+
+
+        obj.el.remove();
 
       }
 
@@ -2140,7 +2614,35 @@ function gameLoop(time) {
 
 
 
+  /* =========================
+     REMOVE POWERUPS
+  ========================= */
+
+  powerups =
+    powerups.filter(
+      obj => {
+
+        if (
+          obj.y >
+          road.clientHeight +
+          100
+        ) {
+
+          obj.el.remove();
+
+          return false;
+
+        }
+
+        return true;
+
+      }
+    );
+
+
   updateHUD();
+
+  updatePowerStatus();
 
 
   if (running) {
@@ -2203,11 +2705,6 @@ function endRace() {
   );
 
 
-  /*
-     Add collected coins
-     to permanent balance.
-  */
-
   saved.coins +=
     raceCoins;
 
@@ -2231,7 +2728,6 @@ function endRace() {
 
 
   saveGame();
-
 
   updateHome();
 
@@ -2269,7 +2765,7 @@ againButton.addEventListener(
 
 
 /* =========================
-   RACE HOME
+   HOME
 ========================= */
 
 raceHome.addEventListener(

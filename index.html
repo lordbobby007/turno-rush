@@ -47,7 +47,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  padding: 20px;
 }
 
 .logo {
@@ -62,18 +62,18 @@ h1 {
 
 .subtitle {
   color: #aaa;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
 .stats {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 7px;
+  margin-bottom: 18px;
 }
 
 .stat {
   background: rgba(255,255,255,.1);
-  padding: 10px 14px;
+  padding: 9px 12px;
   border-radius: 15px;
   text-align: center;
 }
@@ -99,17 +99,14 @@ button {
   margin-bottom: 10px;
 }
 
-.garageBtn {
+.garageBtn,
+.missionBtn,
+.dailyBtn,
+.leaderboardBtn {
   width: 240px;
   background: rgba(255,255,255,.12);
   color: white;
   margin-bottom: 10px;
-}
-
-.missionBtn {
-  width: 240px;
-  background: rgba(255,255,255,.12);
-  color: white;
 }
 
 
@@ -305,6 +302,188 @@ button {
 
 
 /* =========================
+   DAILY REWARDS
+========================= */
+
+#daily {
+  background: linear-gradient(160deg,#10182f,#28134a);
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  overflow-y: auto;
+}
+
+.dailyHeader {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+}
+
+.dailyHeader h2 {
+  margin: 5px 0;
+  font-size: 28px;
+}
+
+.streak {
+  display: inline-block;
+  background: rgba(255,255,255,.1);
+  padding: 9px 16px;
+  border-radius: 14px;
+  margin: 8px 0 15px;
+  font-weight: bold;
+}
+
+.rewardList {
+  width: 100%;
+  max-width: 460px;
+}
+
+.rewardDay {
+  background: rgba(255,255,255,.1);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 13px;
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rewardDay.claimed {
+  border-color: #35d07f;
+  opacity: .75;
+}
+
+.rewardDay.current {
+  border-color: #ffcc00;
+}
+
+.rewardNumber {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.rewardInfo {
+  flex: 1;
+}
+
+.rewardInfo b {
+  font-size: 16px;
+}
+
+.rewardInfo small {
+  color: #aaa;
+}
+
+.rewardAmount {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.claimBtn {
+  background: #ffcc00;
+  color: #111;
+  padding: 10px 13px;
+  font-size: 13px;
+}
+
+.claimedBtn {
+  background: #35d07f;
+  color: white;
+  padding: 10px 13px;
+  font-size: 13px;
+}
+
+
+/* =========================
+   LEADERBOARD
+========================= */
+
+#leaderboard {
+  background: linear-gradient(160deg,#10182f,#28134a);
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  overflow-y: auto;
+}
+
+.leaderHeader {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+}
+
+.leaderHeader h2 {
+  margin: 5px 0;
+  font-size: 28px;
+}
+
+.leaderSub {
+  color: #aaa;
+  margin: 5px 0 18px;
+  font-size: 13px;
+}
+
+.leaderList {
+  width: 100%;
+  max-width: 460px;
+}
+
+.leaderRow {
+  background: rgba(255,255,255,.1);
+  border-radius: 15px;
+  padding: 13px;
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.leaderRow.me {
+  border: 2px solid #ffcc00;
+}
+
+.rank {
+  width: 38px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.playerName {
+  flex: 1;
+  font-weight: bold;
+}
+
+.playerScore {
+  text-align: right;
+}
+
+.playerScore b {
+  display: block;
+}
+
+.playerScore small {
+  color: #aaa;
+}
+
+.emptyLeaderboard {
+  text-align: center;
+  color: #aaa;
+  padding: 30px;
+}
+
+
+/* =========================
    RACE
 ========================= */
 
@@ -320,6 +499,7 @@ button {
   left: 8px;
   right: 8px;
   z-index: 20;
+
   display: flex;
   justify-content: space-between;
   gap: 4px;
@@ -327,7 +507,7 @@ button {
 
 .hud span {
   background: rgba(0,0,0,.65);
-  padding: 7px 7px;
+  padding: 7px;
   border-radius: 10px;
   font-weight: bold;
   font-size: 13px;
@@ -352,6 +532,7 @@ button {
 
   border-left: 7px solid #ddd;
   border-right: 7px solid #ddd;
+
   overflow: hidden;
 }
 
@@ -427,6 +608,7 @@ button {
   display: flex;
   justify-content: center;
   gap: 7px;
+
   pointer-events: none;
 }
 
@@ -434,8 +616,10 @@ button {
   background: rgba(0,0,0,.75);
   border-radius: 12px;
   padding: 6px 9px;
+
   font-size: 13px;
   font-weight: bold;
+
   display: none;
 }
 
@@ -457,12 +641,14 @@ button {
 
   display: flex;
   justify-content: space-between;
+
   padding: 0 25px;
 }
 
 .controlBtn {
   width: 90px;
   height: 65px;
+
   padding: 0;
   font-size: 30px;
 
@@ -656,6 +842,22 @@ button {
     id="missionButton"
   >
     🎯 MISSIONS
+  </button>
+
+
+  <button
+    class="dailyBtn"
+    id="dailyButton"
+  >
+    🎁 DAILY REWARD
+  </button>
+
+
+  <button
+    class="leaderboardBtn"
+    id="leaderboardButton"
+  >
+    🏆 LEADERBOARD
   </button>
 
 </div>
@@ -866,10 +1068,12 @@ button {
     </h2>
 
     <div class="missionCoins">
+
       🪙
       <span id="missionCoins">
         0
       </span>
+
     </div>
 
   </div>
@@ -882,8 +1086,6 @@ button {
 
   <div class="missionList">
 
-
-    <!-- MISSION 1 -->
 
     <div
       class="mission"
@@ -926,8 +1128,6 @@ button {
 
 
 
-    <!-- MISSION 2 -->
-
     <div
       class="mission"
       id="mission2"
@@ -968,8 +1168,6 @@ button {
     </div>
 
 
-
-    <!-- MISSION 3 -->
 
     <div
       class="mission"
@@ -1026,6 +1224,88 @@ button {
 
 
 <!-- =========================
+     DAILY REWARDS
+========================= -->
+
+<div
+  id="daily"
+  class="screen"
+>
+
+  <div class="dailyHeader">
+
+    <h2>
+      🎁 Daily Rewards
+    </h2>
+
+    <div class="streak">
+      🔥 Streak:
+      <span id="streakNumber">
+        0
+      </span>
+      days
+    </div>
+
+  </div>
+
+
+  <div
+    class="rewardList"
+    id="rewardList"
+  ></div>
+
+
+  <button
+    class="dailyBtn"
+    id="dailyBack"
+  >
+    ← BACK
+  </button>
+
+</div>
+
+
+
+<!-- =========================
+     LEADERBOARD
+========================= -->
+
+<div
+  id="leaderboard"
+  class="screen"
+>
+
+  <div class="leaderHeader">
+
+    <h2>
+      🏆 Leaderboard
+    </h2>
+
+    <div class="leaderSub">
+      Your best local scores
+    </div>
+
+  </div>
+
+
+  <div
+    class="leaderList"
+    id="leaderList"
+  ></div>
+
+
+  <button
+    class="leaderboardBtn"
+    id="leaderboardBack"
+  >
+    ← BACK
+  </button>
+
+</div>
+
+
+
+<!-- =========================
      RACE
 ========================= -->
 
@@ -1039,22 +1319,30 @@ button {
 
     <span>
       🏆
-      <span id="score">0</span>
+      <span id="score">
+        0
+      </span>
     </span>
 
     <span>
       🪙
-      <span id="raceCoins">0</span>
+      <span id="raceCoins">
+        0
+      </span>
     </span>
 
     <span>
       📏
-      <span id="distance">0</span>m
+      <span id="distance">
+        0
+      </span>m
     </span>
 
     <span>
       ❤️
-      <span id="lives">3</span>
+      <span id="lives">
+        3
+      </span>
     </span>
 
   </div>
@@ -1215,6 +1503,24 @@ const cars = [
 
 
 /* =========================
+   DAILY REWARD DATA
+========================= */
+
+const dailyRewards = [
+
+  25,
+  50,
+  75,
+  100,
+  150,
+  200,
+  500
+
+];
+
+
+
+/* =========================
    SAVED GAME
 ========================= */
 
@@ -1227,23 +1533,35 @@ let saved =
 
 
 if (
-  typeof saved.coins !== "number"
-) saved.coins = 0;
+  typeof saved.coins !==
+  "number"
+) {
+  saved.coins = 0;
+}
 
 
 if (
-  typeof saved.best !== "number"
-) saved.best = 0;
+  typeof saved.best !==
+  "number"
+) {
+  saved.best = 0;
+}
 
 
 if (
-  typeof saved.races !== "number"
-) saved.races = 0;
+  typeof saved.races !==
+  "number"
+) {
+  saved.races = 0;
+}
 
 
 if (
-  typeof saved.car !== "number"
-) saved.car = 0;
+  typeof saved.car !==
+  "number"
+) {
+  saved.car = 0;
+}
 
 
 if (
@@ -1251,27 +1569,21 @@ if (
     saved.unlocked
   )
 ) {
-
   saved.unlocked = [0];
-
 }
 
 
 if (
   !saved.unlocked.includes(0)
 ) {
-
   saved.unlocked.push(0);
-
 }
 
 
-/*
-   Mission data.
 
-   Existing players get
-   fresh mission progress.
-*/
+/* =========================
+   MISSIONS SAVE
+========================= */
 
 if (
   !saved.missions
@@ -1300,9 +1612,7 @@ if (
   typeof saved.missions.coins !==
   "number"
 ) {
-
   saved.missions.coins = 0;
-
 }
 
 
@@ -1310,9 +1620,7 @@ if (
   typeof saved.missions.distance !==
   "number"
 ) {
-
   saved.missions.distance = 0;
-
 }
 
 
@@ -1320,9 +1628,7 @@ if (
   typeof saved.missions.powerups !==
   "number"
 ) {
-
   saved.missions.powerups = 0;
-
 }
 
 
@@ -1330,9 +1636,7 @@ if (
   typeof saved.missions.coinRewarded !==
   "boolean"
 ) {
-
   saved.missions.coinRewarded = false;
-
 }
 
 
@@ -1340,9 +1644,7 @@ if (
   typeof saved.missions.distanceRewarded !==
   "boolean"
 ) {
-
   saved.missions.distanceRewarded = false;
-
 }
 
 
@@ -1350,8 +1652,51 @@ if (
   typeof saved.missions.powerupRewarded !==
   "boolean"
 ) {
-
   saved.missions.powerupRewarded = false;
+}
+
+
+
+/* =========================
+   DAILY SAVE
+========================= */
+
+if (
+  typeof saved.dailyStreak !==
+  "number"
+) {
+  saved.dailyStreak = 0;
+}
+
+
+if (
+  typeof saved.dailyLastClaim !==
+  "string"
+) {
+  saved.dailyLastClaim = "";
+}
+
+
+if (
+  typeof saved.dailyDay !==
+  "number"
+) {
+  saved.dailyDay = 0;
+}
+
+
+
+/* =========================
+   LEADERBOARD SAVE
+========================= */
+
+if (
+  !Array.isArray(
+    saved.leaderboard
+  )
+) {
+
+  saved.leaderboard = [];
 
 }
 
@@ -1426,6 +1771,16 @@ const missions =
     "missions"
   );
 
+const daily =
+  document.getElementById(
+    "daily"
+  );
+
+const leaderboard =
+  document.getElementById(
+    "leaderboard"
+  );
+
 const race =
   document.getElementById(
     "race"
@@ -1447,6 +1802,17 @@ const missionButton =
     "missionButton"
   );
 
+const dailyButton =
+  document.getElementById(
+    "dailyButton"
+  );
+
+const leaderboardButton =
+  document.getElementById(
+    "leaderboardButton"
+  );
+
+
 const garageStart =
   document.getElementById(
     "garageStart"
@@ -1460,6 +1826,16 @@ const backHome =
 const missionsBack =
   document.getElementById(
     "missionsBack"
+  );
+
+const dailyBack =
+  document.getElementById(
+    "dailyBack"
+  );
+
+const leaderboardBack =
+  document.getElementById(
+    "leaderboardBack"
   );
 
 
@@ -1560,9 +1936,27 @@ const magnetStatus =
   );
 
 
+const streakNumber =
+  document.getElementById(
+    "streakNumber"
+  );
+
+
+const rewardList =
+  document.getElementById(
+    "rewardList"
+  );
+
+
+const leaderList =
+  document.getElementById(
+    "leaderList"
+  );
+
+
 
 /* =========================
-   SAVE
+   SAVE GAME
 ========================= */
 
 function saveGame() {
@@ -1621,6 +2015,14 @@ function showScreen(screen) {
     "active"
   );
 
+  daily.classList.remove(
+    "active"
+  );
+
+  leaderboard.classList.remove(
+    "active"
+  );
+
   race.classList.remove(
     "active"
   );
@@ -1646,8 +2048,6 @@ function updateMissions() {
   missionCoinsText.textContent =
     saved.coins;
 
-
-  /* COINS */
 
   const coinProgress =
     Math.min(
@@ -1693,8 +2093,6 @@ function updateMissions() {
   }
 
 
-
-  /* DISTANCE */
 
   const distanceProgress =
     Math.min(
@@ -1742,8 +2140,6 @@ function updateMissions() {
   }
 
 
-
-  /* POWER-UPS */
 
   const powerProgress =
     Math.min(
@@ -1793,7 +2189,7 @@ function updateMissions() {
 
 
 /* =========================
-   CHECK MISSION REWARDS
+   MISSION REWARDS
 ========================= */
 
 function checkMissionRewards() {
@@ -1802,8 +2198,7 @@ function checkMissionRewards() {
     saved.missions;
 
 
-  let reward =
-    0;
+  let reward = 0;
 
 
   if (
@@ -1852,7 +2247,6 @@ function checkMissionRewards() {
     saved.coins +=
       reward;
 
-
     saveGame();
 
   }
@@ -1862,7 +2256,7 @@ function checkMissionRewards() {
 
 
 /* =========================
-   OPEN MISSIONS
+   MISSIONS OPEN
 ========================= */
 
 missionButton.addEventListener(
@@ -2119,7 +2513,7 @@ garageStart.addEventListener(
 
 
 /* =========================
-   GARAGE OPEN
+   GARAGE
 ========================= */
 
 garageButton.addEventListener(
@@ -2137,6 +2531,687 @@ garageButton.addEventListener(
 
 
 backHome.addEventListener(
+  "click",
+  function() {
+
+    updateHome();
+
+    showScreen(
+      home
+    );
+
+  }
+);
+
+
+
+/* =========================
+   DAILY DATE
+========================= */
+
+function todayString() {
+
+  const d =
+    new Date();
+
+
+  return (
+    d.getFullYear() +
+    "-" +
+    String(
+      d.getMonth() + 1
+    ).padStart(2,"0") +
+    "-" +
+    String(
+      d.getDate()
+    ).padStart(2,"0")
+  );
+
+}
+
+
+function yesterdayString() {
+
+  const d =
+    new Date();
+
+
+  d.setDate(
+    d.getDate() - 1
+  );
+
+
+  return (
+    d.getFullYear() +
+    "-" +
+    String(
+      d.getMonth() + 1
+    ).padStart(2,"0") +
+    "-" +
+    String(
+      d.getDate()
+    ).padStart(2,"0")
+  );
+
+}
+
+
+
+/* =========================
+   DAILY REWARD STATUS
+========================= */
+
+function updateDaily() {
+
+  const today =
+    todayString();
+
+
+  const alreadyClaimed =
+    saved.dailyLastClaim ===
+    today;
+
+
+  streakNumber.textContent =
+    saved.dailyStreak;
+
+
+  rewardList.innerHTML = "";
+
+
+  for (
+    let i = 0;
+    i < 7;
+    i++
+  ) {
+
+    const day =
+      i + 1;
+
+
+    const item =
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "rewardDay";
+
+
+    if (
+      day ===
+      saved.dailyDay + 1 &&
+      !alreadyClaimed
+    ) {
+
+      item.classList.add(
+        "current"
+      );
+
+    }
+
+
+    if (
+      day <=
+      saved.dailyDay
+    ) {
+
+      item.classList.add(
+        "claimed"
+      );
+
+    }
+
+
+    const number =
+      document.createElement(
+        "div"
+      );
+
+
+    number.className =
+      "rewardNumber";
+
+
+    number.textContent =
+      day;
+
+
+    const info =
+      document.createElement(
+        "div"
+      );
+
+
+    info.className =
+      "rewardInfo";
+
+
+    info.innerHTML =
+      "<b>Day " +
+      day +
+      "</b><br>" +
+      "<small>Daily reward</small>";
+
+
+    const amount =
+      document.createElement(
+        "div"
+      );
+
+
+    amount.className =
+      "rewardAmount";
+
+
+    amount.textContent =
+      "🪙 " +
+      dailyRewards[i];
+
+
+    item.appendChild(
+      number
+    );
+
+    item.appendChild(
+      info
+    );
+
+    item.appendChild(
+      amount
+    );
+
+
+    /*
+       Only show claim button
+       for today's reward.
+    */
+
+    if (
+      day ===
+      saved.dailyDay + 1 &&
+      !alreadyClaimed
+    ) {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "claimBtn";
+
+
+      button.textContent =
+        "CLAIM";
+
+
+      button.addEventListener(
+        "click",
+        claimDailyReward
+      );
+
+
+      item.appendChild(
+        button
+      );
+
+    }
+
+    else if (
+      day <=
+      saved.dailyDay
+    ) {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "claimedBtn";
+
+
+      button.textContent =
+        "✓ CLAIMED";
+
+
+      button.disabled =
+        true;
+
+
+      item.appendChild(
+        button
+      );
+
+    }
+
+
+    rewardList.appendChild(
+      item
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   CLAIM DAILY
+========================= */
+
+function claimDailyReward() {
+
+  const today =
+    todayString();
+
+
+  if (
+    saved.dailyLastClaim ===
+    today
+  ) {
+
+    alert(
+      "Today's reward is already claimed."
+    );
+
+    return;
+
+  }
+
+
+  /*
+     If yesterday was claimed,
+     continue the streak.
+
+     Otherwise start again
+     from Day 1.
+  */
+
+  if (
+    saved.dailyLastClaim ===
+    yesterdayString()
+  ) {
+
+    saved.dailyStreak++;
+
+  }
+
+  else {
+
+    saved.dailyStreak = 1;
+
+  }
+
+
+  /*
+     Day 7 loops back to Day 1
+     after claiming.
+  */
+
+  if (
+    saved.dailyStreak >
+    7
+  ) {
+
+    saved.dailyStreak = 1;
+
+  }
+
+
+  saved.dailyDay =
+    saved.dailyStreak;
+
+
+  const reward =
+    dailyRewards[
+      saved.dailyDay - 1
+    ];
+
+
+  saved.coins +=
+    reward;
+
+
+  saved.dailyLastClaim =
+    today;
+
+
+  saveGame();
+
+
+  updateHome();
+
+  updateDaily();
+
+
+  alert(
+    "🎁 Daily reward claimed!\n\n" +
+    "You received " +
+    reward +
+    " coins."
+  );
+
+}
+
+
+
+/* =========================
+   DAILY OPEN
+========================= */
+
+dailyButton.addEventListener(
+  "click",
+  function() {
+
+    updateDaily();
+
+    showScreen(
+      daily
+    );
+
+  }
+);
+
+
+dailyBack.addEventListener(
+  "click",
+  function() {
+
+    updateHome();
+
+    showScreen(
+      home
+    );
+
+  }
+);
+
+
+
+/* =========================
+   LEADERBOARD
+========================= */
+
+function updateLeaderboard() {
+
+  leaderList.innerHTML = "";
+
+
+  const scores =
+    [...saved.leaderboard];
+
+
+  /*
+     Always show the player's
+     current best score.
+  */
+
+  if (
+    saved.best > 0
+  ) {
+
+    const exists =
+      scores.some(
+        item =>
+          item.score ===
+          saved.best * 2
+      );
+
+
+    if (!exists) {
+
+      scores.push({
+
+        name: "You",
+
+        score:
+          saved.best * 2,
+
+        distance:
+          saved.best
+
+      });
+
+    }
+
+  }
+
+
+  scores.sort(
+    (a,b) =>
+      b.score -
+      a.score
+  );
+
+
+  const top =
+    scores.slice(
+      0,
+      10
+    );
+
+
+  if (
+    top.length === 0
+  ) {
+
+    leaderList.innerHTML =
+      '<div class="emptyLeaderboard">' +
+      '🏁 Play your first race to appear here!' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  top.forEach(
+    (item,index) => {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "leaderRow";
+
+
+      if (
+        item.name ===
+        "You"
+      ) {
+
+        row.classList.add(
+          "me"
+        );
+
+      }
+
+
+      const rank =
+        document.createElement(
+          "div"
+        );
+
+
+      rank.className =
+        "rank";
+
+
+      if (
+        index === 0
+      ) {
+
+        rank.textContent =
+          "🥇";
+
+      }
+
+      else if (
+        index === 1
+      ) {
+
+        rank.textContent =
+          "🥈";
+
+      }
+
+      else if (
+        index === 2
+      ) {
+
+        rank.textContent =
+          "🥉";
+
+      }
+
+      else {
+
+        rank.textContent =
+          "#" +
+          (index + 1);
+
+      }
+
+
+      const name =
+        document.createElement(
+          "div"
+        );
+
+
+      name.className =
+        "playerName";
+
+
+      name.textContent =
+        item.name;
+
+
+      const scoreBox =
+        document.createElement(
+          "div"
+        );
+
+
+      scoreBox.className =
+        "playerScore";
+
+
+      scoreBox.innerHTML =
+        "<b>" +
+        item.score +
+        " pts</b>" +
+        "<small>" +
+        Math.floor(
+          item.distance
+        ) +
+        "m</small>";
+
+
+      row.appendChild(
+        rank
+      );
+
+      row.appendChild(
+        name
+      );
+
+      row.appendChild(
+        scoreBox
+      );
+
+
+      leaderList.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+
+/* =========================
+   ADD SCORE
+========================= */
+
+function addLeaderboardScore() {
+
+  const newScore = {
+
+    name: "You",
+
+    score:
+      Math.floor(
+        score
+      ),
+
+    distance:
+      Math.floor(
+        distance
+      )
+
+  };
+
+
+  saved.leaderboard.push(
+    newScore
+  );
+
+
+  /*
+     Keep only the best
+     20 local scores.
+  */
+
+  saved.leaderboard.sort(
+    (a,b) =>
+      b.score -
+      a.score
+  );
+
+
+  saved.leaderboard =
+    saved.leaderboard.slice(
+      0,
+      20
+    );
+
+
+  saveGame();
+
+}
+
+
+
+/* =========================
+   LEADERBOARD OPEN
+========================= */
+
+leaderboardButton.addEventListener(
+  "click",
+  function() {
+
+    updateLeaderboard();
+
+    showScreen(
+      leaderboard
+    );
+
+  }
+);
+
+
+leaderboardBack.addEventListener(
   "click",
   function() {
 
@@ -2509,7 +3584,7 @@ function spawnTraffic() {
 
 
 /* =========================
-   COINS
+   COIN
 ========================= */
 
 function spawnCoin() {
@@ -2568,7 +3643,7 @@ function spawnCoin() {
 
 
 /* =========================
-   POWER-UPS
+   POWER-UP
 ========================= */
 
 function spawnPowerup() {
@@ -2697,7 +3772,7 @@ function hitPlayer(
 
 
 /* =========================
-   ACTIVATE POWERUP
+   ACTIVATE POWER-UP
 ========================= */
 
 function activatePowerup(
@@ -2708,7 +3783,8 @@ function activatePowerup(
     type === "shield"
   ) {
 
-    shieldActive = true;
+    shieldActive =
+      true;
 
   }
 
@@ -2717,7 +3793,8 @@ function activatePowerup(
     type === "turbo"
   ) {
 
-    turboTime = 5;
+    turboTime =
+      5;
 
   }
 
@@ -2726,7 +3803,8 @@ function activatePowerup(
     type === "magnet"
   ) {
 
-    magnetTime = 7;
+    magnetTime =
+      7;
 
   }
 
@@ -2745,10 +3823,6 @@ function activatePowerup(
 
   }
 
-
-  /*
-     Mission progress.
-  */
 
   saved.missions.powerups++;
 
@@ -2817,8 +3891,6 @@ function gameLoop(time) {
     time;
 
 
-  /* DIFFICULTY */
-
   difficulty =
     1 +
     Math.floor(
@@ -2839,8 +3911,6 @@ function gameLoop(time) {
     );
 
 
-  /* TURBO */
-
   if (
     turboTime > 0
   ) {
@@ -2854,8 +3924,6 @@ function gameLoop(time) {
 
   }
 
-
-  /* MAGNET */
 
   if (
     magnetTime > 0
@@ -2877,8 +3945,6 @@ function gameLoop(time) {
   }
 
 
-  /* DISTANCE */
-
   distance +=
     dt *
     55 *
@@ -2890,13 +3956,6 @@ function gameLoop(time) {
       distance * 2
     );
 
-
-  /* MISSION DISTANCE */
-
-  /*
-     Add distance from this race
-     to permanent mission progress.
-  */
 
   saved.missions.distance +=
     dt *
@@ -2916,9 +3975,6 @@ function gameLoop(time) {
   powerupTimer +=
     dt;
 
-
-
-  /* TRAFFIC */
 
   const trafficInterval =
     Math.max(
@@ -2943,9 +3999,6 @@ function gameLoop(time) {
   }
 
 
-
-  /* COINS */
-
   if (
     coinTimer >
     0.8
@@ -2957,9 +4010,6 @@ function gameLoop(time) {
 
   }
 
-
-
-  /* POWER-UPS */
 
   if (
     powerupTimer >
@@ -2982,9 +4032,7 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     TRAFFIC
-  ========================= */
+  /* TRAFFIC */
 
   traffic.forEach(
     obj => {
@@ -3065,16 +4113,10 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     COINS
-  ========================= */
+  /* COINS */
 
   coins.forEach(
     obj => {
-
-      /*
-         Magnet.
-      */
 
       if (
         magnetTime > 0
@@ -3133,10 +4175,6 @@ function gameLoop(time) {
         raceCoins++;
 
 
-        /*
-           Mission coin progress.
-        */
-
         saved.missions.coins++;
 
 
@@ -3162,9 +4200,7 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     POWER-UPS
-  ========================= */
+  /* POWER-UPS */
 
   powerups.forEach(
     obj => {
@@ -3210,9 +4246,7 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     REMOVE TRAFFIC
-  ========================= */
+  /* REMOVE TRAFFIC */
 
   traffic =
     traffic.filter(
@@ -3237,9 +4271,7 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     REMOVE COINS
-  ========================= */
+  /* REMOVE COINS */
 
   coins =
     coins.filter(
@@ -3264,9 +4296,7 @@ function gameLoop(time) {
 
 
 
-  /* =========================
-     REMOVE POWERUPS
-  ========================= */
+  /* REMOVE POWERUPS */
 
   powerups =
     powerups.filter(
@@ -3363,9 +4393,7 @@ function endRace() {
 
 
   if (
-    Math.floor(
-      distance
-    ) >
+    Math.floor(distance) >
     saved.best
   ) {
 
@@ -3375,6 +4403,9 @@ function endRace() {
       );
 
   }
+
+
+  addLeaderboardScore();
 
 
   saveGame();
@@ -3468,6 +4499,10 @@ updateHome();
 updateGarage();
 
 updateMissions();
+
+updateDaily();
+
+updateLeaderboard();
 
 </script>
 

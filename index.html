@@ -401,7 +401,7 @@ function updateHUD(){scoreText.textContent=Math.floor(score);raceCoinsText.textC
 function endRace(){if(!running)return;running=false;cancelAnimationFrame(animationFrame);speedFX.classList.remove("active","fast");updateNitro();saved.coins+=raceCoins;saved.races++;const finalDistance=Math.floor(distance),wasBest=finalDistance>saved.best;if(wasBest)saved.best=finalDistance;addLeaderboardScore();saveGame();updateHome();finalText.innerHTML="Score: <b>"+Math.floor(score)+"</b><br>Distance: <b>"+finalDistance+"m</b><br>Coins: <b>+"+raceCoins+" 🪙</b><br>Near Misses: <b>"+nearMisses+"</b><br><span class='nearMissText'>Nitro charged: "+Math.floor(nitro)+"%</span><br><small style='color:#9fa7bd'>An advertisement may appear between races. Playing is never blocked by ads.</small>";bestBadge.classList.toggle("hidden",!wasBest);gameOver.classList.remove("hidden");beep(wasBest?1000:320,.12)}
 
 let AdController=null;
-try{if(window.Adsgram)AdController=window.Adsgram.init({blockId:"int-47362"})}catch(e){console.log("AdsGram init:",e)}
+try{if(window.Adsgram)AdController=window.Adsgram.init({blockId:"int-47387"})}catch(e){console.log("AdsGram init:",e)}
 againButton.addEventListener("click",async()=>{gameOver.classList.add("hidden");if(AdController){try{await AdController.show()}catch(e){console.log("AdsGram:",e)}}startRace()});
 raceHome.addEventListener("click",()=>{running=false;cancelAnimationFrame(animationFrame);gameOver.classList.add("hidden");speedFX.classList.remove("active","fast");updateHome();showScreen(home)});
 window.addEventListener("resize",()=>{if(running)placePlayer()});

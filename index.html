@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Turbo Rush</title>
 
 <style>
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -30,7 +32,11 @@ body {
   display: flex;
 }
 
-/* HOME */
+
+/* =========================
+   HOME
+========================= */
+
 #home {
   background: linear-gradient(160deg,#10182f,#28134a);
   flex-direction: column;
@@ -75,8 +81,8 @@ h1 {
 button {
   border: 0;
   border-radius: 15px;
-  padding: 16px 28px;
-  font-size: 18px;
+  padding: 14px 20px;
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -94,33 +100,45 @@ button {
   color: white;
 }
 
-/* GARAGE */
+
+/* =========================
+   GARAGE
+========================= */
+
 #garage {
   background: linear-gradient(160deg,#10182f,#28134a);
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px;
+  padding: 25px 15px;
   overflow-y: auto;
 }
 
 #garage h2 {
-  margin-top: 10px;
+  margin: 5px 0;
+}
+
+.garageCoins {
+  background: rgba(255,255,255,.1);
+  padding: 10px 18px;
+  border-radius: 14px;
+  margin: 10px 0 15px;
+  font-weight: bold;
 }
 
 .cars {
   width: 100%;
-  max-width: 450px;
+  max-width: 460px;
 }
 
 .car {
   background: rgba(255,255,255,.1);
   border: 2px solid transparent;
-  padding: 18px;
+  padding: 14px;
   border-radius: 18px;
-  margin: 10px 0;
+  margin: 9px 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 }
 
 .car.selected {
@@ -128,23 +146,54 @@ button {
 }
 
 .carEmoji {
-  font-size: 45px;
+  font-size: 42px;
+  width: 55px;
+  text-align: center;
 }
 
 .carInfo {
   flex: 1;
-  margin-left: 15px;
 }
 
 .carInfo b {
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .carInfo small {
   color: #aaa;
+  line-height: 1.6;
 }
 
-/* RACE */
+.carAction {
+  min-width: 90px;
+  padding: 10px 8px;
+  font-size: 13px;
+}
+
+.buyBtn {
+  background: #ffcc00;
+  color: #111;
+}
+
+.selectBtn {
+  background: #fff;
+  color: #111;
+}
+
+.selectedBtn {
+  background: #444;
+  color: #aaa;
+}
+
+.locked {
+  opacity: .85;
+}
+
+
+/* =========================
+   RACE
+========================= */
+
 #race {
   position: relative;
   background: #222;
@@ -160,13 +209,13 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 5px;
-  font-weight: bold;
 }
 
 .hud span {
   background: rgba(0,0,0,.65);
   padding: 7px 8px;
   border-radius: 10px;
+  font-weight: bold;
   font-size: 14px;
   white-space: nowrap;
 }
@@ -195,13 +244,14 @@ button {
   top: -100px;
   bottom: -100px;
   width: 5px;
-  background: repeating-linear-gradient(
-    to bottom,
-    white 0px,
-    white 60px,
-    transparent 60px,
-    transparent 120px
-  );
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      white 0px,
+      white 60px,
+      transparent 60px,
+      transparent 120px
+    );
   opacity: .7;
 }
 
@@ -274,7 +324,11 @@ button {
   display: none !important;
 }
 
-/* GAME OVER */
+
+/* =========================
+   GAME OVER
+========================= */
+
 .gameOver {
   position: absolute;
   inset: 0;
@@ -307,186 +361,386 @@ button {
   color: white;
   margin-top: 10px;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+  .hud {
+    gap: 3px;
+  }
+
+  .hud span {
+    font-size: 11px;
+    padding: 6px 5px;
+  }
+
+  .carEmoji {
+    font-size: 35px;
+    width: 45px;
+  }
+
+  .carInfo b {
+    font-size: 15px;
+  }
+
+  .carInfo small {
+    font-size: 11px;
+  }
+
+  .carAction {
+    min-width: 75px;
+    font-size: 11px;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- HOME -->
+
+<!-- =========================
+     HOME
+========================= -->
+
 <div id="home" class="screen active">
 
-  <div class="logo">🏎️</div>
+  <div class="logo">
+    🏎️
+  </div>
 
-  <h1>Turbo Rush</h1>
+  <h1>
+    Turbo Rush
+  </h1>
 
   <div class="subtitle">
     Dodge. Drive. Survive.
   </div>
 
+
   <div class="stats">
 
     <div class="stat">
-      🪙 <b id="homeCoins">0</b>
+      🪙
+      <b id="homeCoins">0</b>
       Coins
     </div>
 
     <div class="stat">
-      🏆 <b id="homeBest">0</b>
+      🏆
+      <b id="homeBest">0</b>
       Best
     </div>
 
     <div class="stat">
-      🏁 <b id="homeRaces">0</b>
+      🏁
+      <b id="homeRaces">0</b>
       Races
     </div>
 
   </div>
 
-  <button class="startBtn" id="startButton">
+
+  <button
+    class="startBtn"
+    id="startButton"
+  >
     ▶ START RACE
   </button>
 
-  <button class="garageBtn" id="garageButton">
+
+  <button
+    class="garageBtn"
+    id="garageButton"
+  >
     🚘 GARAGE
   </button>
 
 </div>
 
 
-<!-- GARAGE -->
+
+<!-- =========================
+     GARAGE
+========================= -->
+
 <div id="garage" class="screen">
 
-  <h2>🚘 Your Garage</h2>
+  <h2>
+    🚘 Your Garage
+  </h2>
 
-  <p>Select your car</p>
+  <div class="garageCoins">
+    🪙 Coins:
+    <span id="garageCoins">0</span>
+  </div>
+
 
   <div class="cars">
 
-    <div class="car selected" data-car="0">
 
-      <div class="carEmoji">🚗</div>
+    <!-- CAR 1 -->
 
-      <div class="carInfo">
-        <b>Street Fox</b><br>
-        <small>Speed: ★★★☆☆</small>
+    <div
+      class="car"
+      data-car="0"
+    >
+
+      <div class="carEmoji">
+        🚗
       </div>
 
-      <span>✓</span>
+      <div class="carInfo">
+
+        <b>
+          Street Fox
+        </b>
+
+        <br>
+
+        <small>
+          Speed: ★★★☆☆
+          <br>
+          Free starter car
+        </small>
+
+      </div>
+
+      <button
+        class="carAction"
+        data-action="select"
+      >
+        SELECT
+      </button>
 
     </div>
 
 
-    <div class="car" data-car="1">
 
-      <div class="carEmoji">🏎️</div>
+    <!-- CAR 2 -->
 
-      <div class="carInfo">
-        <b>Rapid GT</b><br>
-        <small>Speed: ★★★★☆</small>
+    <div
+      class="car"
+      data-car="1"
+    >
+
+      <div class="carEmoji">
+        🏎️
       </div>
 
-      <span></span>
+      <div class="carInfo">
+
+        <b>
+          Rapid GT
+        </b>
+
+        <br>
+
+        <small>
+          Speed: ★★★★☆
+          <br>
+          Price: 🪙 100
+        </small>
+
+      </div>
+
+      <button
+        class="carAction"
+        data-action="buy"
+      >
+        BUY 100
+      </button>
 
     </div>
 
 
-    <div class="car" data-car="2">
 
-      <div class="carEmoji">🚀</div>
+    <!-- CAR 3 -->
 
-      <div class="carInfo">
-        <b>Rocket</b><br>
-        <small>Speed: ★★★★☆</small>
+    <div
+      class="car"
+      data-car="2"
+    >
+
+      <div class="carEmoji">
+        🚀
       </div>
 
-      <span></span>
+      <div class="carInfo">
+
+        <b>
+          Rocket
+        </b>
+
+        <br>
+
+        <small>
+          Speed: ★★★★☆
+          <br>
+          Price: 🪙 300
+        </small>
+
+      </div>
+
+      <button
+        class="carAction"
+        data-action="buy"
+      >
+        BUY 300
+      </button>
 
     </div>
 
 
-    <div class="car" data-car="3">
 
-      <div class="carEmoji">⚡</div>
+    <!-- CAR 4 -->
 
-      <div class="carInfo">
-        <b>Volt</b><br>
-        <small>Speed: ★★★★★</small>
+    <div
+      class="car"
+      data-car="3"
+    >
+
+      <div class="carEmoji">
+        ⚡
       </div>
 
-      <span></span>
+      <div class="carInfo">
+
+        <b>
+          Volt
+        </b>
+
+        <br>
+
+        <small>
+          Speed: ★★★★★
+          <br>
+          Price: 🪙 700
+        </small>
+
+      </div>
+
+      <button
+        class="carAction"
+        data-action="buy"
+      >
+        BUY 700
+      </button>
 
     </div>
+
 
   </div>
 
 
-  <button class="startBtn" id="garageStart">
+  <button
+    class="startBtn"
+    id="garageStart"
+  >
     ▶ START RACE
   </button>
 
-  <button class="garageBtn" id="backHome">
+
+  <button
+    class="garageBtn"
+    id="backHome"
+  >
     ← BACK
   </button>
 
 </div>
 
 
-<!-- RACE -->
+
+<!-- =========================
+     RACE
+========================= -->
+
 <div id="race" class="screen">
+
 
   <div class="hud">
 
     <span>
-      🏆 <span id="score">0</span>
+      🏆
+      <span id="score">0</span>
     </span>
 
     <span>
-      🪙 <span id="raceCoins">0</span>
+      🪙
+      <span id="raceCoins">0</span>
     </span>
 
     <span>
-      📏 <span id="distance">0</span>m
+      📏
+      <span id="distance">0</span>m
     </span>
 
     <span>
-      ❤️ <span id="lives">3</span>
+      ❤️
+      <span id="lives">3</span>
     </span>
 
   </div>
 
 
-  <div class="road" id="road">
+  <div
+    class="road"
+    id="road"
+  >
 
     <div class="laneLine lane1"></div>
 
     <div class="laneLine lane2"></div>
 
-    <div id="player" class="carPlayer">
+
+    <div
+      id="player"
+      class="carPlayer"
+    >
       🚗
     </div>
 
   </div>
 
 
-  <div id="countdown" class="countdown">
+  <div
+    id="countdown"
+    class="countdown"
+  >
     3
   </div>
 
 
   <div class="controls">
 
-    <button class="controlBtn" id="leftButton">
+    <button
+      class="controlBtn"
+      id="leftButton"
+    >
       ⬅️
     </button>
 
-    <button class="controlBtn" id="rightButton">
+    <button
+      class="controlBtn"
+      id="rightButton"
+    >
       ➡️
     </button>
 
   </div>
 
 
-  <div id="gameOver" class="gameOver hidden">
+  <div
+    id="gameOver"
+    class="gameOver hidden"
+  >
 
     <h2>
       💥 CRASH!
@@ -494,11 +748,19 @@ button {
 
     <p id="finalText"></p>
 
-    <button class="againBtn" id="againButton">
+
+    <button
+      class="againBtn"
+      id="againButton"
+    >
       🔄 RACE AGAIN
     </button>
 
-    <button class="homeBtn" id="raceHome">
+
+    <button
+      class="homeBtn"
+      id="raceHome"
+    >
       🏠 HOME
     </button>
 
@@ -507,48 +769,128 @@ button {
 </div>
 
 
+
 <script>
 
+
 /* =========================
-   GAME DATA
+   CAR DATA
 ========================= */
 
 const cars = [
 
   {
-    emoji:"🚗",
-    speed:1.00
+    emoji: "🚗",
+    speed: 1.00,
+    price: 0
   },
 
   {
-    emoji:"🏎️",
-    speed:1.08
+    emoji: "🏎️",
+    speed: 1.08,
+    price: 100
   },
 
   {
-    emoji:"🚀",
-    speed:1.16
+    emoji: "🚀",
+    speed: 1.16,
+    price: 300
   },
 
   {
-    emoji:"⚡",
-    speed:1.25
+    emoji: "⚡",
+    speed: 1.25,
+    price: 700
   }
 
 ];
 
 
-let saved = JSON.parse(
-  localStorage.getItem("turboRush")
-) || {
 
-  coins: 0,
-  best: 0,
-  races: 0,
-  car: 0
+/* =========================
+   SAVED GAME
+========================= */
 
-};
+let saved =
+  JSON.parse(
+    localStorage.getItem(
+      "turboRush"
+    )
+  ) || {};
 
+
+/*
+   Make sure old players
+   don't lose their progress.
+*/
+
+if (
+  typeof saved.coins !== "number"
+) {
+  saved.coins = 0;
+}
+
+
+if (
+  typeof saved.best !== "number"
+) {
+  saved.best = 0;
+}
+
+
+if (
+  typeof saved.races !== "number"
+) {
+  saved.races = 0;
+}
+
+
+if (
+  typeof saved.car !== "number"
+) {
+  saved.car = 0;
+}
+
+
+/*
+   New unlocked-car system.
+
+   Existing players automatically
+   keep Street Fox unlocked.
+*/
+
+if (
+  !Array.isArray(saved.unlocked)
+) {
+
+  saved.unlocked = [0];
+
+}
+
+
+/*
+   Make sure car 0 is always unlocked.
+*/
+
+if (
+  !saved.unlocked.includes(0)
+) {
+
+  saved.unlocked.push(0);
+
+}
+
+
+localStorage.setItem(
+  "turboRush",
+  JSON.stringify(saved)
+);
+
+
+
+/* =========================
+   GAME VARIABLES
+========================= */
 
 let running = false;
 
@@ -579,96 +921,127 @@ let coinTimer = 0;
 let animationFrame;
 
 
+
 /* =========================
    ELEMENTS
 ========================= */
 
 const home =
-  document.getElementById("home");
+  document.getElementById(
+    "home"
+  );
 
 const garage =
-  document.getElementById("garage");
+  document.getElementById(
+    "garage"
+  );
 
 const race =
-  document.getElementById("race");
+  document.getElementById(
+    "race"
+  );
 
 
 const startButton =
-  document.getElementById("startButton");
+  document.getElementById(
+    "startButton"
+  );
 
 const garageButton =
-  document.getElementById("garageButton");
+  document.getElementById(
+    "garageButton"
+  );
 
 const garageStart =
-  document.getElementById("garageStart");
+  document.getElementById(
+    "garageStart"
+  );
 
 const backHome =
-  document.getElementById("backHome");
+  document.getElementById(
+    "backHome"
+  );
 
 
 const road =
-  document.getElementById("road");
+  document.getElementById(
+    "road"
+  );
 
 const player =
-  document.getElementById("player");
+  document.getElementById(
+    "player"
+  );
 
 
 const scoreText =
-  document.getElementById("score");
+  document.getElementById(
+    "score"
+  );
 
 const raceCoinsText =
-  document.getElementById("raceCoins");
+  document.getElementById(
+    "raceCoins"
+  );
 
 const distanceText =
-  document.getElementById("distance");
+  document.getElementById(
+    "distance"
+  );
 
 const livesText =
-  document.getElementById("lives");
+  document.getElementById(
+    "lives"
+  );
 
 
 const countdown =
-  document.getElementById("countdown");
+  document.getElementById(
+    "countdown"
+  );
 
 const gameOver =
-  document.getElementById("gameOver");
+  document.getElementById(
+    "gameOver"
+  );
 
 const finalText =
-  document.getElementById("finalText");
+  document.getElementById(
+    "finalText"
+  );
 
 
 const leftButton =
-  document.getElementById("leftButton");
+  document.getElementById(
+    "leftButton"
+  );
 
 const rightButton =
-  document.getElementById("rightButton");
+  document.getElementById(
+    "rightButton"
+  );
 
 
 const againButton =
-  document.getElementById("againButton");
+  document.getElementById(
+    "againButton"
+  );
 
 const raceHome =
-  document.getElementById("raceHome");
+  document.getElementById(
+    "raceHome"
+  );
 
 
-/* =========================
-   SCREEN CONTROL
-========================= */
+const garageCoinsText =
+  document.getElementById(
+    "garageCoins"
+  );
 
-function showScreen(screen) {
-
-  home.classList.remove("active");
-
-  garage.classList.remove("active");
-
-  race.classList.remove("active");
-
-  screen.classList.add("active");
-
-}
 
 
 /* =========================
-   SAVE DATA
+   SAVE
 ========================= */
 
 function saveGame() {
@@ -681,71 +1054,271 @@ function saveGame() {
 }
 
 
+
+/* =========================
+   HOME
+========================= */
+
 function updateHome() {
 
   document.getElementById(
     "homeCoins"
-  ).textContent = saved.coins;
+  ).textContent =
+    saved.coins;
 
 
   document.getElementById(
     "homeBest"
-  ).textContent = saved.best;
+  ).textContent =
+    saved.best;
 
 
   document.getElementById(
     "homeRaces"
-  ).textContent = saved.races;
+  ).textContent =
+    saved.races;
 
 }
 
 
-updateHome();
+
+/* =========================
+   SCREEN
+========================= */
+
+function showScreen(screen) {
+
+  home.classList.remove(
+    "active"
+  );
+
+  garage.classList.remove(
+    "active"
+  );
+
+  race.classList.remove(
+    "active"
+  );
+
+  screen.classList.add(
+    "active"
+  );
+
+}
+
 
 
 /* =========================
-   GARAGE
+   GARAGE DISPLAY
 ========================= */
 
-document
-  .querySelectorAll(".car")
-  .forEach(card => {
+function updateGarage() {
 
-    card.addEventListener(
-      "click",
-      () => {
-
-        const index =
-          Number(card.dataset.car);
-
-        saved.car = index;
+  garageCoinsText.textContent =
+    saved.coins;
 
 
-        document
-          .querySelectorAll(".car")
-          .forEach(c => {
+  document
+    .querySelectorAll(".car")
+    .forEach(card => {
 
-            c.classList.remove(
-              "selected"
-            );
+      const index =
+        Number(
+          card.dataset.car
+        );
 
-            c.querySelector(
-              "span"
-            ).textContent = "";
 
-          });
+      const button =
+        card.querySelector(
+          ".carAction"
+        );
 
+
+      const unlocked =
+        saved.unlocked.includes(
+          index
+        );
+
+
+      card.classList.remove(
+        "selected"
+      );
+
+      card.classList.remove(
+        "locked"
+      );
+
+
+      button.classList.remove(
+        "buyBtn"
+      );
+
+      button.classList.remove(
+        "selectBtn"
+      );
+
+      button.classList.remove(
+        "selectedBtn"
+      );
+
+
+      if (
+        saved.car === index
+      ) {
 
         card.classList.add(
           "selected"
         );
 
-        card.querySelector(
-          "span"
-        ).textContent = "✓";
+        button.textContent =
+          "✓ SELECTED";
+
+        button.className =
+          "carAction selectedBtn";
+
+        button.disabled = true;
+
+      }
+
+      else if (unlocked) {
+
+        button.textContent =
+          "SELECT";
+
+        button.className =
+          "carAction selectBtn";
+
+        button.disabled = false;
+
+      }
+
+      else {
+
+        card.classList.add(
+          "locked"
+        );
+
+        button.textContent =
+          "BUY " +
+          cars[index].price;
+
+        button.className =
+          "carAction buyBtn";
+
+        button.disabled = false;
+
+      }
+
+    });
+
+}
+
+
+
+/* =========================
+   GARAGE BUTTON ACTION
+========================= */
+
+document
+  .querySelectorAll(".carAction")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+
+        const card =
+          button.closest(".car");
+
+
+        const index =
+          Number(
+            card.dataset.car
+          );
+
+
+        const car =
+          cars[index];
+
+
+        const unlocked =
+          saved.unlocked.includes(
+            index
+          );
+
+
+        /*
+           BUY
+        */
+
+        if (!unlocked) {
+
+          if (
+            saved.coins <
+            car.price
+          ) {
+
+            alert(
+              "You need " +
+              car.price +
+              " coins to unlock this car."
+            );
+
+            return;
+
+          }
+
+
+          saved.coins -=
+            car.price;
+
+
+          saved.unlocked.push(
+            index
+          );
+
+
+          saved.car =
+            index;
+
+
+          saveGame();
+
+
+          updateHome();
+
+          updateGarage();
+
+
+          alert(
+            car.emoji +
+            " " +
+            "Car unlocked!"
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+           SELECT
+        */
+
+        saved.car =
+          index;
 
 
         saveGame();
+
+
+        updateHome();
+
+        updateGarage();
 
       }
     );
@@ -753,8 +1326,9 @@ document
   });
 
 
+
 /* =========================
-   START BUTTONS
+   HOME START
 ========================= */
 
 startButton.addEventListener(
@@ -767,6 +1341,30 @@ startButton.addEventListener(
 );
 
 
+
+/* =========================
+   GARAGE OPEN
+========================= */
+
+garageButton.addEventListener(
+  "click",
+  function() {
+
+    updateGarage();
+
+    showScreen(
+      garage
+    );
+
+  }
+);
+
+
+
+/* =========================
+   GARAGE START
+========================= */
+
 garageStart.addEventListener(
   "click",
   function() {
@@ -777,16 +1375,40 @@ garageStart.addEventListener(
 );
 
 
+
+/* =========================
+   BACK HOME
+========================= */
+
+backHome.addEventListener(
+  "click",
+  function() {
+
+    updateHome();
+
+    showScreen(
+      home
+    );
+
+  }
+);
+
+
+
 /* =========================
    START RACE
 ========================= */
 
 function startRace() {
 
-  console.log("START RACE");
+  console.log(
+    "START RACE"
+  );
 
 
-  showScreen(race);
+  showScreen(
+    race
+  );
 
 
   running = false;
@@ -814,17 +1436,27 @@ function startRace() {
 
 
   document
-    .querySelectorAll(".traffic")
-    .forEach(x => x.remove());
+    .querySelectorAll(
+      ".traffic"
+    )
+    .forEach(
+      x => x.remove()
+    );
 
 
   document
-    .querySelectorAll(".coin")
-    .forEach(x => x.remove());
+    .querySelectorAll(
+      ".coin"
+    )
+    .forEach(
+      x => x.remove()
+    );
 
 
   player.textContent =
-    cars[saved.car].emoji;
+    cars[
+      saved.car
+    ].emoji;
 
 
   gameOver.classList.add(
@@ -851,61 +1483,71 @@ function startRace() {
 
 
   const timer =
-    setInterval(() => {
+    setInterval(
+      () => {
 
-      count--;
-
-
-      if (count > 0) {
-
-        countdown.textContent =
-          count;
-
-      }
-
-      else if (count === 0) {
-
-        countdown.textContent =
-          "GO!";
-
-      }
-
-      else {
-
-        clearInterval(timer);
+        count--;
 
 
-        countdown.classList.add(
-          "hidden"
-        );
+        if (
+          count > 0
+        ) {
 
+          countdown.textContent =
+            count;
 
-        running = true;
+        }
 
+        else if (
+          count === 0
+        ) {
 
-        lastTime =
-          performance.now();
+          countdown.textContent =
+            "GO!";
 
+        }
 
-        spawnTimer = 0;
+        else {
 
-        coinTimer = 0;
-
-
-        animationFrame =
-          requestAnimationFrame(
-            gameLoop
+          clearInterval(
+            timer
           );
 
-      }
 
-    }, 700);
+          countdown.classList.add(
+            "hidden"
+          );
+
+
+          running = true;
+
+
+          lastTime =
+            performance.now();
+
+
+          spawnTimer = 0;
+
+          coinTimer = 0;
+
+
+          animationFrame =
+            requestAnimationFrame(
+              gameLoop
+            );
+
+        }
+
+      },
+      700
+    );
 
 }
 
 
+
 /* =========================
-   PLAYER
+   PLAYER POSITION
 ========================= */
 
 function placePlayer() {
@@ -919,7 +1561,8 @@ function placePlayer() {
 
 
   const x =
-    laneWidth * playerLane +
+    laneWidth *
+      playerLane +
     laneWidth / 2;
 
 
@@ -929,16 +1572,20 @@ function placePlayer() {
 }
 
 
+
 /* =========================
-   MOVE
+   LEFT
 ========================= */
 
 function moveLeft() {
 
-  if (!running) return;
+  if (!running)
+    return;
 
 
-  if (playerLane > 0) {
+  if (
+    playerLane > 0
+  ) {
 
     playerLane--;
 
@@ -949,12 +1596,20 @@ function moveLeft() {
 }
 
 
+
+/* =========================
+   RIGHT
+========================= */
+
 function moveRight() {
 
-  if (!running) return;
+  if (!running)
+    return;
 
 
-  if (playerLane < 2) {
+  if (
+    playerLane < 2
+  ) {
 
     playerLane++;
 
@@ -964,6 +1619,11 @@ function moveRight() {
 
 }
 
+
+
+/* =========================
+   CONTROLS
+========================= */
 
 leftButton.addEventListener(
   "click",
@@ -977,6 +1637,7 @@ rightButton.addEventListener(
 );
 
 
+
 /* =========================
    KEYBOARD
 ========================= */
@@ -986,7 +1647,8 @@ document.addEventListener(
   event => {
 
     if (
-      event.key === "ArrowLeft"
+      event.key ===
+      "ArrowLeft"
     ) {
 
       moveLeft();
@@ -995,7 +1657,8 @@ document.addEventListener(
 
 
     if (
-      event.key === "ArrowRight"
+      event.key ===
+      "ArrowRight"
     ) {
 
       moveRight();
@@ -1006,8 +1669,9 @@ document.addEventListener(
 );
 
 
+
 /* =========================
-   SPAWN TRAFFIC
+   TRAFFIC
 ========================= */
 
 function spawnTraffic() {
@@ -1052,8 +1716,11 @@ function spawnTraffic() {
 
 
   vehicle.style.left =
-    ((lane + 0.5) / 3 * 100)
-    + "%";
+    (
+      (lane + 0.5) /
+      3 *
+      100
+    ) + "%";
 
 
   vehicle.style.top =
@@ -1082,8 +1749,9 @@ function spawnTraffic() {
 }
 
 
+
 /* =========================
-   SPAWN COIN
+   COIN
 ========================= */
 
 function spawnCoin() {
@@ -1109,8 +1777,11 @@ function spawnCoin() {
 
 
   coin.style.left =
-    ((lane + 0.5) / 3 * 100)
-    + "%";
+    (
+      (lane + 0.5) /
+      3 *
+      100
+    ) + "%";
 
 
   coin.style.top =
@@ -1137,14 +1808,18 @@ function spawnCoin() {
 }
 
 
+
 /* =========================
    COLLISION
 ========================= */
 
-function hitPlayer(objY) {
+function hitPlayer(
+  objY
+) {
 
   const playerY =
-    road.clientHeight - 130;
+    road.clientHeight -
+    130;
 
 
   return (
@@ -1162,26 +1837,35 @@ function hitPlayer(objY) {
 }
 
 
+
 /* =========================
    GAME LOOP
 ========================= */
 
 function gameLoop(time) {
 
-  if (!running) return;
+  if (!running)
+    return;
 
 
   const dt =
     Math.min(
-      (time - lastTime) / 1000,
+      (
+        time -
+        lastTime
+      ) / 1000,
       0.05
     );
 
 
-  lastTime = time;
+  lastTime =
+    time;
 
 
-  /* Difficulty */
+  /*
+     Difficulty increases
+     every 150 meters.
+  */
 
   difficulty =
     1 +
@@ -1191,24 +1875,36 @@ function gameLoop(time) {
 
 
   const speedMultiplier =
-    cars[saved.car].speed *
+    cars[
+      saved.car
+    ].speed *
     (
       1 +
-      (difficulty - 1) *
+      (
+        difficulty - 1
+      ) *
       0.08
     );
 
 
-  /* Hit protection */
+  /*
+     Temporary protection
+     after collision.
+  */
 
-  if (hitCooldown > 0) {
+  if (
+    hitCooldown > 0
+  ) {
 
-    hitCooldown -= dt;
+    hitCooldown -=
+      dt;
 
   }
 
 
-  /* Distance */
+  /*
+     Distance
+  */
 
   distance +=
     dt *
@@ -1216,7 +1912,9 @@ function gameLoop(time) {
     speedMultiplier;
 
 
-  /* Score */
+  /*
+     Score
+  */
 
   score =
     Math.floor(
@@ -1224,20 +1922,26 @@ function gameLoop(time) {
     );
 
 
-  /* Spawn timers */
-
-  spawnTimer += dt;
-
-  coinTimer += dt;
+  spawnTimer +=
+    dt;
 
 
-  /* Traffic gets more frequent */
+  coinTimer +=
+    dt;
+
+
+  /*
+     Traffic becomes
+     more frequent.
+  */
 
   const trafficInterval =
     Math.max(
       0.65,
       1.1 -
-      (difficulty - 1) *
+      (
+        difficulty - 1
+      ) *
       0.04
     );
 
@@ -1255,7 +1959,8 @@ function gameLoop(time) {
 
 
   if (
-    coinTimer > 0.8
+    coinTimer >
+    0.8
   ) {
 
     spawnCoin();
@@ -1265,144 +1970,174 @@ function gameLoop(time) {
   }
 
 
+
   /* =========================
      TRAFFIC
   ========================= */
 
-  traffic.forEach(obj => {
+  traffic.forEach(
+    obj => {
 
-    obj.y +=
-      obj.speed *
-      speedMultiplier *
-      dt;
-
-
-    obj.el.style.top =
-      obj.y + "px";
+      obj.y +=
+        obj.speed *
+        speedMultiplier *
+        dt;
 
 
-    if (
-
-      obj.lane === playerLane &&
-
-      hitPlayer(obj.y) &&
-
-      hitCooldown <= 0
-
-    ) {
-
-      lives--;
+      obj.el.style.top =
+        obj.y + "px";
 
 
-      hitCooldown =
-        1.2;
+      if (
+
+        obj.lane ===
+          playerLane
+
+        &&
+
+        hitPlayer(
+          obj.y
+        )
+
+        &&
+
+        hitCooldown <= 0
+
+      ) {
+
+        lives--;
 
 
-      obj.y =
-        9999;
+        hitCooldown =
+          1.2;
 
 
-      obj.el.remove();
+        obj.y =
+          9999;
 
 
-      updateHUD();
+        obj.el.remove();
 
 
-      if (lives <= 0) {
+        updateHUD();
 
-        endRace();
+
+        if (
+          lives <= 0
+        ) {
+
+          endRace();
+
+        }
 
       }
 
     }
+  );
 
-  });
 
 
   /* =========================
      COINS
   ========================= */
 
-  coins.forEach(obj => {
+  coins.forEach(
+    obj => {
 
-    obj.y +=
-      obj.speed *
-      speedMultiplier *
-      dt;
-
-
-    obj.el.style.top =
-      obj.y + "px";
+      obj.y +=
+        obj.speed *
+        speedMultiplier *
+        dt;
 
 
-    if (
-
-      obj.lane === playerLane &&
-
-      hitPlayer(obj.y)
-
-    ) {
-
-      raceCoins++;
+      obj.el.style.top =
+        obj.y + "px";
 
 
-      obj.y = 9999;
+      if (
+
+        obj.lane ===
+          playerLane
+
+        &&
+
+        hitPlayer(
+          obj.y
+        )
+
+      ) {
+
+        raceCoins++;
 
 
-      obj.el.remove();
+        obj.y =
+          9999;
 
 
-      updateHUD();
+        obj.el.remove();
+
+
+        updateHUD();
+
+      }
 
     }
+  );
 
-  });
 
 
   /* =========================
-     REMOVE OLD TRAFFIC
+     REMOVE TRAFFIC
   ========================= */
 
   traffic =
-    traffic.filter(obj => {
+    traffic.filter(
+      obj => {
 
-      if (
-        obj.y >
-        road.clientHeight + 100
-      ) {
+        if (
+          obj.y >
+          road.clientHeight +
+          100
+        ) {
 
-        obj.el.remove();
+          obj.el.remove();
 
-        return false;
+          return false;
+
+        }
+
+        return true;
 
       }
+    );
 
-      return true;
-
-    });
 
 
   /* =========================
-     REMOVE OLD COINS
+     REMOVE COINS
   ========================= */
 
   coins =
-    coins.filter(obj => {
+    coins.filter(
+      obj => {
 
-      if (
-        obj.y >
-        road.clientHeight + 100
-      ) {
+        if (
+          obj.y >
+          road.clientHeight +
+          100
+        ) {
 
-        obj.el.remove();
+          obj.el.remove();
 
-        return false;
+          return false;
+
+        }
+
+        return true;
 
       }
+    );
 
-      return true;
-
-    });
 
 
   updateHUD();
@@ -1420,6 +2155,7 @@ function gameLoop(time) {
 }
 
 
+
 /* =========================
    HUD
 ========================= */
@@ -1427,7 +2163,9 @@ function gameLoop(time) {
 function updateHUD() {
 
   scoreText.textContent =
-    Math.floor(score);
+    Math.floor(
+      score
+    );
 
 
   raceCoinsText.textContent =
@@ -1435,7 +2173,9 @@ function updateHUD() {
 
 
   distanceText.textContent =
-    Math.floor(distance);
+    Math.floor(
+      distance
+    );
 
 
   livesText.textContent =
@@ -1444,13 +2184,15 @@ function updateHUD() {
 }
 
 
+
 /* =========================
    END RACE
 ========================= */
 
 function endRace() {
 
-  if (!running) return;
+  if (!running)
+    return;
 
 
   running = false;
@@ -1461,6 +2203,11 @@ function endRace() {
   );
 
 
+  /*
+     Add collected coins
+     to permanent balance.
+  */
+
   saved.coins +=
     raceCoins;
 
@@ -1469,12 +2216,16 @@ function endRace() {
 
 
   if (
-    Math.floor(distance) >
+    Math.floor(
+      distance
+    ) >
     saved.best
   ) {
 
     saved.best =
-      Math.floor(distance);
+      Math.floor(
+        distance
+      );
 
   }
 
@@ -1501,8 +2252,9 @@ function endRace() {
 }
 
 
+
 /* =========================
-   AGAIN
+   RACE AGAIN
 ========================= */
 
 againButton.addEventListener(
@@ -1515,8 +2267,9 @@ againButton.addEventListener(
 );
 
 
+
 /* =========================
-   HOME
+   RACE HOME
 ========================= */
 
 raceHome.addEventListener(
@@ -1539,36 +2292,13 @@ raceHome.addEventListener(
     updateHome();
 
 
-    showScreen(home);
+    showScreen(
+      home
+    );
 
   }
 );
 
-
-/* =========================
-   GARAGE
-========================= */
-
-garageButton.addEventListener(
-  "click",
-  function() {
-
-    showScreen(garage);
-
-  }
-);
-
-
-backHome.addEventListener(
-  "click",
-  function() {
-
-    updateHome();
-
-    showScreen(home);
-
-  }
-);
 
 
 /* =========================
@@ -1579,6 +2309,16 @@ window.addEventListener(
   "resize",
   placePlayer
 );
+
+
+
+/* =========================
+   INITIAL
+========================= */
+
+updateHome();
+
+updateGarage();
 
 </script>
 

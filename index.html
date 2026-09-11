@@ -150,6 +150,10 @@ button{border:0;border-radius:15px;padding:14px 20px;font-size:17px;font-weight:
 .nitroBtn{position:absolute;right:18px;bottom:98px;z-index:32;width:76px;height:50px;padding:0;background:#ffcc00;color:#111;font-size:12px;border-radius:14px}.nitroBtn:disabled{opacity:.35}
 .challengeComplete{color:#35d07f;font-weight:900}.nearMissText{color:#ffcc00;font-weight:900}
 
+/* AUDIO CONTROLS */
+.soundBtn{position:absolute;top:52px;right:8px;z-index:80;padding:8px 11px;border-radius:12px;background:rgba(0,0,0,.72);color:#fff;font-size:12px;border:1px solid rgba(255,255,255,.18)}
+.soundBtn.off{opacity:.65}
+
 @media(max-width:380px){
  .hud{gap:2px}.hud span{font-size:10px;padding:6px 4px}.powerStatus{top:52px}
  .statusItem{font-size:11px;padding:5px 6px}.carEmoji{font-size:35px;width:45px}
@@ -214,6 +218,7 @@ button{border:0;border-radius:15px;padding:14px 20px;font-size:17px;font-weight:
 </div>
 
 <div id="race" class="screen">
+  <button id="soundButton" class="soundBtn" aria-label="Toggle sound">🔊 SOUND</button>
   <div class="hud">
     <span>🏆 <span id="score">0</span></span>
     <span>🪙 <span id="raceCoins">0</span></span>
@@ -304,6 +309,8 @@ const road=document.getElementById("road"),player=document.getElementById("playe
 const countdown=document.getElementById("countdown"),gameOver=document.getElementById("gameOver"),finalText=document.getElementById("finalText"),bestBadge=document.getElementById("bestBadge"),leftButton=document.getElementById("leftButton"),rightButton=document.getElementById("rightButton"),againButton=document.getElementById("againButton"),raceHome=document.getElementById("raceHome");
 const garageCoinsText=document.getElementById("garageCoins"),missionCoinsText=document.getElementById("missionCoins"),shieldStatus=document.getElementById("shieldStatus"),turboStatus=document.getElementById("turboStatus"),magnetStatus=document.getElementById("magnetStatus"),streakNumber=document.getElementById("streakNumber"),rewardList=document.getElementById("rewardList"),leaderList=document.getElementById("leaderList"),speedFX=document.getElementById("speedFX");
 const comboBadge=document.getElementById("comboBadge"),nitroFill=document.getElementById("nitroFill"),nitroPercent=document.getElementById("nitroPercent"),nitroButton=document.getElementById("nitroButton");
+const soundButton=document.getElementById("soundButton");
+soundEnabled=localStorage.getItem("turboRushSound")!=="0";
 
 function updateHome(){
  document.getElementById("homeCoins").textContent=saved.coins;
@@ -316,6 +323,61 @@ function updateHome(){
 function showScreen(screen){[home,garage,missions,daily,leaderboard,race].forEach(s=>s.classList.remove("active"));screen.classList.add("active")}
 function vibrate(ms=20){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(e){}}
 function beep(freq=440,dur=.05){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
+
+/* TURBO RUSH AUDIO — generated locally, no external audio files */
+let audioCtx=null,masterGain=null,engineOsc=null,engineGain=null,engineFilter=null,musicTimer=null,musicStep=0,soundEnabled=true;
+const musicNotes=[220,247,277,330,294,247,196,247,220,277,330,370,330,277,247,196];
+function ensureAudio(){
+ try{
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;
+  if(!audioCtx){audioCtx=new C();masterGain=audioCtx.createGain();masterGain.gain.value=soundEnabled?.42:0;masterGain.connect(audioCtx.destination)}
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  return true;
+ }catch(e){return false}
+}
+function startEngine(){
+ if(!soundEnabled||!ensureAudio())return;
+ stopEngine();
+ engineOsc=audioCtx.createOscillator();engineGain=audioCtx.createGain();engineFilter=audioCtx.createBiquadFilter();
+ engineOsc.type='sawtooth';engineOsc.frequency.value=72;
+ engineFilter.type='lowpass';engineFilter.frequency.value=520;
+ engineGain.gain.value=.075;
+ engineOsc.connect(engineFilter);engineFilter.connect(engineGain);engineGain.connect(masterGain);engineOsc.start();
+}
+function updateEngine(speed=1){
+ if(!engineOsc||!audioCtx)return;
+ const now=audioCtx.currentTime;
+ const turbo=turboTime>0?1.18:1;
+ engineOsc.frequency.setTargetAtTime(68+speed*25*turbo,now,.08);
+ engineFilter.frequency.setTargetAtTime(420+speed*150,now,.1);
+}
+function stopEngine(){
+ if(engineOsc){try{engineOsc.stop()}catch(e){}try{engineOsc.disconnect()}catch(e){}}
+ engineOsc=null;engineGain=null;engineFilter=null;
+}
+function playMusicNote(freq){
+ if(!soundEnabled||!ensureAudio())return;
+ const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+ o.type='triangle';o.frequency.value=freq;g.gain.setValueAtTime(.0001,audioCtx.currentTime);
+ g.gain.exponentialRampToValueAtTime(.035,audioCtx.currentTime+.025);
+ g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.28);
+ o.connect(g);g.connect(masterGain);o.start();o.stop(audioCtx.currentTime+.3);
+}
+function startMusic(){
+ if(!soundEnabled||!ensureAudio())return;
+ stopMusic();musicStep=0;playMusicNote(musicNotes[musicStep++]);
+ musicTimer=setInterval(()=>{if(running&&soundEnabled)playMusicNote(musicNotes[musicStep++%musicNotes.length])},300);
+}
+function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
+function stopAllAudio(){stopMusic();stopEngine()}
+function setSound(on){
+ soundEnabled=!!on;
+ try{if(ensureAudio()&&masterGain)masterGain.gain.setTargetAtTime(soundEnabled?.42:0,audioCtx.currentTime,.04)}catch(e){}
+ if(soundEnabled&&running){startEngine();startMusic()}else if(!soundEnabled){stopAllAudio()}
+ soundButton.classList.toggle('off',!soundEnabled);soundButton.textContent=soundEnabled?'🔊 SOUND':'🔇 MUTED';
+ localStorage.setItem('turboRushSound',soundEnabled?'1':'0');
+}
+
 
 function updateMissions(){
  const m=saved.missions;missionCoinsText.textContent=saved.coins;
@@ -356,7 +418,7 @@ leaderboardButton.addEventListener("click",()=>{updateLeaderboard();showScreen(l
 function clearRaceObjects(){document.querySelectorAll(".traffic,.coin,.powerup,.pickupFX,.spark").forEach(x=>x.remove());traffic=[];coins=[];powerups=[]}
 function currentChallenge(){return challenges[saved.challengeIndex]}
 function startRace(){
- showScreen(race);running=false;cancelAnimationFrame(animationFrame);score=0;distance=0;raceCoins=0;lives=3;difficulty=1;hitCooldown=0;shieldActive=false;turboTime=0;magnetTime=0;playerLane=1;spawnTimer=0;coinTimer=0;powerupTimer=0;nitro=0;combo=0;nearMisses=0;runChallengeDone=false;runStartScore=0;clearRaceObjects();player.textContent=cars[saved.car].emoji;player.className="carPlayer";road.classList.remove("theme-night","theme-neon","theme-sunset","crashShake","crashFlash");speedFX.classList.remove("active","fast");gameOver.classList.add("hidden");bestBadge.classList.add("hidden");comboBadge.classList.remove("show");updatePowerStatus();updateHUD();placePlayer();countdown.classList.remove("hidden");let count=3;countdown.textContent=count;const timer=setInterval(()=>{count--;if(count>0){countdown.textContent=count;beep(360,.06)}else if(count===0){countdown.textContent="GO!";beep(720,.1);vibrate(30)}else{clearInterval(timer);countdown.classList.add("hidden");running=true;lastTime=performance.now();animationFrame=requestAnimationFrame(gameLoop)}},650)}
+ showScreen(race);running=false;cancelAnimationFrame(animationFrame);score=0;distance=0;raceCoins=0;lives=3;difficulty=1;hitCooldown=0;shieldActive=false;turboTime=0;magnetTime=0;playerLane=1;spawnTimer=0;coinTimer=0;powerupTimer=0;nitro=0;combo=0;nearMisses=0;runChallengeDone=false;runStartScore=0;clearRaceObjects();player.textContent=cars[saved.car].emoji;player.className="carPlayer";road.classList.remove("theme-night","theme-neon","theme-sunset","crashShake","crashFlash");speedFX.classList.remove("active","fast");gameOver.classList.add("hidden");bestBadge.classList.add("hidden");comboBadge.classList.remove("show");updatePowerStatus();updateHUD();placePlayer();countdown.classList.remove("hidden");let count=3;countdown.textContent=count;const timer=setInterval(()=>{count--;if(count>0){countdown.textContent=count;beep(360,.06)}else if(count===0){countdown.textContent="GO!";beep(720,.1);vibrate(30)}else{clearInterval(timer);countdown.classList.add("hidden");running=true;lastTime=performance.now();startEngine();startMusic();animationFrame=requestAnimationFrame(gameLoop)}},650)}
 function placePlayer(direction=0){const width=road.clientWidth,laneWidth=width/3;player.style.left=laneWidth*playerLane+laneWidth/2+"px";if(direction){player.classList.remove("turnLeft","turnRight");void player.offsetWidth;player.classList.add(direction<0?"turnLeft":"turnRight");clearTimeout(laneChangeTimer);laneChangeTimer=setTimeout(()=>player.classList.remove("turnLeft","turnRight"),220)}}
 function moveLeft(){if(!running)return;if(playerLane>0){playerLane--;placePlayer(-1);vibrate(10)}}function moveRight(){if(!running)return;if(playerLane<2){playerLane++;placePlayer(1);vibrate(10)}}
 leftButton.onclick=moveLeft;rightButton.onclick=moveRight;document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")moveLeft();if(e.key==="ArrowRight")moveRight();if(e.code==="Space")activateNitro()});
@@ -381,6 +443,7 @@ function gameLoop(time){
  if(!running)return;
  const dt=Math.min((time-lastTime)/1000,.05);lastTime=time;difficulty=1+Math.floor(distance/150);
  let speedMultiplier=cars[saved.car].speed*(1+(difficulty-1)*.075);if(turboTime>0){turboTime-=dt;speedMultiplier*=1.45}if(magnetTime>0)magnetTime-=dt;if(hitCooldown>0)hitCooldown-=dt;
+ updateEngine(speedMultiplier);
  distance+=dt*55*speedMultiplier;score=Math.floor(distance*2)+combo*15;saved.missions.distance+=dt*55*speedMultiplier;checkMissionRewards();
  spawnTimer+=dt;coinTimer+=dt;powerupTimer+=dt;const trafficInterval=Math.max(.62,1.08-(difficulty-1)*.035);if(spawnTimer>trafficInterval){spawnTraffic();spawnTimer=0}if(coinTimer>.78){spawnCoin();coinTimer=0}if(powerupTimer>6.5){if(Math.random()<.72)spawnPowerup();powerupTimer=0}
  updateTheme();const fast=speedMultiplier>1.2;speedFX.classList.toggle("active",fast);speedFX.classList.toggle("fast",speedMultiplier>1.55);
@@ -398,12 +461,15 @@ function gameLoop(time){
  updateHUD();updatePowerStatus();updateNitro();animationFrame=requestAnimationFrame(gameLoop)
 }
 function updateHUD(){scoreText.textContent=Math.floor(score);raceCoinsText.textContent=raceCoins;distanceText.textContent=Math.floor(distance);livesText.textContent=lives}
-function endRace(){if(!running)return;running=false;cancelAnimationFrame(animationFrame);speedFX.classList.remove("active","fast");updateNitro();saved.coins+=raceCoins;saved.races++;const finalDistance=Math.floor(distance),wasBest=finalDistance>saved.best;if(wasBest)saved.best=finalDistance;addLeaderboardScore();saveGame();updateHome();finalText.innerHTML="Score: <b>"+Math.floor(score)+"</b><br>Distance: <b>"+finalDistance+"m</b><br>Coins: <b>+"+raceCoins+" 🪙</b><br>Near Misses: <b>"+nearMisses+"</b><br><span class='nearMissText'>Nitro charged: "+Math.floor(nitro)+"%</span><br><small style='color:#9fa7bd'>An advertisement may appear between races. Playing is never blocked by ads.</small>";bestBadge.classList.toggle("hidden",!wasBest);gameOver.classList.remove("hidden");beep(wasBest?1000:320,.12)}
+function endRace(){if(!running)return;running=false;cancelAnimationFrame(animationFrame);stopAllAudio();speedFX.classList.remove("active","fast");updateNitro();saved.coins+=raceCoins;saved.races++;const finalDistance=Math.floor(distance),wasBest=finalDistance>saved.best;if(wasBest)saved.best=finalDistance;addLeaderboardScore();saveGame();updateHome();finalText.innerHTML="Score: <b>"+Math.floor(score)+"</b><br>Distance: <b>"+finalDistance+"m</b><br>Coins: <b>+"+raceCoins+" 🪙</b><br>Near Misses: <b>"+nearMisses+"</b><br><span class='nearMissText'>Nitro charged: "+Math.floor(nitro)+"%</span><br><small style='color:#9fa7bd'>An advertisement may appear between races. Playing is never blocked by ads.</small>";bestBadge.classList.toggle("hidden",!wasBest);gameOver.classList.remove("hidden");beep(wasBest?1000:320,.12)}
+
+soundButton.addEventListener("click",()=>setSound(!soundEnabled));
+soundButton.classList.toggle("off",!soundEnabled);soundButton.textContent=soundEnabled?'🔊 SOUND':'🔇 MUTED';
 
 let AdController=null;
 try{if(window.Adsgram)AdController=window.Adsgram.init({blockId:"int-47387"})}catch(e){console.log("AdsGram init:",e)}
 againButton.addEventListener("click",async()=>{gameOver.classList.add("hidden");if(AdController){try{await AdController.show()}catch(e){console.log("AdsGram:",e)}}startRace()});
-raceHome.addEventListener("click",()=>{running=false;cancelAnimationFrame(animationFrame);gameOver.classList.add("hidden");speedFX.classList.remove("active","fast");updateHome();showScreen(home)});
+raceHome.addEventListener("click",()=>{running=false;cancelAnimationFrame(animationFrame);stopAllAudio();gameOver.classList.add("hidden");speedFX.classList.remove("active","fast");updateHome();showScreen(home)});
 window.addEventListener("resize",()=>{if(running)placePlayer()});
 updateHome();updateGarage();updateMissions();updateDaily();updateLeaderboard();updateNitro();
 </script>
